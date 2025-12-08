@@ -5,21 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Chirpz Golf</title>
 
+<!-- GOOGLE FONT: INTER -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
     body {
         margin: 0;
         background-color: #fff8e8;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-family: 'Inter', sans-serif;
         color: #1c2b38;
     }
 
     nav {
         display: flex;
         justify-content: center;
-        padding: 22px 0;
+        padding: 24px 0;
         font-size: 18px;
         font-weight: 600;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
     }
 
     nav a {
@@ -33,86 +36,94 @@
         opacity: 0.6;
     }
 
+    /* HERO SECTION */
     .hero {
         width: 100%;
-        height: 460px;
-        background-image: url('hero-art.png'); /* <-- Works with your GitHub upload */
-        background-size: cover;
-        background-position: center;
+        background-image: url('hero-art.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+        padding: 60px 20px 140px;
+        text-align: center;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        text-align: center;
-        padding: 40px 20px;
+    }
+
+    .hero img {
+        width: 230px; /* Bigger logo */
+        margin-top: 20px;
+        margin-bottom: 5px;
     }
 
     .hero h1 {
-        font-size: 42px;
+        font-size: 46px;
         font-weight: 800;
-        margin-top: 25px;
-        margin-bottom: 15px;
-        color: #1c2b38;
+        color: white;
+        text-shadow: 0px 3px 6px rgba(0,0,0,0.28);
+        margin-top: 20px;
     }
 
     .hero button {
-        padding: 13px 36px;
-        font-size: 18px;
+        padding: 14px 40px;
+        font-size: 20px;
         font-weight: 600;
-        border-radius: 30px;
+        border-radius: 40px;
         border: none;
         background-color: #0a3c5f;
         color: white;
         cursor: pointer;
-        margin-top: 20px;
-        transition: background 0.25s;
+        margin-top: 24px;
+        transition: 0.25s;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.18);
     }
 
     .hero button:hover {
         background-color: #0c5080;
     }
 
+    /* SECTION TITLE */
     .section-title {
-        font-size: 32px;
+        font-size: 34px;
         font-weight: 800;
         text-align: center;
-        margin: 50px 0 20px;
+        margin: 60px 0 30px;
         color: #1c2b38;
     }
 
+    /* PRODUCT GRID */
     .products {
         max-width: 1100px;
         margin: auto;
         display: flex;
         justify-content: center;
         gap: 40px;
-        padding: 0 20px 60px;
+        padding: 0 20px 80px;
     }
 
     .product-card {
         background: white;
-        width: 280px;
-        padding: 25px;
-        border-radius: 12px;
+        width: 300px;
+        padding: 30px;
+        border-radius: 14px;
         text-align: center;
-        box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
     }
 
     .product-card img {
-        width: 200px;
+        width: 220px;
         margin-bottom: 20px;
     }
 
     .product-card h3 {
-        font-size: 22px;
-        margin-top: 10px;
+        font-size: 24px;
         font-weight: 700;
     }
 
     .price {
-        font-size: 18px;
-        margin-top: 10px;
-        font-weight: bold;
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 8px;
         color: #1c2b38;
     }
 </style>
@@ -120,29 +131,33 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
     <a href="#">SHOP</a>
     <a href="#">OUR STORY</a>
     <a href="#">CONTACT</a>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-    <img src="chirpz-logo.png" width="150" alt="Chirpz Logo" />
+    <img src="chirpz-logo.png" alt="Chirpz Logo">
     <h1>LET THE GEAR DO THE TALKING</h1>
     <button>Shop Now</button>
 </div>
 
-<h2 class="section-title">Premium Golf Gear With Personality</h2>
+<!-- NEW SECTION TITLE -->
+<h2 class="section-title">Golf Gear That Does The Talking For You</h2>
 
+<!-- PRODUCT CARDS -->
 <div class="products">
     <div class="product-card">
-        <img src="glove-placeholder.png" alt="Placeholder until real gloves" />
+        <img src="glove-placeholder.png" alt="Fairway Finder" />
         <h3>Fairway Finder</h3>
         <div class="price">$29</div>
     </div>
 
     <div class="product-card">
-        <img src="glove-placeholder.png" alt="Placeholder until real gloves" />
+        <img src="glove-placeholder.png" alt="Royal Fade" />
         <h3>Royal Fade</h3>
         <div class="price">$29</div>
     </div>
