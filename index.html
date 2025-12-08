@@ -16,6 +16,18 @@
         color: #1c2b38;
     }
 
+    /* ⭐ FADE-IN ANIMATION FOR CHIRPZ LOGO */
+    @keyframes chirpzFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     /* NAVIGATION */
     nav {
         display: flex;
@@ -55,6 +67,11 @@
         width: 260px;
         max-width: 60%;
         margin-top: 10px;
+
+        /* ⭐ APPLY ANIMATION TO THE LOGO */
+        opacity: 0;
+        animation: chirpzFadeIn 1s ease-out forwards;
+        animation-delay: 0.2s;
     }
 
     .hero h1 {
