@@ -18,15 +18,79 @@
 
     /* ⭐ FADE-IN ANIMATION FOR CHIRPZ LOGO */
     @keyframes chirpzFadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
+
+    /* ⭐ SNOWFALL ANIMATION */
+    @keyframes fall {
+        0% { transform: translateY(-10vh) translateX(0); }
+        100% { transform: translateY(110vh) translateX(20px); }
+    }
+
+    .snow {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 5;
+    }
+
+    .snowflake {
+        position: absolute;
+        top: -10px;
+        color: white;
+        font-size: 1em;
+        opacity: 0.9;
+        animation: fall linear infinite;
+    }
+
+    /* Random flake positions */
+    .snowflake:nth-child(1) { left: 10%; animation-duration: 6s; font-size: 8px; }
+    .snowflake:nth-child(2) { left: 20%; animation-duration: 8s; font-size: 10px; }
+    .snowflake:nth-child(3) { left: 35%; animation-duration: 7s; font-size: 6px; }
+    .snowflake:nth-child(4) { left: 50%; animation-duration: 5s; font-size: 12px; }
+    .snowflake:nth-child(5) { left: 65%; animation-duration: 9s; font-size: 7px; }
+    .snowflake:nth-child(6) { left: 75%; animation-duration: 6.5s; font-size: 9px; }
+    .snowflake:nth-child(7) { left: 85%; animation-duration: 10s; font-size: 11px; }
+    .snowflake:nth-child(8) { left: 95%; animation-duration: 8.5s; font-size: 8px; }
+
+    /* ⭐ GOLF CART ANIMATION */
+    @keyframes golfcart-drive {
+        0% { transform: translateX(-200px); }
+        100% { transform: translateX(120vw); }
+    }
+
+    .golfcart {
+        position: absolute;
+        bottom: 55px;
+        left: -200px;
+        width: 100px;
+        height: 40px;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0px 3px 8px rgba(0,0,0,0.25);
+        animation: golfcart-drive 14s linear infinite;
+        opacity: 0.9;
+        z-index: 2; /* Behind logo/text, above background */
+    }
+
+    .golfcart::before,
+    .golfcart::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        width: 16px;
+        height: 16px;
+        background: #333;
+        border-radius: 50%;
+    }
+
+    .golfcart::before { left: 10px; }
+    .golfcart::after { right: 10px; }
 
     /* NAVIGATION */
     nav {
@@ -45,12 +109,11 @@
         transition: opacity 0.2s;
     }
 
-    nav a:hover {
-        opacity: 0.7;
-    }
+    nav a:hover { opacity: 0.7; }
 
     /* HERO SECTION */
     .hero {
+        position: relative;
         width: 100%;
         background-image: url('hero-wide.png');
         background-size: cover;
@@ -61,14 +124,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        overflow: hidden;
     }
 
     .hero img {
         width: 260px;
         max-width: 60%;
         margin-top: 10px;
-
-        /* ⭐ APPLY ANIMATION TO THE LOGO */
         opacity: 0;
         animation: chirpzFadeIn 1s ease-out forwards;
         animation-delay: 0.2s;
@@ -96,9 +158,7 @@
         box-shadow: 0px 4px 12px rgba(0,0,0,0.22);
     }
 
-    .hero button:hover {
-        background-color: #0c5080;
-    }
+    .hero button:hover { background-color: #0c5080; }
 
     /* SECTION TITLE */
     .section-title {
@@ -146,37 +206,13 @@
 
     /* MOBILE OPTIMIZATION */
     @media (max-width: 768px) {
-
-        nav {
-            gap: 35px;
-            font-size: 16px;
-        }
-
-        .hero {
-            padding: 60px 20px 100px;
-            background-size: cover;
-        }
-
-        .hero h1 {
-            font-size: 30px;
-        }
-
-        .hero img {
-            width: 200px;
-        }
-
-        .hero button {
-            padding: 13px 34px;
-            font-size: 18px;
-        }
-
-        .section-title {
-            font-size: 28px;
-        }
-
-        .product-card {
-            width: 85%;
-        }
+        nav { gap: 35px; font-size: 16px; }
+        .hero { padding: 60px 20px 100px; background-size: cover; }
+        .hero h1 { font-size: 30px; }
+        .hero img { width: 200px; }
+        .hero button { padding: 13px 34px; font-size: 18px; }
+        .section-title { font-size: 28px; }
+        .product-card { width: 85%; }
     }
 </style>
 
@@ -192,12 +228,29 @@
 
 <!-- HERO -->
 <div class="hero">
+
+    <!-- SNOW LAYER -->
+    <div class="snow">
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+        <div class="snowflake">•</div>
+    </div>
+
+    <!-- GOLF CART -->
+    <div class="golfcart"></div>
+
+    <!-- LOGO -->
     <img src="chirpz-logo.png" alt="Chirpz Logo">
     <h1>LET THE GEAR DO THE TALKING</h1>
     <button>Shop Now</button>
 </div>
 
-<!-- NEW SECTION TITLE -->
+<!-- TITLE -->
 <h2 class="section-title">Made for the Modern Golfer</h2>
 
 <!-- PRODUCTS -->
