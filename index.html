@@ -7,7 +7,6 @@
   <meta name="description" content="Chirpz – premium golf gloves with personality. Let the gear do the talking." />
 
   <style>
-    <style>
     /* --- COLOR PALETTE --- */
     :root {
       --white: #ffffff;
@@ -17,7 +16,7 @@
       --gray: #bfc2c7;
       --dark-gray: #3b3f46;
 
-      --accent-blue: #3a70d8;   /* Soft sporty blue */
+      --accent-blue: #3a70d8;
       --accent-blue-soft: #eaf1ff;
 
       --border: #dcdcdc;
@@ -241,10 +240,7 @@
       color: var(--dark-gray);
     }
 
-    /* -------------------------- */
-    /* MOBILE RESPONSIVE FIXES    */
-    /* -------------------------- */
-
+    /* --- MOBILE FIXES --- */
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
@@ -303,106 +299,5 @@
         gap: 1rem;
       }
     }
-</style>
-
   </style>
 </head>
-
-<body>
-
-<header>
-  <div class="nav">
-    <div class="logo">CHIRPZ GOLF</div>
-    <div class="nav-links">
-      <a href="#shop">Shop</a>
-      <a href="#story">Our Story</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <div>
-    <h1>Premium Golf Gloves<br><span>With Personality</span></h1>
-    <p>
-      Chirpz brings a modern twist to traditional golf gear. Clean design, premium feel, and a touch
-      of attitude—made for golfers who like their equipment as sharp as their game.
-    </p>
-
-    <button class="btn btn-blue" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-      Shop Gloves →
-    </button>
-    <button class="btn btn-outline" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
-      Our Story
-    </button>
-  </div>
-
-  <div class="hero-card">
-    <div class="glove-image"></div>
-    <div class="hero-price">$29 – Signature Glove</div>
-  </div>
-</section>
-
-<!-- PRODUCT SECTION -->
-<section class="section" id="shop">
-  <h2>Best Sellers</h2>
-
-  <div class="product-grid">
-    <div class="product">
-      <div class="product-img"></div>
-      <div class="product-name">Fairway Sniper</div>
-      <div class="product-price">$29</div>
-    </div>
-
-    <div class="product">
-      <div class="product-img"></div>
-      <div class="product-name">Stealth Chirp (Matte)</div>
-      <div class="product-price">$32</div>
-    </div>
-
-    <div class="product">
-      <div class="product-img"></div>
-      <div class="product-name">Birdie Hotline</div>
-      <div class="product-price">$29</div>
-    </div>
-
-    <div class="product">
-      <div class="product-img"></div>
-      <div class="product-name">Talk of the Tee</div>
-      <div class="product-price">$34</div>
-    </div>
-  </div>
-</section>
-
-<!-- STORY SECTION WITH YOUR NAME -->
-<section class="section" id="story">
-  <h2>Our Story</h2>
-
-  <div class="story-card">
-    Chirpz began as a simple idea: premium golf gloves with modern style and a little personality.
-    Built for the golfer who likes to chirp, joke around, and play with confidence.
-
-    <br><br>
-    Founded by <strong>John Rea</strong>, Chirpz is rooted in the belief that golf gear can be clean,
-    classy, and still have character. Every glove is designed to feel great and bring subtle style
-    to your game—without sacrificing performance.
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <h2>Contact</h2>
-  <div class="story-card">
-    For wholesale, custom designs, or bulk orders, reach out anytime:<br><br>
-    <strong>hello@chirpzgolf.com</strong>
-  </div>
-</section>
-
-<footer>
-  © <script>document.write(new Date().getFullYear())</script> Chirpz Golf · Let the gear do the talking
-</footer>
-
-</body>
-</html>
-
