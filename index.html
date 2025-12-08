@@ -1,293 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Chirpz Golf Gloves – Let the Gear Do the Talking</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Chirpz – premium golf gloves with personality. Let the gear do the talking." />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chirpz Golf</title>
 
-  <style>
-    /* --- COLOR PALETTE --- */
-    :root {
-      --white: #ffffff;
-      --offwhite: #f7f7f5;
-      --cream: #f3f0eb;
-      --light-gray: #e5e5e5;
-      --gray: #bfc2c7;
-      --dark-gray: #3b3f46;
-
-      --accent-blue: #3a70d8;
-      --accent-blue-soft: #eaf1ff;
-
-      --border: #dcdcdc;
-      --shadow: 0 4px 18px rgba(0,0,0,0.08);
-      --radius: 14px;
-      --radius-pill: 999px;
-
-      --max-width: 1120px;
-    }
-
+<style>
+    /* ----- GLOBAL STYLES ----- */
     body {
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: var(--offwhite);
-      color: var(--dark-gray);
-      overflow-x: hidden;
+        margin: 0;
+        background-color: #fff8e8;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        color: #1c2b38;
     }
 
-    a { text-decoration: none; color: inherit; }
-
-    header {
-      position: sticky;
-      top: 0;
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      z-index: 50;
+    h1, h2, h3 {
+        margin: 0;
     }
 
-    /* --- NAV --- */
-    .nav {
-      max-width: var(--max-width);
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
+    /* ----- NAVIGATION BAR ----- */
+    nav {
+        display: flex;
+        justify-content: center;
+        padding: 22px 0;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
     }
 
-    .logo {
-      font-size: 1.2rem;
-      letter-spacing: .12em;
-      font-weight: 700;
-      color: var(--accent-blue);
-      text-transform: uppercase;
+    nav a {
+        margin: 0 40px;
+        color: #1c2b38;
+        text-decoration: none;
+        transition: opacity 0.2s;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--dark-gray);
+    nav a:hover {
+        opacity: 0.6;
     }
 
-    /* --- HERO --- */
+    /* ----- HERO SECTION ----- */
     .hero {
-      background: var(--white);
-      padding: 4rem 1rem 3rem;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      max-width: var(--max-width);
-      margin: auto;
-      gap: 3rem;
-      align-items: center;
+        width: 100%;
+        height: 460px;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 40px 20px;
     }
 
     .hero h1 {
-      font-size: 3rem;
-      letter-spacing: .01em;
-      color: var(--dark-gray);
-      margin-bottom: 1rem;
+        font-size: 42px;
+        font-weight: 800;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        color: #1c2b38;
     }
 
-    .hero h1 span { color: var(--accent-blue); }
-
-    .hero p {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      max-width: 450px;
-      color: #555;
-      margin-bottom: 2rem;
+    .hero button {
+        padding: 13px 36px;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 30px;
+        border: none;
+        background-color: #0a3c5f;
+        color: white;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background 0.25s;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 0.9rem 1.8rem;
-      border-radius: var(--radius-pill);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
+    .hero button:hover {
+        background-color: #0c5080;
     }
 
-    .btn-blue {
-      background: var(--accent-blue);
-      color: white;
-    }
-
-    .btn-outline {
-      border: 1px solid var(--gray);
-      color: var(--dark-gray);
-      background: white;
-    }
-
-    /* --- HERO CARD --- */
-    .hero-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-    }
-
-    .glove-image {
-      width: 100%;
-      height: 260px;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, #ffffff, #e8e8e8);
-      border: 1px solid var(--border);
-    }
-
-    .hero-price {
-      margin-top: 1rem;
-      font-size: 1rem;
-      color: var(--accent-blue);
-      font-weight: 600;
-    }
-
-    /* --- PRODUCT GRID --- */
-    .section {
-      max-width: var(--max-width);
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-
-    .section h2 {
-      font-size: 1.3rem;
-      text-transform: uppercase;
-      letter-spacing: .15em;
-      margin-bottom: 1rem;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    .product {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      box-shadow: var(--shadow);
-    }
-
-    .product-img {
-      height: 220px;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, #ffffff, #dfe8ff);
-      border: 1px solid var(--border);
-      margin-bottom: 1rem;
-    }
-
-    .story-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      line-height: 1.7;
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding: 2rem 1rem;
-      background: var(--white);
-      border-top: 1px solid var(--border);
-    }
-
-    /* MOBILE FIXES */
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
+    /* ----- SECTION TITLE ----- */
+    .section-title {
+        font-size: 32px;
+        font-weight: 800;
         text-align: center;
-      }
-      .btn { width: 100%; }
+        margin: 50px 0 20px;
+        color: #1c2b38;
     }
 
-    @media (max-width: 600px) {
-      .product-grid {
-        grid-template-columns: 1fr;
-        max-width: 350px;
+    /* ----- PRODUCT GRID ----- */
+    .products {
+        max-width: 1100px;
         margin: auto;
-      }
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 0 20px 60px;
     }
 
-  </style>
-</head>
+    .product-card {
+        background: white;
+        width: 280px;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+    }
 
+    .product-card img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    .product-card h3 {
+        font-size: 22px;
+        margin-top: 10px;
+        font-weight: 700;
+    }
+
+    .price {
+        font-size: 18px;
+        margin-top: 10px;
+        font-weight: bold;
+        color: #1c2b38;
+    }
+</style>
+
+</head>
 <body>
 
-<header>
-  <div class="nav">
-    <div class="logo">CHIRPZ GOLF</div>
-    <div class="nav-links">
-      <a href="#shop">Shop</a>
-      <a href="#story">Our Story</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</header>
+<!-- NAVIGATION -->
+<nav>
+    <a href="#">SHOP</a>
+    <a href="#">OUR STORY</a>
+    <a href="#">CONTACT</a>
+</nav>
 
-<section class="hero">
-  <div>
-    <h1>Premium Golf Gloves<br><span>With Personality</span></h1>
-    <p>Chirpz brings a modern twist to traditional golf gear.</p>
+<!-- HERO (Replace background-image below with your upload) -->
+<div class="hero" style="background-image: url('hero-image-here.jpg');">
+    <img src="chirpz-logo.png" width="150" alt="Chirpz Logo" />
+    <h1>LET THE GEAR DO THE TALKING</h1>
+    <button>Shop Now</button>
+</div>
 
-    <button class="btn-blue btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-      Shop Gloves →
-    </button>
-    <button class="btn-outline btn" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
-      Our Story
-    </button>
-  </div>
+<!-- SECTION TITLE -->
+<h2 class="section-title">Premium Golf Gear With Personality</h2>
 
-  <div class="hero-card">
-    <div class="glove-image"></div>
-    <div class="hero-price">$29 – Signature Glove</div>
-  </div>
-</section>
-
-<section class="section" id="shop">
-  <h2>Best Sellers</h2>
-
-  <div class="product-grid">
-    <div class="product">
-      <div class="product-img"></div>
-      <div>Fairway Finder</div>
-      <div>$29</div>
+<!-- PRODUCT CARDS -->
+<div class="products">
+    <div class="product-card">
+        <img src="glove1.png" alt="Fairway Finder" />
+        <h3>Fairway Finder</h3>
+        <div class="price">$29</div>
     </div>
 
-    <div class="product">
-      <div class="product-img"></div>
-      <div>Royal Fade</div>
-      <div>$29</div>
+    <div class="product-card">
+        <img src="glove2.png" alt="Royal Fade" />
+        <h3>Royal Fade</h3>
+        <div class="price">$29</div>
     </div>
-  </div>
-</section>
-
-<section class="section" id="story">
-  <h2>Our Story</h2>
-  <div class="story-card">
-    Founded by <strong>John Rea</strong>, Chirpz is built on clean design and subtle attitude.
-  </div>
-</section>
-
-<section class="section" id="contact">
-  <h2>Contact</h2>
-  <div class="story-card">
-    Email: <strong>hello@chirpzgolf.com</strong>
-  </div>
-</section>
-
-<footer>
-  © <script>document.write(new Date().getFullYear())</script> Chirpz Golf
-</footer>
+</div>
 
 </body>
 </html>
