@@ -21,7 +21,7 @@
         position: fixed;
         top: 0;
         width: 100%;
-        z-index: 20;
+        z-index: 30;
         display: flex;
         justify-content: center;
         gap: 60px;
@@ -66,8 +66,134 @@
         background-color: #1c2b38;
     }
 
+
     /* --------------------------------------------------
-       ⭐ SHOP HERO HEADER
+       ⭐ PRIMO-STYLE FIREWORK BILLBOARD (NEW)
+       -------------------------------------------------- */
+
+    .billboard-launch {
+        position: relative;
+        width: 100%;
+        height: 420px;
+        background: linear-gradient(to bottom, #0a1828, #0f1f33);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 120px;
+        border-bottom: 3px solid rgba(255,255,255,0.05);
+    }
+
+    .billboard-fireworks {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+            url('firework-left.png'),
+            url('firework-right.png');
+        background-size: 44%, 44%;
+        background-position:
+            left -60px top -30px,
+            right -60px top -30px;
+        background-repeat: no-repeat;
+        opacity: 0.85;
+        animation: fireworksPulse 3.5s infinite ease-in-out;
+    }
+
+    @keyframes fireworksPulse {
+        0% { opacity: 0.45; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.06); }
+        100% { opacity: 0.45; transform: scale(1); }
+    }
+
+    .billboard-content {
+        position: absolute;
+        text-align: center;
+        z-index: 10;
+        color: white;
+        text-shadow: 0px 0px 14px rgba(0,0,0,0.55);
+    }
+
+    .billboard-content h1 {
+        font-size: 58px;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: 2px;
+        animation: glowText 2s infinite alternate;
+    }
+
+    .billboard-content h2 {
+        font-size: 34px;
+        font-weight: 700;
+        margin: 12px 0;
+        opacity: 0.95;
+    }
+
+    .billboard-content p {
+        font-size: 18px;
+        opacity: 0.75;
+        margin-bottom: 26px;
+    }
+
+    @keyframes glowText {
+        0% { text-shadow: 0 0 12px rgba(74, 137, 255, 0.3); }
+        100% { text-shadow: 0 0 28px rgba(74, 137, 255, 1); }
+    }
+
+    .billboard-content button {
+        padding: 12px 36px;
+        border-radius: 30px;
+        border: none;
+        background-color: #2273ff;
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0px 4px 16px rgba(0,0,0,0.3);
+        transition: 0.25s ease;
+    }
+
+    .billboard-content button:hover {
+        background-color: #428bff;
+        transform: translateY(-3px);
+    }
+
+    .billboard-glove {
+        position: absolute;
+        right: 10%;
+        bottom: 0;
+        width: 300px;
+        height: auto;
+        filter: drop-shadow(0px 12px 25px rgba(0,0,0,0.35));
+        animation: gloveFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gloveFloat {
+        0% { transform: translateY(0px) rotate(-2deg); }
+        50% { transform: translateY(-14px) rotate(2deg); }
+        100% { transform: translateY(0px) rotate(-2deg); }
+    }
+
+    @media (max-width: 768px) {
+        .billboard-glove {
+            width: 170px;
+            right: 3%;
+        }
+
+        .billboard-content h1 {
+            font-size: 40px;
+        }
+
+        .billboard-content h2 {
+            font-size: 24px;
+        }
+    }
+
+
+    /* --------------------------------------------------
+       ⭐ SHOP HERO
        -------------------------------------------------- */
     .shop-hero {
         background: linear-gradient(to bottom right, #082a42, #0f4d7b);
@@ -89,8 +215,9 @@
         margin-top: 8px;
     }
 
+
     /* --------------------------------------------------
-       ⭐ 360° VIEWER SECTION
+       ⭐ 360° VIEWER
        -------------------------------------------------- */
     .viewer-section {
         max-width: 1200px;
@@ -126,8 +253,9 @@
         margin-top: 6px;
     }
 
+
     /* --------------------------------------------------
-       ⭐ PRODUCT GRID BELOW VIEWER
+       ⭐ PRODUCT GRID
        -------------------------------------------------- */
     .product-grid {
         max-width: 1200px;
@@ -170,12 +298,15 @@
         margin-top: 10px;
     }
 
+
     @media (max-width: 768px) {
         nav { gap: 30px; font-size: 15px; }
         .product-card { width: 85%; }
     }
 </style>
 </head>
+
+
 <body>
 
 <!-- ⭐ NAVIGATION -->
@@ -186,26 +317,43 @@
     <a href="ourstory.html">OUR STORY</a>
 </nav>
 
+
+<!-- ⭐ NEW PRIMO-STYLE BILLBOARD -->
+<section class="billboard-launch">
+
+    <div class="billboard-fireworks"></div>
+
+    <div class="billboard-content">
+        <h1>LAUNCH SALE</h1>
+        <h2>$19.99 PER PAIR</h2>
+        <p>Premium Golf Gear. Premium Personality.</p>
+        <button onclick="location.href='gloves.html'">Shop Gloves</button>
+    </div>
+
+    <img class="billboard-glove" src="glove-clean.png" alt="Chirpz Glove">
+
+</section>
+
+
 <!-- ⭐ SHOP HERO -->
 <div class="shop-hero">
     <h1>Shop Chirpz</h1>
     <p>Premium golf gear designed to elevate your game.</p>
 </div>
 
-<!-- ⭐ 360° VIEWER SECTION -->
+
+<!-- ⭐ 360° VIEWER -->
 <div class="viewer-section">
-    
     <div class="viewer-container" id="gloveViewer">
-        <!-- Default frame; viewer.js will replace this on drag -->
         <img id="viewerImage" src="360/frame1.png" alt="360 Glove View">
     </div>
 
     <div class="viewer-label">Chirpz Signature Tour Glove</div>
     <div class="viewer-instructions">Click and drag to rotate • 360° View</div>
-
 </div>
 
-<!-- ⭐ PRODUCT CARDS BELOW -->
+
+<!-- ⭐ PRODUCT GRID -->
 <div class="product-grid">
 
     <div class="product-card">
@@ -222,6 +370,7 @@
 
 </div>
 
+
 <!-- ⭐ SCROLL SCRIPT -->
 <script>
 window.addEventListener("scroll", function () {
@@ -231,7 +380,6 @@ window.addEventListener("scroll", function () {
 });
 </script>
 
-<!-- ⭐ 360 VIEWER SCRIPT HOOK (we will generate full viewer.js next) -->
 <script src="viewer.js"></script>
 
 </body>
