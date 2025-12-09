@@ -16,7 +16,7 @@
     }
 
     /* --------------------------------------------------
-       ⭐ GLOBAL SNOWFALL
+       ⭐ GLOBAL SNOWFALL (Improved)
        -------------------------------------------------- */
     .snow-layer {
         position: fixed;
@@ -25,23 +25,33 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
-        z-index: 99999; /* ALWAYS above hero gradient */
+        z-index: 999999;
+        overflow: hidden;
     }
 
     .snowflake {
         position: absolute;
         top: -10px;
         color: white;
-        opacity: 0.9;
-        font-size: 18px;
+        opacity: 0.75;
         filter: blur(1px);
-        animation: snowFall linear infinite;
+        animation-name: snowFall;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
     }
 
     @keyframes snowFall {
-        0% { transform: translateY(-10vh) translateX(0); opacity: 0.2; }
-        50% { opacity: 1; }
-        100% { transform: translateY(110vh) translateX(25px); opacity: 0.3; }
+        0% {
+            transform: translateY(-10vh) translateX(0);
+            opacity: 0.2;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(110vh) translateX(20px);
+            opacity: 0.3;
+        }
     }
 
     /* --------------------------------------------------
@@ -80,6 +90,7 @@
         background-color: white;
         transition: width 0.3s ease;
     }
+
     nav a:hover::after { width: 100%; }
     nav a:hover { transform: translateY(-2px); opacity: 0.85; }
 
@@ -88,9 +99,11 @@
         padding: 14px 0;
         box-shadow: 0px 4px 16px rgba(0,0,0,0.12);
     }
+
     nav.scrolled a {
         color: #1c2b38;
     }
+
     nav.scrolled a::after {
         background-color: #1c2b38;
     }
@@ -107,6 +120,7 @@
         animation-delay: 0.25s;
         transition: transform 0.35s ease;
     }
+
     @keyframes chirpzFadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
@@ -175,7 +189,6 @@
     /* --------------------------------------------------
        ⭐ PREMIUM SHOWROOM
        -------------------------------------------------- */
-
     .showroom-container {
         max-width: 1200px;
         margin: 120px auto 80px;
@@ -244,19 +257,26 @@
     }
 </style>
 </head>
+
 <body>
 
-<!-- ⭐ GLOBAL SNOWFALL (Moved OUTSIDE hero so it always works) -->
-<div class="snow-layer">
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-    <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
-</div>
+<!-- ⭐ GLOBAL SNOWFALL -->
+<div class="snow-layer"></div>
+
+<script>
+    // Generate 50 dynamic snowflakes
+    const snowContainer = document.querySelector(".snow-layer");
+    for (let i = 0; i < 50; i++) {
+        const flake = document.createElement("div");
+        flake.className = "snowflake";
+        flake.textContent = "•";
+        flake.style.left = Math.random() * 100 + "vw";
+        flake.style.animationDuration = 4 + Math.random() * 6 + "s";
+        flake.style.animationDelay = Math.random() * 5 + "s";
+        flake.style.fontSize = (12 + Math.random() * 10) + "px";
+        snowContainer.appendChild(flake);
+    }
+</script>
 
 <!-- ⭐ NAVIGATION -->
 <nav id="mainNav">
@@ -268,7 +288,6 @@
 
 <!-- ⭐ HERO SECTION -->
 <div class="hero">
-
     <img id="logo" src="chirpz-logo.png" alt="Chirpz Logo">
     <h1>LET THE GEAR DO THE TALKING</h1>
     <button onclick="location.href='shop.html'">Shop Now</button>
@@ -276,17 +295,13 @@
 
 <!-- ⭐ PREMIUM SHOWROOM -->
 <div class="showroom-container">
-
-    <!-- Big Feature -->
     <div class="big-feature">
         <img src="glove-placeholder.png" alt="Chirpz Tour Glove">
         <div class="big-feature-title">Chirpz Signature Tour Glove</div>
         <p style="font-size:18px;opacity:0.7;margin-top:8px;">Engineered for feel. Designed for swagger.</p>
     </div>
 
-    <!-- Tiles -->
     <div class="feature-grid">
-
         <div class="tile">
             <img src="shirt-icon.png" alt="Polos">
             <h3>Polos (Coming Soon)</h3>
@@ -301,9 +316,7 @@
             <img src="hat-icon.png" alt="Hats">
             <h3>Hats (Coming Soon)</h3>
         </div>
-
     </div>
-
 </div>
 
 <!-- ⭐ SCROLL SCRIPT -->
