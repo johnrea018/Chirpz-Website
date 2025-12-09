@@ -49,8 +49,8 @@
         animation: snowFall linear infinite;
     }
 
-    /* ⭐ REALISTIC FLAKE VARIATIONS (24 flakes) */
-    .snowflake:nth-child(1)  { left: 5%;  font-size: 14px; animation-duration: 7s;  animation-delay: 0s; }
+    /* ⭐ VARIED SNOWFLAKE SIZES + SPEEDS */
+    .snowflake:nth-child(1)  { left: 5%; font-size: 14px; animation-duration: 7s;  animation-delay: 0s; }
     .snowflake:nth-child(2)  { left: 10%; font-size: 18px; animation-duration: 10s; animation-delay: 1s; }
     .snowflake:nth-child(3)  { left: 15%; font-size: 12px; animation-duration: 6.5s; animation-delay: 0.5s; }
     .snowflake:nth-child(4)  { left: 20%; font-size: 16px; animation-duration: 9s;  animation-delay: 1.3s; }
@@ -72,29 +72,36 @@
     .snowflake:nth-child(20) { left: 12%; font-size: 16px; animation-duration: 9.2s; animation-delay: 0.3s; }
     .snowflake:nth-child(21) { left: 32%; font-size: 14px; animation-duration: 8.3s; animation-delay: 1.7s; }
     .snowflake:nth-child(22) { left: 52%; font-size: 18px; animation-duration: 11.3s; animation-delay: 1.1s; }
-    .snowflake:nth-child(23) { left: 72%; font-size: 13px; animation-duration: 7.9s;  animation-delay: 0.6s; }
+    .snowflake:nth-child(23) { left: 72%; font-size: 13px; animation-duration: 7.9s; animation-delay: 0.6s; }
     .snowflake:nth-child(24) { left: 92%; font-size: 20px; animation-duration: 12.5s; animation-delay: 1.4s; }
 
-    /* NAVIGATION */
+    /* ⭐ NAVIGATION */
     nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         display: flex;
         justify-content: center;
+        gap: 60px;
         padding: 28px 0;
         font-size: 18px;
         font-weight: 600;
-        gap: 60px;
         letter-spacing: 0.4px;
+        z-index: 10; /* always above hero */
     }
 
     nav a {
-        color: #1c2b38;
+        color: white; /* floating header text */
         text-decoration: none;
-        transition: opacity 0.2s;
+        transition: opacity 0.25s;
     }
 
-    nav a:hover { opacity: 0.7; }
+    nav a:hover {
+        opacity: 0.7;
+    }
 
-    /* HERO SECTION */
+    /* ⭐ HERO SECTION */
     .hero {
         position: relative;
         width: 100%;
@@ -110,6 +117,31 @@
         overflow: hidden;
     }
 
+    /* ⭐ GRADIENT OVERLAY TO SUPPORT WHITE HEADER */
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 32%;
+        background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.35),
+            rgba(0,0,0,0)
+        );
+        z-index: 1;
+    }
+
+    /* ⭐ Ensure hero text, logo, snow stay above gradient */
+    .hero img,
+    .hero h1,
+    .hero button,
+    .snow {
+        position: relative;
+        z-index: 2;
+    }
+
     .hero img {
         width: 260px;
         max-width: 60%;
@@ -122,7 +154,7 @@
     .hero h1 {
         font-size: 42px;
         font-weight: 800;
-        color: #ffffff;
+        color: white;
         margin-top: 25px;
         text-shadow: 0px 3px 10px rgba(0,0,0,0.35);
     }
@@ -141,9 +173,11 @@
         box-shadow: 0px 4px 12px rgba(0,0,0,0.22);
     }
 
-    .hero button:hover { background-color: #0c5080; }
+    .hero button:hover {
+        background-color: #0c5080;
+    }
 
-    /* SECTION TITLE */
+    /* ⭐ SECTION TITLE */
     .section-title {
         font-size: 34px;
         font-weight: 800;
@@ -151,7 +185,7 @@
         margin: 60px 0 30px;
     }
 
-    /* PRODUCT GRID */
+    /* ⭐ PRODUCT GRID */
     .products {
         max-width: 1100px;
         margin: auto;
@@ -187,10 +221,10 @@
         margin-top: 10px;
     }
 
-    /* MOBILE OPTIMIZATION */
+    /* ⭐ MOBILE OPTIMIZATION */
     @media (max-width: 768px) {
         nav { gap: 35px; font-size: 16px; }
-        .hero { padding: 60px 20px 100px; background-size: cover; }
+        .hero { padding: 60px 20px 100px; }
         .hero h1 { font-size: 30px; }
         .hero img { width: 200px; }
         .hero button { padding: 13px 34px; font-size: 18px; }
@@ -212,35 +246,18 @@
 <!-- HERO -->
 <div class="hero">
 
-    <!-- REALISTIC SNOW -->
+    <!-- SNOW -->
     <div class="snow">
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
-        <div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
+        <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
     </div>
 
-    <!-- LOGO -->
     <img src="chirpz-logo.png" alt="Chirpz Logo">
     <h1>LET THE GEAR DO THE TALKING</h1>
     <button>Shop Now</button>
