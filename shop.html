@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Men | Chirpz Golf</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        background-color: #ffffff;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* --------------------------------------------------
+       ⭐ SHARED NAVIGATION
+       -------------------------------------------------- */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 20;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        padding: 28px 0;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        transition: background-color 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
+        background: transparent;
+    }
+
+    nav a {
+        position: relative;
+        color: #ffffff;
+        text-decoration: none;
+        transition: 0.3s ease;
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0%;
+        height: 2px;
+        background-color: white;
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
+    nav a:hover { transform: translateY(-2px); opacity: 0.85; }
+
+    nav.scrolled {
+        background-color: white;
+        padding: 14px 0;
+        box-shadow: 0px 4px 16px rgba(0,0,0,0.12);
+    }
+    nav.scrolled a {
+        color: #1c2b38;
+    }
+    nav.scrolled a::after {
+        background-color: #1c2b38;
+    }
+
+    /* --------------------------------------------------
+       ⭐ MEN PAGE HERO
+       -------------------------------------------------- */
+    .hero-small {
+        background: linear-gradient(to bottom right, #082a42, #0f4d7b);
+        padding: 140px 20px 80px;
+        text-align: center;
+        color: white;
+    }
+
+    .hero-small h1 {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .hero-small p {
+        font-size: 20px;
+        opacity: 0.85;
+        margin-top: 10px;
+    }
+
+    /* --------------------------------------------------
+       ⭐ PRODUCT GRID
+       -------------------------------------------------- */
+    .products {
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .product-card {
+        background: white;
+        width: 300px;
+        padding: 32px;
+        border-radius: 18px;
+        text-align: center;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+        transition: transform 0.25s ease;
+    }
+    .product-card:hover {
+        transform: translateY(-6px);
+    }
+    .product-card img {
+        width: 75%;
+        max-width: 260px;
+        margin-bottom: 16px;
+    }
+    .product-card h3 {
+        font-size: 22px;
+        font-weight: 700;
+    }
+    .product-card .price {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0a3c5f;
+        margin-top: 10px;
+    }
+
+    /* --------------------------------------------------
+       ⭐ COMING SOON TILES
+       -------------------------------------------------- */
+    .coming-soon-section {
+        text-align: center;
+        margin: 60px 0 120px;
+    }
+    .coming-soon-section h2 {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 40px;
+    }
+
+    .coming-grid {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .tile {
+        width: 260px;
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+        transition: transform 0.25s ease;
+    }
+    .tile:hover { transform: translateY(-6px); }
+
+    .tile img {
+        width: 120px;
+        opacity: 0.9;
+    }
+
+    .tile h3 {
+        margin-top: 18px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        nav { gap: 30px; font-size: 15px; }
+        .product-card { width: 85%; }
+        .tile { width: 85%; }
+    }
+
+</style>
+</head>
+<body>
+
+<!-- ⭐ NAVIGATION -->
+<nav id="mainNav">
+    <a href="shop.html">SHOP</a>
+    <a href="men.html">MEN</a>
+    <a href="women.html">WOMEN</a>
+    <a href="ourstory.html">OUR STORY</a>
+</nav>
+
+<!-- ⭐ MEN HERO -->
+<div class="hero-small">
+    <h1>Men's Gear</h1>
+    <p>Premium materials. Tour-level confidence.</p>
+</div>
+
+<!-- ⭐ MEN'S PRODUCTS -->
+<div class="products">
+
+    <!-- Example Glove 1 -->
+    <div class="product-card">
+        <img src="glove-placeholder.png" alt="Fairway Finder Glove">
+        <h3>Fairway Finder</h3>
+        <div class="price">$29</div>
+    </div>
+
+    <!-- Example Glove 2 -->
+    <div class="product-card">
+        <img src="glove-placeholder.png" alt="Royal Fade Glove">
+        <h3>Royal Fade</h3>
+        <div class="price">$29</div>
+    </div>
+
+</div>
+
+<!-- ⭐ COMING SOON SECTION -->
+<div class="coming-soon-section">
+    <h2>More Men's Gear Coming Soon</h2>
+
+    <div class="coming-grid">
+
+        <div class="tile">
+            <img src="shirt-icon.png" alt="Polos">
+            <h3>Polos</h3>
+        </div>
+
+        <div class="tile">
+            <img src="shorts-icon.png" alt="Shorts">
+            <h3>Shorts</h3>
+        </div>
+
+        <div class="tile">
+            <img src="hat-icon.png" alt="Hats">
+            <h3>Hats</h3>
+        </div>
+
+    </div>
+</div>
+
+<!-- ⭐ NAV SCROLL BEHAVIOR -->
+<script>
+window.addEventListener("scroll", function () {
+    const nav = document.getElementById("mainNav");
+    if (window.scrollY > 80) nav.classList.add("scrolled");
+    else nav.classList.remove("scrolled");
+});
+</script>
+
+</body>
+</html>
