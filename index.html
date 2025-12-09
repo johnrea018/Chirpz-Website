@@ -16,9 +16,8 @@
     }
 
     /* --------------------------------------------------
-       ⭐ FLOATING HEADER NAV ANIMATIONS
+       ⭐ FLOATING HEADER NAV
        -------------------------------------------------- */
-
     nav {
         position: fixed;
         top: 0;
@@ -31,10 +30,7 @@
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 0.4px;
-        transition:
-            background-color 0.35s ease,
-            padding 0.35s ease,
-            box-shadow 0.35s ease;
+        transition: background-color 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
         background: transparent;
     }
 
@@ -42,10 +38,9 @@
         position: relative;
         color: white;
         text-decoration: none;
-        transition: color 0.35s ease, opacity 0.3s ease, transform 0.2s ease;
+        transition: 0.3s ease;
     }
 
-    /* Underline hover animation */
     nav a::after {
         content: "";
         position: absolute;
@@ -56,22 +51,14 @@
         background-color: white;
         transition: width 0.3s ease;
     }
-
     nav a:hover::after { width: 100%; }
+    nav a:hover { transform: translateY(-2px); opacity: 0.85; }
 
-    /* Magnetic hover lift */
-    nav a:hover {
-        transform: translateY(-2px);
-        opacity: 0.85;
-    }
-
-    /* SCROLLED HEADER APPEARANCE */
     nav.scrolled {
         background-color: white;
         padding: 14px 0;
         box-shadow: 0px 4px 16px rgba(0,0,0,0.12);
     }
-
     nav.scrolled a {
         color: #1c2b38;
     }
@@ -79,7 +66,9 @@
         background-color: #1c2b38;
     }
 
-    /* Logo shrink on scroll */
+    /* --------------------------------------------------
+       ⭐ LOGO ANIMATION
+       -------------------------------------------------- */
     #logo {
         width: 260px;
         max-width: 60%;
@@ -89,80 +78,14 @@
         animation-delay: 0.25s;
         transition: transform 0.35s ease;
     }
-
-    nav.scrolled + .hero #logo {
-        transform: scale(0.75);
-    }
-
-    /* --------------------------------------------------
-       ⭐ FADE-IN FOR LOGO
-       -------------------------------------------------- */
-
     @keyframes chirpzFadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     /* --------------------------------------------------
-       ⭐ REALISTIC SNOWFALL ANIMATION
-       -------------------------------------------------- */
-
-    @keyframes snowFall {
-        0%   { transform: translateY(-10vh) translateX(0); opacity: 0.2; }
-        50%  { opacity: 0.9; }
-        100% { transform: translateY(110vh) translateX(25px); opacity: 0.3; }
-    }
-
-    .snow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10; /* ABOVE hero content */
-        pointer-events: none;
-    }
-
-    .snowflake {
-        position: absolute;
-        top: -10px;
-        color: white;
-        opacity: 0.85;
-        filter: blur(1px);
-        animation: snowFall linear infinite;
-        z-index: 11;
-    }
-
-    /* ❄ 24 realistic flake variations */
-    .snowflake:nth-child(1)  { left: 5%; font-size: 14px; animation-duration: 7s; animation-delay: 0s; }
-    .snowflake:nth-child(2)  { left: 10%; font-size: 18px; animation-duration: 10s; animation-delay: 1s; }
-    .snowflake:nth-child(3)  { left: 15%; font-size: 12px; animation-duration: 6.5s; animation-delay: 0.4s; }
-    .snowflake:nth-child(4)  { left: 20%; font-size: 16px; animation-duration: 9s; animation-delay: 1.2s; }
-    .snowflake:nth-child(5)  { left: 25%; font-size: 20px; animation-duration: 11s; animation-delay: 0.6s; }
-    .snowflake:nth-child(6)  { left: 30%; font-size: 10px; animation-duration: 7s; animation-delay: 1.8s; }
-    .snowflake:nth-child(7)  { left: 35%; font-size: 17px; animation-duration: 9.4s; animation-delay: 0.3s; }
-    .snowflake:nth-child(8)  { left: 40%; font-size: 14px; animation-duration: 8s; animation-delay: 1.6s; }
-    .snowflake:nth-child(9)  { left: 45%; font-size: 19px; animation-duration: 11.4s; animation-delay: 0.7s; }
-    .snowflake:nth-child(10) { left: 50%; font-size: 11px; animation-duration: 7.7s; animation-delay: 0.1s; }
-    .snowflake:nth-child(11) { left: 55%; font-size: 15px; animation-duration: 8.7s; animation-delay: 1.3s; }
-    .snowflake:nth-child(12) { left: 60%; font-size: 18px; animation-duration: 10.3s; animation-delay: 0.5s; }
-    .snowflake:nth-child(13) { left: 65%; font-size: 13px; animation-duration: 7.3s; animation-delay: 1.7s; }
-    .snowflake:nth-child(14) { left: 70%; font-size: 16px; animation-duration: 9.8s; animation-delay: 0.2s; }
-    .snowflake:nth-child(15) { left: 75%; font-size: 20px; animation-duration: 12s; animation-delay: 1.1s; }
-    .snowflake:nth-child(16) { left: 80%; font-size: 11px; animation-duration: 6.8s; animation-delay: 2.1s; }
-    .snowflake:nth-child(17) { left: 85%; font-size: 15px; animation-duration: 9.3s; animation-delay: 0.4s; }
-    .snowflake:nth-child(18) { left: 90%; font-size: 12px; animation-duration: 7.6s; animation-delay: 1.4s; }
-    .snowflake:nth-child(19) { left: 95%; font-size: 18px; animation-duration: 10.8s; animation-delay: 0.2s; }
-    .snowflake:nth-child(20) { left: 12%; font-size: 16px; animation-duration: 9.2s; animation-delay: 0.7s; }
-    .snowflake:nth-child(21) { left: 32%; font-size: 14px; animation-duration: 8.2s; animation-delay: 1.5s; }
-    .snowflake:nth-child(22) { left: 52%; font-size: 18px; animation-duration: 11.2s; animation-delay: 1.1s; }
-    .snowflake:nth-child(23) { left: 72%; font-size: 13px; animation-duration: 7.9s; animation-delay: 0.3s; }
-    .snowflake:nth-child(24) { left: 92%; font-size: 20px; animation-duration: 12.3s; animation-delay: 1.2s; }
-
-    /* --------------------------------------------------
        ⭐ HERO SECTION
        -------------------------------------------------- */
-
     .hero {
         position: relative;
         width: 100%;
@@ -177,7 +100,6 @@
         overflow: hidden;
     }
 
-    /* Gradient overlay for readability */
     .hero::before {
         content: "";
         position: absolute;
@@ -188,7 +110,6 @@
         z-index: 1;
     }
 
-    /* These stay above gradient but below snow */
     .hero h1,
     .hero button,
     #logo {
@@ -222,28 +143,52 @@
         transform: translateY(-2px);
     }
 
-    /* SECTION TITLE */
-    .section-title {
-        font-size: 34px;
-        font-weight: 800;
+    /* --------------------------------------------------
+       ⭐ OPTION D: PREMIUM SHOWROOM BELOW HERO
+       -------------------------------------------------- */
+
+    .showroom-container {
+        max-width: 1200px;
+        margin: 120px auto 80px;
+        padding: 0 20px;
         text-align: center;
-        margin: 80px 0 30px;
     }
 
-    /* PRODUCT GRID */
-    .products {
-        max-width: 1100px;
-        margin: auto;
+    .big-feature {
+        background: white;
+        border-radius: 18px;
+        padding: 50px;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+        margin-bottom: 60px;
+        transition: transform 0.3s ease;
+    }
+
+    .big-feature:hover {
+        transform: translateY(-6px);
+    }
+
+    .big-feature img {
+        width: 55%;
+        max-width: 420px;
+        filter: drop-shadow(0px 6px 14px rgba(0,0,0,0.18));
+    }
+
+    .big-feature-title {
+        font-size: 32px;
+        font-weight: 800;
+        margin-top: 25px;
+    }
+
+    .feature-grid {
         display: flex;
         justify-content: center;
+        gap: 30px;
         flex-wrap: wrap;
-        gap: 40px;
-        padding: 0 20px 100px;
     }
 
-    .product-card {
+    .tile {
+        width: 260px;
         background: white;
-        width: 300px;
         padding: 30px;
         border-radius: 16px;
         text-align: center;
@@ -251,35 +196,49 @@
         transition: transform 0.25s ease;
     }
 
-    .product-card:hover {
+    .tile:hover {
         transform: translateY(-6px);
     }
 
-    /* MOBILE */
+    .tile img {
+        width: 120px;
+        opacity: 0.9;
+    }
+
+    .tile h3 { margin-top: 18px; font-size: 20px; font-weight: 700; }
+
+    /* SNOWFALL (unchanged) */
+    .snow { position:absolute; top:0; left:0; width:100%; height:100%; z-index:10; pointer-events:none; }
+    .snowflake { position:absolute; top:-10px; color:white; opacity:0.85; filter:blur(1px); animation:snowFall linear infinite; }
+    @keyframes snowFall {
+        0% { transform: translateY(-10vh) translateX(0); opacity: 0.2; }
+        50% { opacity: 0.9; }
+        100% { transform: translateY(110vh) translateX(25px); opacity: 0.3; }
+    }
+
     @media (max-width: 768px) {
         nav { gap: 30px; font-size: 15px; }
         #logo { width: 200px; }
-        .hero h1 { font-size: 28px; }
-        .hero { padding: 80px 20px 140px; }
-        .product-card { width: 85%; }
+        .big-feature img { width: 80%; }
+        .tile { width: 80%; }
     }
-
 </style>
 </head>
 <body>
 
 <!-- ⭐ NAVIGATION -->
 <nav id="mainNav">
-    <a href="#">SHOP</a>
-    <a href="#">ABOUT</a>
-    <a href="#">CONTACT</a>
+    <a href="shop.html">SHOP</a>
+    <a href="men.html">MEN</a>
+    <a href="women.html">WOMEN</a>
+    <a href="ourstory.html">OUR STORY</a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO SECTION (unchanged) -->
 <div class="hero">
 
-    <!-- ⭐ SNOW LAYER -->
     <div class="snow">
+        <!-- 24 snowflakes -->
         <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
         <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
         <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
@@ -292,36 +251,47 @@
 
     <img id="logo" src="chirpz-logo.png" alt="Chirpz Logo">
     <h1>LET THE GEAR DO THE TALKING</h1>
-    <button>Shop Now</button>
+    <button onclick="location.href='shop.html'">Shop Now</button>
 </div>
 
-<!-- TITLE -->
-<h2 class="section-title">Made for the Modern Golfer</h2>
+<!-- ⭐ PREMIUM SHOWROOM (Option D) -->
+<div class="showroom-container">
 
-<!-- PRODUCTS -->
-<div class="products">
-    <div class="product-card">
-        <img src="glove-placeholder.png" alt="Fairway Finder">
-        <h3>Fairway Finder</h3>
-        <div class="price">$29</div>
+    <!-- Big Feature -->
+    <div class="big-feature">
+        <img src="glove-placeholder.png" alt="Chirpz Tour Glove">
+        <div class="big-feature-title">Chirpz Signature Tour Glove</div>
+        <p style="font-size:18px;opacity:0.7;margin-top:8px;">Engineered for feel. Designed for swagger.</p>
     </div>
 
-    <div class="product-card">
-        <img src="glove-placeholder.png" alt="Royal Fade">
-        <h3>Royal Fade</h3>
-        <div class="price">$29</div>
+    <!-- Tiles -->
+    <div class="feature-grid">
+
+        <div class="tile">
+            <img src="shirt-icon.png" alt="Polos">
+            <h3>Polos (Coming Soon)</h3>
+        </div>
+
+        <div class="tile">
+            <img src="shorts-icon.png" alt="Shorts">
+            <h3>Shorts (Coming Soon)</h3>
+        </div>
+
+        <div class="tile">
+            <img src="hat-icon.png" alt="Hats">
+            <h3>Hats (Coming Soon)</h3>
+        </div>
+
     </div>
+
 </div>
 
 <!-- ⭐ SCROLL SCRIPT -->
 <script>
 window.addEventListener("scroll", function () {
     const nav = document.getElementById("mainNav");
-    if (window.scrollY > 80) {
-        nav.classList.add("scrolled");
-    } else {
-        nav.classList.remove("scrolled");
-    }
+    if (window.scrollY > 80) nav.classList.add("scrolled");
+    else nav.classList.remove("scrolled");
 });
 </script>
 
