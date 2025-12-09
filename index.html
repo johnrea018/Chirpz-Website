@@ -49,35 +49,11 @@
         animation: snowFall linear infinite;
     }
 
-    /* ⭐ VARIED SNOWFLAKE SIZES + SPEEDS */
-    .snowflake:nth-child(1)  { left: 5%; font-size: 14px; animation-duration: 7s;  animation-delay: 0s; }
-    .snowflake:nth-child(2)  { left: 10%; font-size: 18px; animation-duration: 10s; animation-delay: 1s; }
-    .snowflake:nth-child(3)  { left: 15%; font-size: 12px; animation-duration: 6.5s; animation-delay: 0.5s; }
-    .snowflake:nth-child(4)  { left: 20%; font-size: 16px; animation-duration: 9s;  animation-delay: 1.3s; }
-    .snowflake:nth-child(5)  { left: 25%; font-size: 20px; animation-duration: 11s; animation-delay: 0.7s; }
-    .snowflake:nth-child(6)  { left: 30%; font-size: 10px; animation-duration: 7.2s; animation-delay: 2s; }
-    .snowflake:nth-child(7)  { left: 35%; font-size: 17px; animation-duration: 9.5s; animation-delay: 0.4s; }
-    .snowflake:nth-child(8)  { left: 40%; font-size: 14px; animation-duration: 8s;  animation-delay: 1.8s; }
-    .snowflake:nth-child(9)  { left: 45%; font-size: 19px; animation-duration: 11.5s; animation-delay: 0.9s; }
-    .snowflake:nth-child(10) { left: 50%; font-size: 11px; animation-duration: 7.7s; animation-delay: 0.2s; }
-    .snowflake:nth-child(11) { left: 55%; font-size: 15px; animation-duration: 8.8s; animation-delay: 1.5s; }
-    .snowflake:nth-child(12) { left: 60%; font-size: 18px; animation-duration: 10.2s; animation-delay: 0.6s; }
-    .snowflake:nth-child(13) { left: 65%; font-size: 13px; animation-duration: 7.4s; animation-delay: 1.9s; }
-    .snowflake:nth-child(14) { left: 70%; font-size: 16px; animation-duration: 9.8s; animation-delay: 0.3s; }
-    .snowflake:nth-child(15) { left: 75%; font-size: 20px; animation-duration: 12s; animation-delay: 1.1s; }
-    .snowflake:nth-child(16) { left: 80%; font-size: 11px; animation-duration: 6.8s; animation-delay: 2.1s; }
-    .snowflake:nth-child(17) { left: 85%; font-size: 15px; animation-duration: 9.4s; animation-delay: 0.8s; }
-    .snowflake:nth-child(18) { left: 90%; font-size: 12px; animation-duration: 7.5s; animation-delay: 1.6s; }
-    .snowflake:nth-child(19) { left: 95%; font-size: 18px; animation-duration: 10.8s; animation-delay: 0.1s; }
-    .snowflake:nth-child(20) { left: 12%; font-size: 16px; animation-duration: 9.2s; animation-delay: 0.3s; }
-    .snowflake:nth-child(21) { left: 32%; font-size: 14px; animation-duration: 8.3s; animation-delay: 1.7s; }
-    .snowflake:nth-child(22) { left: 52%; font-size: 18px; animation-duration: 11.3s; animation-delay: 1.1s; }
-    .snowflake:nth-child(23) { left: 72%; font-size: 13px; animation-duration: 7.9s; animation-delay: 0.6s; }
-    .snowflake:nth-child(24) { left: 92%; font-size: 20px; animation-duration: 12.5s; animation-delay: 1.4s; }
-
-    /* ⭐ NAVIGATION */
+    /* ------------------------------------------
+       ⭐ SCROLL-ACTIVE FLOATING HEADER
+       ------------------------------------------ */
     nav {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
@@ -88,20 +64,36 @@
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 0.4px;
-        z-index: 10; /* always above hero */
+        z-index: 20;
+        transition: 
+            background-color 0.35s ease,
+            padding 0.35s ease,
+            box-shadow 0.35s ease;
+        background-color: transparent;
     }
 
     nav a {
-        color: white; /* floating header text */
+        color: white; /* Floating state */
         text-decoration: none;
-        transition: opacity 0.25s;
+        transition: color 0.35s ease, opacity 0.25s ease;
     }
 
-    nav a:hover {
-        opacity: 0.7;
+    nav a:hover { opacity: 0.7; }
+
+    /* ⭐ SCROLLED HEADER STATE */
+    nav.scrolled {
+        background-color: white;
+        padding: 14px 0;
+        box-shadow: 0px 4px 16px rgba(0,0,0,0.12);
     }
 
-    /* ⭐ HERO SECTION */
+    nav.scrolled a {
+        color: #1c2b38; /* Dark text when scrolled */
+    }
+
+    /* ------------------------------------------
+       HERO SECTION + GRADIENT
+       ------------------------------------------ */
     .hero {
         position: relative;
         width: 100%;
@@ -109,7 +101,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        padding: 80px 20px 140px;
+        padding: 120px 20px 160px;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -117,7 +109,7 @@
         overflow: hidden;
     }
 
-    /* ⭐ GRADIENT OVERLAY TO SUPPORT WHITE HEADER */
+    /* ⭐ Top gradient overlay for readability */
     .hero::before {
         content: "";
         position: absolute;
@@ -131,9 +123,9 @@
             rgba(0,0,0,0)
         );
         z-index: 1;
+        pointer-events: none;
     }
 
-    /* ⭐ Ensure hero text, logo, snow stay above gradient */
     .hero img,
     .hero h1,
     .hero button,
@@ -145,7 +137,7 @@
     .hero img {
         width: 260px;
         max-width: 60%;
-        margin-top: 10px;
+        margin-top: 20px;
         opacity: 0;
         animation: chirpzFadeIn 1s ease-out forwards;
         animation-delay: 0.2s;
@@ -177,15 +169,15 @@
         background-color: #0c5080;
     }
 
-    /* ⭐ SECTION TITLE */
+    /* SECTION TITLE */
     .section-title {
         font-size: 34px;
         font-weight: 800;
         text-align: center;
-        margin: 60px 0 30px;
+        margin: 80px 0 30px;
     }
 
-    /* ⭐ PRODUCT GRID */
+    /* PRODUCT GRID */
     .products {
         max-width: 1100px;
         margin: auto;
@@ -221,10 +213,10 @@
         margin-top: 10px;
     }
 
-    /* ⭐ MOBILE OPTIMIZATION */
+    /* MOBILE */
     @media (max-width: 768px) {
         nav { gap: 35px; font-size: 16px; }
-        .hero { padding: 60px 20px 100px; }
+        .hero { padding: 80px 20px 120px; }
         .hero h1 { font-size: 30px; }
         .hero img { width: 200px; }
         .hero button { padding: 13px 34px; font-size: 18px; }
@@ -236,8 +228,8 @@
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav>
+<!-- ⭐ NAVIGATION -->
+<nav id="mainNav">
     <a href="#">SHOP</a>
     <a href="#">ABOUT</a>
     <a href="#">CONTACT</a>
@@ -248,6 +240,7 @@
 
     <!-- SNOW -->
     <div class="snow">
+        <!-- 24 flakes -->
         <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
         <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
         <div class="snowflake">•</div><div class="snowflake">•</div><div class="snowflake">•</div>
@@ -280,6 +273,20 @@
         <div class="price">$29</div>
     </div>
 </div>
+
+
+<!-- ⭐ SCROLL SCRIPT -->
+<script>
+window.addEventListener("scroll", function () {
+    const nav = document.getElementById("mainNav");
+
+    if (window.scrollY > 80) {
+        nav.classList.add("scrolled");
+    } else {
+        nav.classList.remove("scrolled");
+    }
+});
+</script>
 
 </body>
 </html>
