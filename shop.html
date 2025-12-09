@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Men | Chirpz Golf</title>
+<title>Shop | Chirpz Golf</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
     body {
         margin: 0;
-        background-color: #ffffff;
+        background-color: white;
         font-family: 'Inter', sans-serif;
     }
 
@@ -67,34 +67,71 @@
     }
 
     /* --------------------------------------------------
-       ⭐ MEN PAGE HERO
+       ⭐ SHOP HERO HEADER
        -------------------------------------------------- */
-    .hero-small {
+    .shop-hero {
         background: linear-gradient(to bottom right, #082a42, #0f4d7b);
-        padding: 140px 20px 80px;
+        padding: 140px 20px 90px;
         text-align: center;
         color: white;
     }
 
-    .hero-small h1 {
-        font-size: 42px;
+    .shop-hero h1 {
+        font-size: 48px;
         font-weight: 800;
+        letter-spacing: 0.6px;
         margin-bottom: 10px;
-        letter-spacing: 0.5px;
     }
 
-    .hero-small p {
+    .shop-hero p {
         font-size: 20px;
-        opacity: 0.85;
-        margin-top: 10px;
+        opacity: 0.8;
+        margin-top: 8px;
     }
 
     /* --------------------------------------------------
-       ⭐ PRODUCT GRID
+       ⭐ 360° VIEWER SECTION
        -------------------------------------------------- */
-    .products {
+    .viewer-section {
         max-width: 1200px;
-        margin: 80px auto;
+        margin: 80px auto 60px;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .viewer-container {
+        width: 100%;
+        max-width: 520px;
+        margin: auto;
+        position: relative;
+        cursor: grab;
+    }
+
+    .viewer-container img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+    }
+
+    .viewer-label {
+        font-size: 24px;
+        font-weight: 800;
+        margin-top: 25px;
+        color: #0b314d;
+    }
+
+    .viewer-instructions {
+        font-size: 16px;
+        opacity: 0.7;
+        margin-top: 6px;
+    }
+
+    /* --------------------------------------------------
+       ⭐ PRODUCT GRID BELOW VIEWER
+       -------------------------------------------------- */
+    .product-grid {
+        max-width: 1200px;
+        margin: 80px auto 120px;
         padding: 0 20px;
         display: flex;
         justify-content: center;
@@ -114,15 +151,18 @@
     .product-card:hover {
         transform: translateY(-6px);
     }
+
     .product-card img {
         width: 75%;
         max-width: 260px;
         margin-bottom: 16px;
     }
+
     .product-card h3 {
         font-size: 22px;
         font-weight: 700;
     }
+
     .product-card .price {
         font-size: 20px;
         font-weight: 800;
@@ -130,55 +170,10 @@
         margin-top: 10px;
     }
 
-    /* --------------------------------------------------
-       ⭐ COMING SOON TILES
-       -------------------------------------------------- */
-    .coming-soon-section {
-        text-align: center;
-        margin: 60px 0 120px;
-    }
-    .coming-soon-section h2 {
-        font-size: 32px;
-        font-weight: 800;
-        margin-bottom: 40px;
-    }
-
-    .coming-grid {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 30px;
-        padding: 0 20px;
-    }
-
-    .tile {
-        width: 260px;
-        background: white;
-        padding: 30px;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
-        transition: transform 0.25s ease;
-    }
-    .tile:hover { transform: translateY(-6px); }
-
-    .tile img {
-        width: 120px;
-        opacity: 0.9;
-    }
-
-    .tile h3 {
-        margin-top: 18px;
-        font-size: 20px;
-        font-weight: 700;
-    }
-
     @media (max-width: 768px) {
         nav { gap: 30px; font-size: 15px; }
         .product-card { width: 85%; }
-        .tile { width: 85%; }
     }
-
 </style>
 </head>
 <body>
@@ -191,56 +186,43 @@
     <a href="ourstory.html">OUR STORY</a>
 </nav>
 
-<!-- ⭐ MEN HERO -->
-<div class="hero-small">
-    <h1>Men's Gear</h1>
-    <p>Premium materials. Tour-level confidence.</p>
+<!-- ⭐ SHOP HERO -->
+<div class="shop-hero">
+    <h1>Shop Chirpz</h1>
+    <p>Premium golf gear designed to elevate your game.</p>
 </div>
 
-<!-- ⭐ MEN'S PRODUCTS -->
-<div class="products">
+<!-- ⭐ 360° VIEWER SECTION -->
+<div class="viewer-section">
+    
+    <div class="viewer-container" id="gloveViewer">
+        <!-- Default frame; viewer.js will replace this on drag -->
+        <img id="viewerImage" src="360/frame1.png" alt="360 Glove View">
+    </div>
 
-    <!-- Example Glove 1 -->
+    <div class="viewer-label">Chirpz Signature Tour Glove</div>
+    <div class="viewer-instructions">Click and drag to rotate • 360° View</div>
+
+</div>
+
+<!-- ⭐ PRODUCT CARDS BELOW -->
+<div class="product-grid">
+
     <div class="product-card">
-        <img src="glove-placeholder.png" alt="Fairway Finder Glove">
+        <img src="glove-placeholder.png" alt="Fairway Finder">
         <h3>Fairway Finder</h3>
         <div class="price">$29</div>
     </div>
 
-    <!-- Example Glove 2 -->
     <div class="product-card">
-        <img src="glove-placeholder.png" alt="Royal Fade Glove">
+        <img src="glove-placeholder.png" alt="Royal Fade">
         <h3>Royal Fade</h3>
         <div class="price">$29</div>
     </div>
 
 </div>
 
-<!-- ⭐ COMING SOON SECTION -->
-<div class="coming-soon-section">
-    <h2>More Men's Gear Coming Soon</h2>
-
-    <div class="coming-grid">
-
-        <div class="tile">
-            <img src="shirt-icon.png" alt="Polos">
-            <h3>Polos</h3>
-        </div>
-
-        <div class="tile">
-            <img src="shorts-icon.png" alt="Shorts">
-            <h3>Shorts</h3>
-        </div>
-
-        <div class="tile">
-            <img src="hat-icon.png" alt="Hats">
-            <h3>Hats</h3>
-        </div>
-
-    </div>
-</div>
-
-<!-- ⭐ NAV SCROLL BEHAVIOR -->
+<!-- ⭐ SCROLL SCRIPT -->
 <script>
 window.addEventListener("scroll", function () {
     const nav = document.getElementById("mainNav");
@@ -248,6 +230,9 @@ window.addEventListener("scroll", function () {
     else nav.classList.remove("scrolled");
 });
 </script>
+
+<!-- ⭐ 360 VIEWER SCRIPT HOOK (we will generate full viewer.js next) -->
+<script src="viewer.js"></script>
 
 </body>
 </html>
