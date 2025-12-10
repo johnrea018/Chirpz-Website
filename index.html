@@ -1,331 +1,1537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chirpz Golf</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chirpz Golf – Let the gear do the talking.</title>
 
-<!-- GOOGLE FONT: INTER -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- GOOGLE FONT: INTER -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-<style>
-    body {
-        margin: 0;
-        background-color: #fff8e8;
-        font-family: 'Inter', sans-serif;
-    }
-
-    /* --------------------------------------------------
-       ⭐ GLOBAL SNOWFALL (Improved)
-       -------------------------------------------------- */
-    .snow-layer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 999999;
-        overflow: hidden;
-    }
-
-    .snowflake {
-        position: absolute;
-        top: -10px;
-        color: white;
-        opacity: 0.75;
-        filter: blur(1px);
-        animation-name: snowFall;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-    }
-
-    @keyframes snowFall {
-        0% {
-            transform: translateY(-10vh) translateX(0);
-            opacity: 0.2;
+    <style>
+        :root {
+            --bg-main: #050814;
+            --bg-soft: #0c1224;
+            --bg-card: #101729;
+            --accent: #4ea3ff;
+            --accent-soft: rgba(78, 163, 255, 0.23);
+            --text-main: #f5f7ff;
+            --text-muted: #9ca9c9;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --nav-blur-bg: rgba(5, 8, 20, 0.7);
+            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+            --radius-lg: 22px;
+            --radius-md: 14px;
+            --transition-fast: 0.18s ease-out;
+            --transition-med: 0.32s ease-out;
         }
-        50% {
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #1b2750 0%, #050814 55%, #02030a 100%);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* -------------------------------
+           NAVBAR
+        --------------------------------*/
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 14px 7vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(18px);
+            background: var(--nav-blur-bg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 30% 0%, #4ea3ff 0%, #0c1224 40%, #050814 100%);
+            box-shadow: 0 0 20px rgba(78, 163, 255, 0.45);
+            overflow: hidden;
+        }
+
+        .nav-logo img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .nav-brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            font-size: 13px;
+        }
+
+        .brand-sub {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.19em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .nav-links a {
+            position: relative;
+            color: var(--text-muted);
+            padding-bottom: 3px;
+            transition: color var(--transition-fast);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition-fast);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-cta-btn {
+            font-size: 12px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            background: radial-gradient(circle at 10% 0%, rgba(78, 163, 255, 0.95), #224879);
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+            box-shadow: 0 9px 24px rgba(78, 163, 255, 0.35);
+        }
+
+        .nav-cta-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(78, 163, 255, 0.55);
+        }
+
+        .nav-cta-ghost {
+            font-size: 12px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            cursor: pointer;
+            background: rgba(8, 12, 30, 0.6);
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .nav-cta-ghost:hover {
+            background: rgba(13, 20, 46, 0.95);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .nav-toggle {
+            display: none;
+            width: 26px;
+            height: 18px;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            height: 2px;
+            border-radius: 99px;
+            background: var(--text-main);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .nav {
+                padding-inline: 5vw;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav.open .nav-links,
+            .nav.open .nav-cta {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: radial-gradient(circle at top, #141a37 0%, #050814 60%);
+                padding: 16px 6vw 18px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .nav.open .nav-cta {
+                flex-direction: row;
+                justify-content: flex-start;
+                margin-top: 6px;
+            }
+        }
+
+        /* -------------------------------
+           HERO
+        --------------------------------*/
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 110px 8vw 90px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+            }
+        }
+
+        .hero-left-eyebrow {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 4.3vw, 54px);
+            line-height: 1.05;
+            margin: 0 0 14px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(120deg, #ffffff, #7ec6ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-tagline {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+            max-width: 420px;
+        }
+
+        .hero-tagline strong {
+            color: var(--text-main);
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .chip {
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            background: rgba(10, 16, 38, 0.85);
+        }
+
+        .chip.accent {
+            border-color: rgba(78, 163, 255, 0.8);
+            background: radial-gradient(circle at 10% 10%, rgba(78, 163, 255, 0.4), rgba(9, 13, 32, 0.95));
+            color: #e7f3ff;
+        }
+
+        .hero-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .btn-pill {
+            border-radius: 999px;
+            padding: 11px 22px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: radial-gradient(circle at 0% 0%, rgba(78, 163, 255, 0.95), #1b345c);
+            border-color: rgba(78, 163, 255, 0.9);
+            box-shadow: 0 12px 32px rgba(78, 163, 255, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 36px rgba(78, 163, 255, 0.65);
+        }
+
+        .btn-ghost {
+            background: rgba(8, 11, 29, 0.9);
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(10, 16, 38, 1);
+        }
+
+        .hero-footnote {
+            font-size: 11px;
+            color: var(--text-muted);
+            max-width: 360px;
+        }
+
+        .hero-footnote span {
+            color: #d3e4ff;
+        }
+
+        .hero-right {
+            position: relative;
+        }
+
+        .hero-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            background:
+                radial-gradient(circle at 10% 0%, rgba(78, 163, 255, 0.22), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.08), transparent 60%),
+                linear-gradient(135deg, #050814, #101729);
+            padding: 20px 20px 24px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+        }
+
+        .hero-glow-orb {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(78, 163, 255, 0.4), transparent 60%);
+            top: -60px;
+            right: -80px;
+            filter: blur(4px);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .hero-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag-launch {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.19em;
+            color: var(--text-muted);
+        }
+
+        .tag-launch strong {
+            color: #eaf2ff;
+        }
+
+        .pill-soft {
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(5, 8, 20, 0.9);
+            color: var(--text-muted);
+        }
+
+        .hero-product-shell {
+            position: relative;
+            border-radius: calc(var(--radius-lg) - 6px);
+            padding: 18px;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(78, 163, 255, 0.25), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.09), transparent 60%),
+                linear-gradient(140deg, #050814, #0d1425);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.9fr);
+            gap: 12px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        @media (max-width: 600px) {
+            .hero-product-shell {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-product-visual {
+            position: relative;
+            min-height: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-product-visual-inner {
+            position: relative;
+            width: 100%;
+            max-width: 260px;
+            aspect-ratio: 4/5;
+            border-radius: 30px;
+            background: radial-gradient(circle at 20% 0%, rgba(78, 163, 255, 0.35), rgba(5, 8, 20, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            transform: rotate(-6deg);
+            transform-origin: 60% 80%;
+            transition: transform var(--transition-med), box-shadow var(--transition-med);
+            cursor: pointer;
+        }
+
+        .hero-product-visual-inner:hover {
+            transform: rotate(0deg) translateY(-4px);
+            box-shadow: 0 32px 68px rgba(0, 0, 0, 0.96);
+        }
+
+        .hero-product-visual-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-product-floating-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            background: rgba(5, 8, 20, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: var(--text-muted);
+        }
+
+        .hero-product-floating-price {
+            position: absolute;
+            bottom: 12px;
+            right: 14px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(8, 16, 40, 0.9);
+            border: 1px solid rgba(78, 163, 255, 0.8);
+            font-size: 11px;
+        }
+
+        .hero-product-floating-price strong {
+            color: #eaf3ff;
+        }
+
+        .hero-product-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hero-product-meta span.accent {
+            color: #cfe4ff;
+        }
+
+        .hero-product-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hero-product-name {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+            color: #c4d5ff;
+        }
+
+        .hero-product-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .hero-product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .hero-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+
+        .hero-pill-mini {
+            font-size: 10px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(5, 8, 20, 0.95);
+            color: var(--text-muted);
+        }
+
+        .hero-product-cta {
+            margin-top: 8px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-product-cta button {
+            flex: 1;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .hero-micro {
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .hero-micro span {
+            color: #e2f0ff;
+        }
+
+        .soft-grid-lines::before,
+        .soft-grid-lines::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .soft-grid-lines::before {
+            background-image: linear-gradient(
+                    rgba(255, 255, 255, 0.04) 1px,
+                    transparent 1px
+            );
+            background-size: 100% 42px;
+            mix-blend-mode: soft-light;
+        }
+
+        .soft-grid-lines::after {
+            background-image: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px
+            );
+            background-size: 42px 100%;
+            mix-blend-mode: soft-light;
+        }
+
+        /* -------------------------------
+           LAUNCH BILLBOARD
+        --------------------------------*/
+        .section {
+            padding: 22px 8vw 70px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 18px;
+            gap: 16px;
+        }
+
+        .section-eyebrow {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.19em;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .billboard {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .billboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .billboard-card {
+            border-radius: var(--radius-lg);
+            padding: 20px 20px 18px;
+            background:
+                radial-gradient(circle at 10% 0%, rgba(78, 163, 255, 0.32), transparent 50%),
+                radial-gradient(circle at 90% 110%, rgba(255, 255, 255, 0.1), transparent 60%),
+                linear-gradient(135deg, #050814, #0f1627);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .billboard-grid-lines::before,
+        .billboard-grid-lines::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .billboard-grid-lines::before {
+            background-image: linear-gradient(
+                    rgba(255, 255, 255, 0.04) 1px,
+                    transparent 1px
+            );
+            background-size: 100% 56px;
+            mix-blend-mode: soft-light;
+        }
+
+        .billboard-grid-lines::after {
+            background-image: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px
+            );
+            background-size: 56px 100%;
+            mix-blend-mode: soft-light;
+        }
+
+        .billboard-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .billboard-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.19em;
+            color: var(--text-muted);
+        }
+
+        .billboard-tag span {
+            color: #f4f6ff;
+        }
+
+        .billboard-timer-pill {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(5, 8, 20, 0.92);
+            color: var(--text-muted);
+        }
+
+        .billboard-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 16px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 700px) {
+            .billboard-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .billboard-copy-title {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .billboard-copy-title span {
+            color: #8dc7ff;
+        }
+
+        .billboard-copy-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .billboard-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .pill-outline {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            border-radius: 999px;
+            padding: 5px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: var(--text-muted);
+            background: rgba(6, 10, 26, 0.95);
+        }
+
+        .billboard-cta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .billboard-cta-row .btn-pill {
+            flex: 1;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .billboard-price-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .billboard-price-note span {
+            color: #d7e7ff;
+        }
+
+        .billboard-visual-wrap {
+            position: relative;
+            min-height: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .billboard-visual {
+            position: relative;
+            width: 100%;
+            max-width: 260px;
+            aspect-ratio: 4/5;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 30% 0%, rgba(78, 163, 255, 0.4), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.18), transparent 60%),
+                linear-gradient(145deg, #050814, #101729);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center;
+            transform: perspective(900px) rotateY(-14deg);
+            transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+        }
+
+        .billboard-visual:hover {
+            transform: perspective(900px) rotateY(-3deg) translateY(-3px);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.95);
+            border-color: rgba(78, 163, 255, 0.9);
+        }
+
+        .billboard-visual img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+        }
+
+        .billboard-floating {
+            position: absolute;
+            left: -26px;
+            bottom: 10px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(5, 8, 20, 0.98);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .billboard-floating strong {
+            color: #e6f0ff;
+        }
+
+        .billboard-spark {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(78, 163, 255, 0.5), transparent 60%);
+            filter: blur(3px);
+            opacity: 0.9;
+        }
+
+        .billboard-sidecard {
+            border-radius: var(--radius-lg);
+            padding: 16px 16px 14px;
+            background: rgba(6, 10, 26, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidecard-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .sidecard-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 7px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sidecard-list li::before {
+            content: "•";
+            color: var(--accent);
+            margin-right: 6px;
+        }
+
+        .sidecard-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .sidecard-pill {
+            font-size: 10px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(7, 11, 28, 0.98);
+            color: var(--text-muted);
+        }
+
+        /* -------------------------------
+           FEATURED PRODUCTS
+        --------------------------------*/
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        @media (max-width: 1000px) {
+            .products-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-card {
+            border-radius: var(--radius-md);
+            padding: 12px 12px 14px;
+            background: linear-gradient(150deg, rgba(9, 13, 32, 0.98), #050814);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9);
+            border-color: rgba(78, 163, 255, 0.7);
+        }
+
+        .product-media {
+            border-radius: 12px;
+            overflow: hidden;
+            background: radial-gradient(circle at 20% 0%, rgba(78, 163, 255, 0.28), rgba(5, 8, 20, 1));
+            aspect-ratio: 4/5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
+        .product-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .product-meta-row span.price {
+            color: #dfeaff;
+            font-weight: 600;
+        }
+
+        .product-tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 10px;
+        }
+
+        .tag-soft {
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(5, 8, 20, 0.98);
+            color: var(--text-muted);
+        }
+
+        /* -------------------------------
+           STORY STRIP
+        --------------------------------*/
+        .story-strip {
+            border-radius: var(--radius-lg);
+            padding: 22px 20px;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(78, 163, 255, 0.16), transparent 55%),
+                linear-gradient(145deg, #050814, #11182a);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 16px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .story-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .story-heading {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .story-body {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 480px;
+        }
+
+        .story-quote {
+            font-size: 12px;
+            color: #d9e5ff;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .story-icons {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .story-icon-card {
+            border-radius: 16px;
+            padding: 12px 11px 11px;
+            background: rgba(7, 11, 28, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .icon-label {
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #dfe6ff;
+        }
+
+        /* -------------------------------
+           FOOTER
+        --------------------------------*/
+        footer {
+            padding: 26px 8vw 26px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(2, 3, 9, 0.95);
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 11px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer-pill {
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(5, 8, 20, 0.98);
+        }
+
+        /* -------------------------------
+           UTILS
+        --------------------------------*/
+        .fade-on-scroll {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .fade-on-scroll.visible {
             opacity: 1;
+            transform: translateY(0);
         }
-        100% {
-            transform: translateY(110vh) translateX(20px);
-            opacity: 0.3;
-        }
-    }
-
-    /* --------------------------------------------------
-       ⭐ FLOATING HEADER NAV
-       -------------------------------------------------- */
-    nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 20;
-        display: flex;
-        justify-content: center;
-        gap: 60px;
-        padding: 28px 0;
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 0.4px;
-        transition: background-color 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
-        background: transparent;
-    }
-
-    nav a {
-        position: relative;
-        color: white;
-        text-decoration: none;
-        transition: 0.3s ease;
-    }
-
-    nav a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -6px;
-        width: 0%;
-        height: 2px;
-        background-color: white;
-        transition: width 0.3s ease;
-    }
-
-    nav a:hover::after { width: 100%; }
-    nav a:hover { transform: translateY(-2px); opacity: 0.85; }
-
-    nav.scrolled {
-        background-color: white;
-        padding: 14px 0;
-        box-shadow: 0px 4px 16px rgba(0,0,0,0.12);
-    }
-
-    nav.scrolled a {
-        color: #1c2b38;
-    }
-
-    nav.scrolled a::after {
-        background-color: #1c2b38;
-    }
-
-    /* --------------------------------------------------
-       ⭐ LOGO ANIMATION
-       -------------------------------------------------- */
-    #logo {
-        width: 260px;
-        max-width: 60%;
-        margin-top: 30px;
-        opacity: 0;
-        animation: chirpzFadeIn 1s ease-out forwards;
-        animation-delay: 0.25s;
-        transition: transform 0.35s ease;
-    }
-
-    @keyframes chirpzFadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* --------------------------------------------------
-       ⭐ HERO SECTION
-       -------------------------------------------------- */
-    .hero {
-        position: relative;
-        width: 100%;
-        background-image: url('hero-wide.png');
-        background-size: cover;
-        background-position: center;
-        padding: 120px 20px 160px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    .hero::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 32%;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0));
-        z-index: 1;
-    }
-
-    .hero h1,
-    .hero button,
-    #logo {
-        position: relative;
-        z-index: 2;
-    }
-
-    .hero h1 {
-        font-size: 42px;
-        font-weight: 800;
-        color: white;
-        margin-top: 25px;
-        text-shadow: 0px 3px 10px rgba(0,0,0,0.45);
-    }
-
-    .hero button {
-        padding: 15px 42px;
-        font-size: 20px;
-        font-weight: 700;
-        border-radius: 40px;
-        border: none;
-        background-color: #0a3c5f;
-        color: white;
-        margin-top: 26px;
-        transition: 0.25s ease;
-        box-shadow: 0px 4px 12px rgba(0,0,0,0.22);
-    }
-
-    .hero button:hover {
-        background-color: #0c5080;
-        transform: translateY(-2px);
-    }
-
-    /* --------------------------------------------------
-       ⭐ PREMIUM SHOWROOM
-       -------------------------------------------------- */
-    .showroom-container {
-        max-width: 1200px;
-        margin: 120px auto 80px;
-        padding: 0 20px;
-        text-align: center;
-    }
-
-    .big-feature {
-        background: white;
-        border-radius: 18px;
-        padding: 50px;
-        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
-        margin-bottom: 60px;
-        transition: transform 0.3s ease;
-    }
-
-    .big-feature:hover {
-        transform: translateY(-6px);
-    }
-
-    .big-feature img {
-        width: 55%;
-        max-width: 420px;
-        filter: drop-shadow(0px 6px 14px rgba(0,0,0,0.18));
-    }
-
-    .big-feature-title {
-        font-size: 32px;
-        font-weight: 800;
-        margin-top: 25px;
-    }
-
-    .feature-grid {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        flex-wrap: wrap;
-    }
-
-    .tile {
-        width: 260px;
-        background: white;
-        padding: 30px;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
-        transition: transform 0.25s ease;
-    }
-
-    .tile:hover {
-        transform: translateY(-6px);
-    }
-
-    .tile img {
-        width: 120px;
-        opacity: 0.9;
-    }
-
-    .tile h3 { margin-top: 18px; font-size: 20px; font-weight: 700; }
-
-    @media (max-width: 768px) {
-        nav { gap: 30px; font-size: 15px; }
-        #logo { width: 200px; }
-        .big-feature img { width: 80%; }
-        .tile { width: 80%; }
-    }
-</style>
+    </style>
 </head>
-
 <body>
 
-<!-- ⭐ GLOBAL SNOWFALL -->
-<div class="snow-layer"></div>
+<header class="nav" id="nav">
+    <div class="nav-left">
+        <div class="nav-logo">
+            <!-- TODO: Swap with your bird logo file -->
+            <img src="images/chirpz-bird-logo-white.png" alt="Chirpz logo">
+        </div>
+        <div class="nav-brand-text">
+            <div class="brand-name">CHIRPZ GOLF</div>
+            <div class="brand-sub">Let the gear do the talking.</div>
+        </div>
+    </div>
+
+    <nav class="nav-links">
+        <a href="#launch">Launch</a>
+        <a href="#shop">Shop</a>
+        <a href="#men">Men</a>
+        <a href="#women">Women</a>
+        <a href="#story">Our Story</a>
+    </nav>
+
+    <div class="nav-cta">
+        <button class="nav-cta-ghost" onclick="scrollToId('shop')">Browse Gloves</button>
+        <button class="nav-cta-btn" onclick="scrollToId('launch')">Preorder Now</button>
+    </div>
+
+    <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+    </div>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-left fade-on-scroll">
+            <div class="hero-left-eyebrow">Premium golf gloves</div>
+            <h1 class="hero-title">
+                <span>Let the gear</span><br>
+                do the talking.
+            </h1>
+            <p class="hero-tagline">
+                Built for the players who don’t need to flex on the tee box –
+                <strong>your swing and your glove say enough.</strong>
+            </p>
+
+            <div class="hero-badges">
+                <div class="chip accent">Launch Collection</div>
+                <div class="chip">Limited Preorder Run</div>
+                <div class="chip">Men &amp; Women</div>
+            </div>
+
+            <div class="hero-cta-row">
+                <button class="btn-pill btn-primary" onclick="scrollToId('shop')">
+                    Shop Gloves
+                </button>
+                <button class="btn-pill btn-ghost" onclick="scrollToId('launch')">
+                    View Launch Details
+                </button>
+            </div>
+
+            <p class="hero-footnote">
+                <span>No loud logos. No gimmicks.</span> Just clean gear, built to feel
+                like an extension of your hand.
+            </p>
+        </div>
+
+        <div class="hero-right fade-on-scroll">
+            <div class="hero-card soft-grid-lines">
+                <div class="hero-glow-orb"></div>
+
+                <div class="hero-card-top">
+                    <div class="tag-launch">Chirpz • <strong>Launch Drop</strong></div>
+                    <div class="pill-soft">Holiday Preorders Open</div>
+                </div>
+
+                <div class="hero-product-shell">
+                    <div class="hero-product-visual">
+                        <div class="hero-product-visual-inner">
+                            <!-- TODO: swap this mock with your main hero glove image -->
+                            <img src="images/chirpz-hero-glove.png" alt="Chirpz launch glove">
+                            <div class="hero-product-floating-label">Launch Edition</div>
+                            <div class="hero-product-floating-price">
+                                <strong>$20</strong> first pair<br>
+                                <span style="font-size:10px; color:var(--text-muted);">Reg. $25</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-product-copy">
+                        <div class="hero-product-name">Chirpz • Signature</div>
+                        <div class="hero-product-title">Launch Collection Golf Glove</div>
+                        <div class="hero-product-desc">
+                            Soft, grippy, and low-key aggressive. Designed for all-day comfort
+                            with a profile that looks as good in the bag as it does at impact.
+                        </div>
+                        <div class="hero-pill-row">
+                            <div class="hero-pill-mini">Tour-inspired fit</div>
+                            <div class="hero-pill-mini">Featherweight feel</div>
+                            <div class="hero-pill-mini">Sweat-resistant grip</div>
+                        </div>
+                        <div class="hero-product-cta">
+                            <button class="btn-pill btn-primary" onclick="scrollToId('launch')">
+                                Preorder Launch
+                            </button>
+                            <button class="btn-pill btn-ghost" onclick="scrollToId('shop')">
+                                View All Gloves
+                            </button>
+                        </div>
+                        <div class="hero-micro">
+                            Ships in waves • <span>Limited quantities</span> for the first run.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LAUNCH BILLBOARD -->
+    <section class="section" id="launch">
+        <div class="section-header fade-on-scroll">
+            <div>
+                <div class="section-eyebrow">Launch billboard</div>
+                <div class="section-title">Launch Sale • First Pair $20</div>
+            </div>
+            <div class="section-sub">
+                Inspired by the Primo style you love — a clean digital billboard that
+                feels like a premium drop, not a clearance rack.
+            </div>
+        </div>
+
+        <div class="billboard">
+            <div class="billboard-card billboard-grid-lines fade-on-scroll">
+                <div class="billboard-top-row">
+                    <div class="billboard-tag">
+                        Holiday Drop • <span>Live</span>
+                    </div>
+                    <div class="billboard-timer-pill">
+                        Limited Stock • Preorder Now
+                    </div>
+                </div>
+
+                <div class="billboard-main">
+                    <div>
+                        <div class="billboard-copy-title">
+                            Launch Sale: <span>$20</span> for your first pair
+                        </div>
+                        <div class="billboard-copy-sub">
+                            Lock in launch pricing before the shelves fill and the price
+                            goes back to $25. Same premium build, just a little love for
+                            the early believers.
+                        </div>
+
+                        <div class="billboard-pill-row">
+                            <div class="pill-outline">Intro price</div>
+                            <div class="pill-outline">Men &amp; Women</div>
+                            <div class="pill-outline">Multiple colorways</div>
+                        </div>
+
+                        <div class="billboard-cta-row">
+                            <button class="btn-pill btn-primary" onclick="scrollToId('shop')">
+                                Shop the Drop
+                            </button>
+                            <button class="btn-pill btn-ghost" onclick="scrollToId('story')">
+                                Why Chirpz?
+                            </button>
+                        </div>
+
+                        <div class="billboard-price-note">
+                            Launch pricing applies to the first pair in your order.
+                            <span>Additional gloves billed at the standard $25.</span>
+                        </div>
+                    </div>
+
+                    <div class="billboard-visual-wrap">
+                        <div class="billboard-visual" id="billboardVisual">
+                            <!-- TODO: Replace with your billboard-style art (no glove, or glove + art) -->
+                            <img src="images/chirpz-billboard-art.png" alt="Chirpz launch billboard">
+                            <div class="billboard-spark"></div>
+                        </div>
+                        <div class="billboard-floating">
+                            Designed to resemble the Primo-style animated billboard – but
+                            all <strong>Chirpz</strong>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="billboard-sidecard fade-on-scroll">
+                <div class="sidecard-title">Drop details at a glance</div>
+                <ul class="sidecard-list">
+                    <li>First production run with limited quantities.</li>
+                    <li>Sizes for both men and women right out of the gate.</li>
+                    <li>Colorways built to match modern golf fits.</li>
+                    <li>Preorders ship in the order they’re placed.</li>
+                </ul>
+                <div class="sidecard-pill-row">
+                    <div class="sidecard-pill">True-to-size fit</div>
+                    <div class="sidecard-pill">Designed by golfers</div>
+                    <div class="sidecard-pill">Premium feel</div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS / SHOP -->
+    <section class="section" id="shop">
+        <div class="section-header fade-on-scroll">
+            <div>
+                <div class="section-eyebrow">Shop the drop</div>
+                <div class="section-title">Featured Gloves</div>
+            </div>
+            <div class="section-sub">
+                Clean, modern designs with subtle personality. No screaming colors —
+                unless you want them.
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1: Men’s flagship -->
+            <article class="product-card fade-on-scroll" id="men">
+                <div class="product-media">
+                    <!-- TODO: Replace with your men’s flagship glove image -->
+                    <img src="images/chirpz-mens-flagship.png" alt="Chirpz Men's Signature Glove">
+                </div>
+                <div class="product-top-row">
+                    <span>Men’s</span>
+                    <span>Signature</span>
+                </div>
+                <h3 class="product-title">Chirpz Signature – Men’s</h3>
+                <div class="product-meta-row">
+                    <span>White / Stealth accents</span>
+                    <span class="price">$25</span>
+                </div>
+                <div class="product-tag-row">
+                    <div class="tag-soft">Every-round comfort</div>
+                    <div class="tag-soft">Tour-inspired</div>
+                </div>
+            </article>
+
+            <!-- Product 2: Women’s lavender -->
+            <article class="product-card fade-on-scroll" id="women">
+                <div class="product-media">
+                    <!-- TODO: Replace with your lavender women’s glove image -->
+                    <img src="images/chirpz-womens-lavender.png" alt="Chirpz Women's Lavender Glove">
+                </div>
+                <div class="product-top-row">
+                    <span>Women’s</span>
+                    <span>Launch colorway</span>
+                </div>
+                <h3 class="product-title">Chirpz Breeze – Lavender</h3>
+                <div class="product-meta-row">
+                    <span>Lavender / White logo</span>
+                    <span class="price">$25</span>
+                </div>
+                <div class="product-tag-row">
+                    <div class="tag-soft">Lightweight</div>
+                    <div class="tag-soft">Soft &amp; grippy</div>
+                </div>
+            </article>
+
+            <!-- Product 3: Future color / limited -->
+            <article class="product-card fade-on-scroll">
+                <div class="product-media">
+                    <!-- TODO: Replace with your third glove image -->
+                    <img src="images/chirpz-limited-color.png" alt="Chirpz Limited Colorway">
+                </div>
+                <div class="product-top-row">
+                    <span>Limited</span>
+                    <span>Coming soon</span>
+                </div>
+                <h3 class="product-title">Chirpz Limited – Drop 002</h3>
+                <div class="product-meta-row">
+                    <span>Colorway TBD</span>
+                    <span class="price">Soon</span>
+                </div>
+                <div class="product-tag-row">
+                    <div class="tag-soft">Small batch</div>
+                    <div class="tag-soft">Collectors</div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- STORY / BRAND SECTION -->
+    <section class="section" id="story">
+        <div class="story-strip fade-on-scroll">
+            <div>
+                <div class="section-eyebrow">Our story</div>
+                <h2 class="story-heading">Built by a golfer who got tired of loud gear.</h2>
+                <p class="story-body">
+                    Chirpz started with one simple idea: your glove shouldn’t look like a
+                    billboard. It should feel unreal, last longer than a single hot round,
+                    and quietly match the rest of your fit. No giant cartoon logos, no
+                    weird plastics — just gear that plays as clean as it looks.
+                </p>
+                <p class="story-quote">
+                    “Let the gear do the talking” isn’t just a tagline. It’s the filter
+                    for every design decision we make.
+                </p>
+            </div>
+
+            <div class="story-icons">
+                <div class="story-icon-card">
+                    <div class="icon-label">Featherweight feel</div>
+                    <div>
+                        Thin, premium-feeling material designed to move with your hand,
+                        not fight against it.
+                    </div>
+                </div>
+                <div class="story-icon-card">
+                    <div class="icon-label">Locked-in grip</div>
+                    <div>
+                        Built to keep the club stable without feeling sticky or bulky.
+                    </div>
+                </div>
+                <div class="story-icon-card">
+                    <div class="icon-label">Modern minimal</div>
+                    <div>
+                        Subtle branding, clean colorways, and artwork that doesn’t fight
+                        your outfit.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-left">
+        <div>© <span id="year"></span> Chirpz Golf. All rights reserved.</div>
+        <div class="footer-links">
+            <a href="#launch">Launch</a>
+            <a href="#shop">Shop</a>
+            <a href="#story">Our Story</a>
+        </div>
+    </div>
+    <div class="footer-right">
+        <div class="footer-social">
+            <!-- TODO: swap "#" with your real social links -->
+            <a href="#" class="footer-pill">Instagram</a>
+            <a href="#" class="footer-pill">TikTok</a>
+            <a href="#" class="footer-pill">Snapchat</a>
+        </div>
+    </div>
+</footer>
 
 <script>
-    // Generate 50 dynamic snowflakes
-    const snowContainer = document.querySelector(".snow-layer");
-    for (let i = 0; i < 50; i++) {
-        const flake = document.createElement("div");
-        flake.className = "snowflake";
-        flake.textContent = "•";
-        flake.style.left = Math.random() * 100 + "vw";
-        flake.style.animationDuration = 4 + Math.random() * 6 + "s";
-        flake.style.animationDelay = Math.random() * 5 + "s";
-        flake.style.fontSize = (12 + Math.random() * 10) + "px";
-        snowContainer.appendChild(flake);
+    // Mobile nav toggle
+    const nav = document.getElementById('nav');
+    const navToggle = document.getElementById('navToggle');
+
+    navToggle.addEventListener('click', () => {
+        nav.classList.toggle('open');
+    });
+
+    // Smooth scroll helper
+    function scrollToId(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const yOffset = -72; // account for fixed nav
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
     }
-</script>
 
-<!-- ⭐ NAVIGATION -->
-<nav id="mainNav">
-    <a href="shop.html">SHOP</a>
-    <a href="men.html">MEN</a>
-    <a href="women.html">WOMEN</a>
-    <a href="ourstory.html">OUR STORY</a>
-</nav>
+    // Fade-on-scroll
+    const fadeEls = document.querySelectorAll('.fade-on-scroll');
 
-<!-- ⭐ HERO SECTION -->
-<div class="hero">
-    <img id="logo" src="chirpz-logo.png" alt="Chirpz Logo">
-    <h1>LET THE GEAR DO THE TALKING</h1>
-    <button onclick="location.href='shop.html'">Shop Now</button>
-</div>
+    function handleScrollFade() {
+        const trigger = window.innerHeight * 0.9;
+        fadeEls.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < trigger) {
+                el.classList.add('visible');
+            }
+        });
+    }
 
-<!-- ⭐ PREMIUM SHOWROOM -->
-<div class="showroom-container">
-    <div class="big-feature">
-        <img src="glove-placeholder.png" alt="Chirpz Tour Glove">
-        <div class="big-feature-title">Chirpz Signature Tour Glove</div>
-        <p style="font-size:18px;opacity:0.7;margin-top:8px;">Engineered for feel. Designed for swagger.</p>
-    </div>
+    window.addEventListener('scroll', handleScrollFade);
+    window.addEventListener('load', handleScrollFade);
 
-    <div class="feature-grid">
-        <div class="tile">
-            <img src="shirt-icon.png" alt="Polos">
-            <h3>Polos (Coming Soon)</h3>
-        </div>
+    // Simple parallax-ish tilt on billboard (using mouse position)
+    const billboardVisual = document.getElementById('billboardVisual');
+    if (billboardVisual) {
+        billboardVisual.addEventListener('mousemove', (e) => {
+            const rect = billboardVisual.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const rotateY = -12 * x;
+            const rotateX = 6 * y;
+            billboardVisual.style.transform =
+                `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+        });
 
-        <div class="tile">
-            <img src="shorts-icon.png" alt="Shorts">
-            <h3>Shorts (Coming Soon)</h3>
-        </div>
+        billboardVisual.addEventListener('mouseleave', () => {
+            billboardVisual.style.transform =
+                'perspective(900px) rotateY(-14deg)';
+        });
+    }
 
-        <div class="tile">
-            <img src="hat-icon.png" alt="Hats">
-            <h3>Hats (Coming Soon)</h3>
-        </div>
-    </div>
-</div>
-
-<!-- ⭐ SCROLL SCRIPT -->
-<script>
-window.addEventListener("scroll", function () {
-    const nav = document.getElementById("mainNav");
-    if (window.scrollY > 80) nav.classList.add("scrolled");
-    else nav.classList.remove("scrolled");
-});
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
 </body>
