@@ -6,10 +6,10 @@
   <title>Chirpz Golf – Let the gear do the talking.</title>
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="favicon.png" />
-  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
 
+  <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -26,33 +26,24 @@
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Inter", sans-serif;
       background: var(--bg-page);
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
     }
-
     img { max-width: 100%; display: block; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* ---------------- NAV ---------------- */
-
+    /* NAV */
     .nav-shell {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid #f3f4f6;
     }
-
     .nav {
       max-width: 1120px;
       margin: 0 auto;
@@ -60,321 +51,72 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
     }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     .nav-logo-img {
-      width: 34px;
-      height: 34px;
+      width: 34px; height: 34px;
       border-radius: 50%;
       background: #ecfdf5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
-
-    .nav-logo-img img {
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
+    .nav-brand .brand-title {
+      font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
     }
-
-    .nav-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    .nav-brand .brand-tagline {
+      font-size: 11px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase;
     }
-
-    .brand-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .brand-tagline {
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      display: flex; gap: 20px; font-size: 13px; text-transform: uppercase;
     }
 
-    .nav-links a {
-      position: relative;
-      padding-bottom: 2px;
-      color: var(--text-muted);
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.18s ease-out;
-    }
-
-    .nav-links a:hover {
-      color: var(--text-main);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn-nav {
-      border-radius: var(--radius-soft);
-      padding: 8px 14px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      border: 1px solid #d1d5db;
-      background: white;
-      cursor: pointer;
-    }
-
-    .btn-nav-primary {
-      background: #16a34a;
-      border-color: #15803d;
-      color: white;
-    }
-
-    .btn-nav-primary:hover {
-      background: #15803d;
-    }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-    }
-
-    .nav-toggle span {
-      width: 20px;
-      height: 2px;
-      background: #111827;
-      border-radius: 999px;
-    }
-
-    @media (max-width: 840px) {
-      .nav-links,
-      .nav-cta {
-        display: none;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
-      .nav-shell.open .nav-links,
-      .nav-shell.open .nav-cta {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 20px 12px;
-        border-top: 1px solid #e5e7eb;
-        background: white;
-      }
-
-      .nav-shell.open .nav {
-        flex-wrap: wrap;
-      }
-
-      .nav-shell.open .nav-cta {
-        flex-direction: row;
-      }
-    }
-
-    /* ----------- ILLUSTRATED HEADER STRIP ----------- */
-
+    /* HEADER ART */
     .art-strip {
       width: 100%;
       background: #fefcf3;
       border-bottom: 1px solid #f3f4f6;
     }
-
     .art-strip-inner {
       max-width: 1120px;
-      margin: 0 auto;
       height: 130px;
-      padding-inline: 20px;
+      margin: 0 auto;
       overflow: hidden;
+      padding: 0 20px;
       border-radius: 0 0 18px 18px;
     }
-
     .art-strip-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: saturate(1.05);
     }
 
-    /* ----------------- LAYOUT UTILS ----------------- */
-
+    /* MAIN LAYOUT */
     main {
       max-width: 1120px;
       margin: 0 auto;
       padding: 30px 20px 60px;
     }
-
     .section {
-      padding-block: 36px;
+      padding: 36px 0;
       border-bottom: 1px solid #f3f4f6;
     }
 
-    .section:last-of-type {
-      border-bottom: none;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: baseline;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .section-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      max-width: 360px;
-    }
-
-    /* ----------------- HERO ----------------- */
-
+    /* HERO */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      grid-template-columns: 1.1fr 1fr;
       gap: 40px;
       align-items: center;
-      padding-top: 26px;
     }
-
-    @media (max-width: 880px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
+    @media(max-width: 900px){
+      .hero { grid-template-columns: 1fr; }
     }
-
     .hero-title {
       font-size: clamp(32px, 4vw, 42px);
-      line-height: 1.05;
       margin: 0 0 12px;
+      line-height: 1.05;
     }
-
-    .hero-title span {
-      color: var(--accent);
-    }
-
-    .hero-text {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 420px;
-      margin-bottom: 18px;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .chip {
-      border-radius: 999px;
-      padding: 6px 12px;
-      border: 1px solid #e5e7eb;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      background: #f9fafb;
-    }
-
-    .chip-accent {
-      background: #ecfdf3;
-      border-color: #bbf7d0;
-      color: #166534;
-    }
-
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .btn-pill {
-      border-radius: 999px;
-      padding: 10px 18px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      border: 1px solid #d1d5db;
-      background: white;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: #16a34a;
-      border-color: #15803d;
-      color: white;
-      box-shadow: 0 14px 30px rgba(22, 163, 74, 0.25);
-    }
-
-    .btn-primary:hover {
-      background: #15803d;
-    }
-
-    .btn-ghost {
-      background: #f9fafb;
-    }
-
-    .hero-note {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
+    .hero-title span { color: var(--accent); }
 
     .hero-right-card {
       border-radius: var(--radius-card);
@@ -383,236 +125,54 @@
       padding: 18px;
       box-shadow: var(--shadow-soft);
     }
-
-    .hero-right-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
     .hero-media-shell {
       border-radius: 18px;
       border: 1px solid #e5e7eb;
-      padding: 14px;
       background: #f9fafb;
+      padding: 14px;
     }
-
     .hero-media-inner {
       border-radius: 16px;
       overflow: hidden;
       background: #000;
     }
 
-    .hero-media-inner img,
-    .hero-media-inner video {
-      width: 100%;
-      display: block;
-    }
-
-    .hero-media-caption {
-      margin-top: 10px;
-      font-size: 12px;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* -------------- GLOVE SHOWCASE -------------- */
-
+    /* GLOVE GRID */
     .glove-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2,1fr);
       gap: 22px;
     }
-
-    @media (max-width: 780px) {
-      .glove-grid {
-        grid-template-columns: 1fr;
-      }
+    @media(max-width: 780px){
+      .glove-grid { grid-template-columns: 1fr; }
     }
-
     .glove-card {
       border-radius: var(--radius-card);
       border: 1px solid #e5e7eb;
       background: white;
+      padding: 16px;
       box-shadow: var(--shadow-soft);
-      padding: 16px 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
 
-    .glove-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .glove-eyebrow {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-    }
-
-    .glove-name {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .glove-media-shell {
-      border-radius: 16px;
-      overflow: hidden;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-    }
-
-    .glove-media-shell img,
-    .glove-media-shell video {
-      width: 100%;
-      display: block;
-    }
-
-    .glove-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 10px;
-      margin-top: 4px;
-    }
-
-    .tag-soft {
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      padding: 3px 8px;
-      background: #f9fafb;
-      color: var(--text-muted);
-    }
-
-    .glove-bottom-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 12px;
-      margin-top: 4px;
-    }
-
-    .price {
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    /* -------------- STORY / ABOUT -------------- */
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
-      gap: 30px;
-    }
-
-    @media (max-width: 880px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .about-text {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .pill {
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      padding: 6px 10px;
-      font-size: 11px;
-      background: #f9fafb;
-      color: var(--text-muted);
-    }
-
-    .about-cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    @media (max-width: 600px) {
-      .about-cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .about-card {
-      border-radius: 16px;
-      border: 1px solid #e5e7eb;
-      background: #f9fafb;
-      padding: 12px 12px 14px;
-      font-size: 12px;
-    }
-
-    .about-card-title {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #111827;
-      font-size: 13px;
-    }
-
-    /* ----------------- FOOTER ----------------- */
-
+    /* FOOTER */
     footer {
       border-top: 1px solid #e5e7eb;
-      padding: 18px 20px 24px;
+      padding: 20px;
       font-size: 12px;
       color: var(--text-muted);
-    }
-
-    .footer-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 11px;
+      text-align: center;
     }
   </style>
 </head>
+
 <body>
 
 <!-- NAV -->
-<div class="nav-shell" id="navShell">
+<div class="nav-shell">
   <div class="nav">
     <div class="nav-left">
       <div class="nav-logo-img">
-        <!-- swap this with your bird logo file -->
-        <!-- <img src="images/chirpz-logo.png" alt="Chirpz logo"> -->
-        <span style="font-size:14px; font-weight:700; letter-spacing:0.12em;">C</span>
+        <img src="images/favicon.png" alt="Chirpz logo">
       </div>
       <div class="nav-brand">
         <div class="brand-title">CHIRPZ GOLF</div>
@@ -625,218 +185,75 @@
       <a href="#gloves">Gloves</a>
       <a href="#about">Our Story</a>
     </nav>
-
-    <div class="nav-cta">
-      <button class="btn-nav" onclick="scrollToId('gloves')">Shop Gloves</button>
-      <button class="btn-nav btn-nav-primary" onclick="scrollToId('hero')">Preorder</button>
-    </div>
-
-    <div class="nav-toggle" id="navToggle">
-      <span></span><span></span><span></span>
-    </div>
   </div>
 </div>
 
-<!-- ILLUSTRATED HEADER STRIP -->
+<!-- HEADER ART -->
 <div class="art-strip">
   <div class="art-strip-inner">
-    <img src="images/header-art.png" alt="Chirpz golf course artwork" class="art-strip-img">
+    <img src="images/header-art.png" class="art-strip-img" alt="Chirpz header art">
   </div>
 </div>
 
 <main>
-  <!-- HERO -->
-  <section class="section" id="hero">
-    <div class="hero">
-      <div>
-        <div class="eyebrow">Launch collection</div>
-        <h1 class="hero-title">
-          Let the gear <span>do the talking.</span>
-        </h1>
-        <p class="hero-text">
-          Clean, modern golf gloves with just enough attitude. Built for players who
-          don’t need loud gear to stand out – your swing and your glove say enough.
-        </p>
 
-        <div class="hero-badges">
-          <div class="chip chip-accent">Launch pricing – $20 first pair</div>
-          <div class="chip">Men &amp; women fits</div>
-          <div class="chip">Limited first run</div>
-        </div>
+<!-- HERO -->
+<section class="section" id="hero">
+  <div class="hero">
 
-        <div class="hero-cta-row">
-          <button class="btn-pill btn-primary" onclick="scrollToId('gloves')">
-            Shop gloves
-          </button>
-          <button class="btn-pill btn-ghost" onclick="scrollToId('about')">
-            Learn about Chirpz
-          </button>
-        </div>
-
-        <p class="hero-note">
-          No giant cartoon logos. No clutter. Just a glove that feels unreal and
-          quietly matches your fit.
-        </p>
-      </div>
-
-      <aside class="hero-right-card">
-        <div class="hero-right-label">Hero glove preview</div>
-        <div class="hero-media-shell">
-          <div class="hero-media-inner">
-            <img src="images/mens-glove-anim.gif" alt="Chirpz animated glove">
-          </div>
-        </div>
-        <div class="hero-media-caption">
-          <span>Upload your favorite animated glove here – this is the “showpiece”.</span>
-          <span>Looks great with 360° or looping animation.</span>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- GLOVE SHOWCASE -->
-  <section class="section" id="gloves">
-    <div class="section-header">
-      <div>
-        <div class="eyebrow">Glove lineup</div>
-        <div class="section-title">Men’s &amp; Women’s animated previews</div>
-      </div>
-      <p class="section-sub">
-        Drop in your animated glove files below. Each card is built to showcase a 360° spin,
-        GIF, or short looping clip while keeping the page clean and Primo-style.
-      </p>
+    <div>
+      <h1 class="hero-title">Let the gear <span>do the talking.</span></h1>
+      <p class="hero-text">Modern gloves with a clean, confident look.</p>
     </div>
 
-    <div class="glove-grid">
-      <!-- MEN -->
-      <article class="glove-card">
-        <div class="glove-header">
-          <div>
-            <div class="glove-eyebrow">Men’s</div>
-            <div class="glove-name">Chirpz Signature – Men’s</div>
-          </div>
-          <div class="price">$25</div>
-        </div>
+    <aside class="hero-right-card">
+      <div class="hero-right-label">Hero glove preview</div>
 
-        <div class="glove-media-shell">
-          <img src="images/mens-glove-anim.gif" alt="Men's animated glove preview">
-        </div>
-
-        <div class="glove-tags">
-          <div class="tag-soft">Tour-inspired fit</div>
-          <div class="tag-soft">Steady grip</div>
-          <div class="tag-soft">Every-round comfort</div>
-        </div>
-
-        <div class="glove-bottom-row">
-          <span>Available in left &amp; right hand.</span>
-          <button class="btn-pill btn-ghost" style="padding:6px 12px; font-size:11px;">View sizing</button>
-        </div>
-      </article>
-
-      <!-- WOMEN -->
-      <article class="glove-card">
-        <div class="glove-header">
-          <div>
-            <div class="glove-eyebrow">Women’s</div>
-            <div class="glove-name">Chirpz Breeze – Lavender</div>
-          </div>
-          <div class="price">$25</div>
-        </div>
-
-        <div class="glove-media-shell">
-          <img src="images/womens-glove-anim.gif" alt="Women's animated glove preview">
-        </div>
-
-        <div class="glove-tags">
-          <div class="tag-soft">Lightweight feel</div>
-          <div class="tag-soft">Lavender + white logo</div>
-          <div class="tag-soft">Designed for all-day play</div>
-        </div>
-
-        <div class="glove-bottom-row">
-          <span>Pairs perfectly with modern on-course fits.</span>
-          <button class="btn-pill btn-ghost" style="padding:6px 12px; font-size:11px;">Join waitlist</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- STORY -->
-  <section class="section" id="about">
-    <div class="section-header">
-      <div>
-        <div class="eyebrow">Our story</div>
-        <div class="section-title">Quiet gear for loud swings.</div>
-      </div>
-    </div>
-
-    <div class="about-grid">
-      <div>
-        <p class="about-text">
-          Chirpz was born from the feeling that most golf gear is either too loud or too
-          boring. We wanted something in between – clean, modern gloves with just enough
-          personality to feel like yours, not a walking billboard for someone else’s logo.
-        </p>
-        <p class="about-text">
-          The rule is simple: if it doesn’t help your swing or your confidence on the tee,
-          it doesn’t make it onto the glove.
-        </p>
-
-        <div class="pill-list">
-          <div class="pill">Subtle branding</div>
-          <div class="pill">Modern color stories</div>
-          <div class="pill">Golfer-designed details</div>
+      <div class="hero-media-shell">
+        <div class="hero-media-inner">
+          <!-- YOUR HERO IMAGE -->
+          <img src="images/hero.png" alt="Chirpz Hero Glove">
         </div>
       </div>
+    </aside>
 
-      <div class="about-cards">
-        <div class="about-card">
-          <div class="about-card-title">Built to feel unreal</div>
-          <div>
-            Thin, premium-feeling materials chosen to move with your hand, not fight it.
-            The goal is simple: forget it’s there until you take it off and realize how
-            locked-in you felt.
-          </div>
-        </div>
-        <div class="about-card">
-          <div class="about-card-title">Made for modern fits</div>
-          <div>
-            Your glove shouldn’t clash with your outfit. Chirpz colorways are designed to
-            sit cleanly with today’s on-course styles – from neutral to bold.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
+
+<!-- GLOVE GRID -->
+<section class="section" id="gloves">
+  <h2 class="section-title">Glove Lineup</h2>
+
+  <div class="glove-grid">
+
+    <!-- MEN -->
+    <article class="glove-card">
+      <h3>Chirpz Signature – Men’s</h3>
+      <img src="images/mens-glove.png" alt="Men’s Chirpz Glove">
+    </article>
+
+    <!-- WOMEN -->
+    <article class="glove-card">
+      <h3>Chirpz Breeze – Women’s</h3>
+      <img src="images/womens-glove.png" alt="Women’s Chirpz Glove">
+    </article>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <h2 class="section-title">Our Story</h2>
+  <p>Clean, modern gloves designed for golfers who prefer quiet confidence.</p>
+</section>
+
 </main>
 
 <footer>
-  <div class="footer-inner">
-    <div>© <span id="year"></span> Chirpz Golf. All rights reserved.</div>
-    <div class="footer-links">
-      <a href="#hero">Home</a>
-      <a href="#gloves">Gloves</a>
-      <a href="#about">Our Story</a>
-    </div>
-  </div>
+  © <span id="year"></span> Chirpz Golf. All rights reserved.
 </footer>
 
 <script>
-  const navShell = document.getElementById("navShell");
-  const navToggle = document.getElementById("navToggle");
-
-  navToggle.addEventListener("click", () => {
-    navShell.classList.toggle("open");
-  });
-
-  function scrollToId(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  }
-
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
