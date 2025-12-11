@@ -22,9 +22,8 @@
   --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  margin: 0;
   font-family: "Inter", sans-serif;
   background: var(--bg-page);
   color: var(--text-main);
@@ -35,7 +34,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 200;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #e5e7eb;
 }
@@ -63,10 +62,10 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 26px;
+  gap: 28px;
   font-size: 13px;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .nav-links a {
@@ -78,54 +77,52 @@ body {
   color: var(--accent);
 }
 
-/* HEADER ART */
+/* HEADER BANNER - CLEAN, RESPONSIVE, FULL HEIGHT */
 .art-strip {
   width: 100%;
-  border-bottom: 1px solid #e5e7eb;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .art-strip-inner {
   width: 100%;
-  height: 300px;
-  overflow: hidden;
+  height: auto;
+  max-height: 720px; /* fits tall banners perfectly */
   position: relative;
 }
 
-/* Banner Image Animation */
 .art-strip-img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
-  object-position: center;
-  animation: bannerFloat 14s ease-in-out infinite;
-  filter: brightness(1.05);
+  animation: subtleFloat 10s ease-in-out infinite;
 }
 
-/* Sparkle Overlay */
-.sparkle-layer {
+/* ⭐ STAR PARTICLE LAYER (NO MORE BUBBLES) */
+.star-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.9) 0px, transparent 60px);
-  background-size: 180px 180px;
-  mix-blend-mode: screen;
-  opacity: 0.45;
-  animation: sparkleDrift 9s linear infinite;
+  background-image: url('images/star-spark.png'); /* you upload a tiny gold sparkle PNG */
+  background-repeat: repeat;
+  background-size: 180px;
+  opacity: 0.5;
+  animation: starDrift 40s linear infinite;
 }
 
-/* FLOAT ANIMATION */
-@keyframes bannerFloat {
-  0%   { transform: translateY(0px) scale(1.02); }
-  50%  { transform: translateY(-12px) scale(1.03); }
-  100% { transform: translateY(0px) scale(1.02); }
+/* FLOAT MOVEMENT */
+@keyframes subtleFloat {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-10px) scale(1.01); }
+  100% { transform: translateY(0px) scale(1); }
 }
 
-/* SPARKLE MOVEMENT */
-@keyframes sparkleDrift {
+/* STAR DRIFT */
+@keyframes starDrift {
   0%   { background-position: 0px 0px; }
-  100% { background-position: 600px 400px; }
+  100% { background-position: -900px -600px; }
 }
 
 /* MAIN CONTENT */
@@ -153,8 +150,8 @@ main {
 
 .hero-title {
   font-size: clamp(32px, 4vw, 44px);
-  margin: 0 0 12px;
-  line-height: 1.05;
+  margin-bottom: 12px;
+  line-height: 1.04;
 }
 
 .hero-title span {
@@ -162,11 +159,12 @@ main {
 }
 
 .hero-text {
-  font-size: 15px;
   color: var(--text-muted);
+  font-size: 15px;
   max-width: 420px;
 }
 
+/* HERO RIGHT */
 .hero-right-card {
   border-radius: var(--radius-card);
   border: 1px solid #e5e7eb;
@@ -184,7 +182,6 @@ main {
 
 .hero-media-inner img {
   width: 100%;
-  display: block;
 }
 
 /* GLOVE GRID */
@@ -219,7 +216,6 @@ footer {
   padding: 20px;
   text-align: center;
   color: var(--text-muted);
-  font-size: 12px;
 }
 </style>
 </head>
@@ -247,11 +243,11 @@ footer {
   </div>
 </div>
 
-<!-- HEADER STRIP WITH ANIMATION -->
+<!-- HEADER STRIP WITH ANIMATED STARS -->
 <div class="art-strip">
   <div class="art-strip-inner">
     <img src="images/header-sale.png" class="art-strip-img" alt="Chirpz Launch Sale Banner" />
-    <div class="sparkle-layer"></div>
+    <div class="star-layer"></div>
   </div>
 </div>
 
@@ -260,7 +256,6 @@ footer {
 <!-- HERO -->
 <section class="section" id="hero">
   <div class="hero">
-
     <div>
       <h1 class="hero-title">Let the gear <span>do the talking.</span></h1>
       <p class="hero-text">Modern gloves with a clean, confident look – built for players who let their swing speak for itself.</p>
@@ -273,7 +268,6 @@ footer {
         </div>
       </div>
     </aside>
-
   </div>
 </section>
 
@@ -282,7 +276,6 @@ footer {
   <h2 class="section-title">Glove Lineup</h2>
 
   <div class="glove-grid">
-    
     <article class="glove-card">
       <h3>Chirpz Signature – Men’s</h3>
       <img src="images/mens-glove.png" alt="Men’s Chirpz Glove" />
@@ -292,7 +285,6 @@ footer {
       <h3>Chirpz Breeze – Women’s</h3>
       <img src="images/womens-glove.png" alt="Women’s Chirpz Glove" />
     </article>
-
   </div>
 </section>
 
