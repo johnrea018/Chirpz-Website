@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chirpz Golf – Let the gear do the talking.</title>
+<title>Chirpz Golf – Let the gear speak.</title>
 
 <!-- FAVICON -->
 <link rel="icon" type="image/png" href="images/favicon.png" />
@@ -13,197 +13,590 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --bg-page: #ffffff;
-  --text-main: #111827;
-  --text-muted: #6b7280;
-  --accent: #15803d;
-  --radius-card: 20px;
-  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+:root{
+  --bg-page:#ffffff;
+  --text-main:#0f172a;
+  --text-muted:#6b7280;
+
+  /* new premium system */
+  --accent:#0b5ed7;            /* used sparingly */
+  --cta-bg:#111827;            /* Shop Now */
+  --cta-bg-hover:#0b1220;
+  --cta-text:#ffffff;
+
+  --border:#e5e7eb;
+  --card:#ffffff;
+  --radius-card:20px;
+  --shadow-soft:0 18px 40px rgba(15,23,42,.08);
+  --shadow-med:0 22px 60px rgba(15,23,42,.14);
+
+  --max:1120px;
 }
 
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  background: var(--bg-page);
-  color: var(--text-main);
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg-page);
+  color:var(--text-main);
 }
 
-/* NAVIGATION */
-.nav-shell {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #e5e7eb;
+/* =========================
+   NAV (FULL-WIDTH GLASS)
+   ========================= */
+.nav-shell{
+  position:sticky;
+  top:0;
+  z-index:200;
+  width:100%;
+  left:0;
+  right:0;
+
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(229,231,235,.75);
 }
 
-.nav {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 14px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.nav{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:240px;
 }
 
-.nav-logo-img img {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+.nav-logo-img img{
+  width:34px;
+  height:34px;
+  border-radius:10px;
 }
 
-.nav-links {
-  display: flex;
-  gap: 26px;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.brand-title{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.14em;
+}
+.brand-sub{
+  font-size:11px;
+  color:var(--text-muted);
+  margin-top:2px;
 }
 
-.nav-links a {
-  color: var(--text-main);
-  text-decoration: none;
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
-.nav-links a:hover {
-  color: var(--accent);
+.nav-links{
+  display:flex;
+  gap:22px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.10em;
+  white-space:nowrap;
+}
+
+.nav-links a{
+  color:rgba(15,23,42,.92);
+  text-decoration:none;
+  padding:8px 4px;
+  border-radius:10px;
+}
+
+.nav-links a:hover{
+  color:var(--text-main);
+  text-decoration:none;
+}
+
+.nav-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  background:var(--cta-bg);
+  color:var(--cta-text);
+  box-shadow:0 10px 24px rgba(17,24,39,.18);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.nav-cta:hover{
+  background:var(--cta-bg-hover);
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(17,24,39,.22);
+}
+
+/* mobile nav tweaks */
+@media (max-width: 760px){
+  .nav{ padding:12px 16px; }
+  .nav-left{ min-width:auto; }
+  .brand-sub{ display:none; }
+  .nav-links{ gap:14px; font-size:11px; }
+  .nav-cta{ padding:9px 12px; }
+}
+@media (max-width: 520px){
+  .nav-links a:nth-child(3){ display:none; } /* hide Our Story on very small screens */
 }
 
 /* ============================================
    HERO BANNER – AUTO HEIGHT + ANIMATED STARS
    ============================================ */
-.art-strip {
-  width: 100%;
-  border-bottom: 1px solid #e5e7eb;
-  background: #03142b;
-  position: relative;
-  overflow: hidden;
+.art-strip{
+  width:100%;
+  border-bottom:1px solid var(--border);
+  background:#03142b;
+  position:relative;
+  overflow:hidden;
 }
 
-.art-strip-inner {
-  width: 100%;
-  max-width: 1600px; /* keeps it from getting insanely wide on big monitors */
-  margin: 0 auto;
-  position: relative;
+.art-strip-inner{
+  width:100%;
+  max-width:1600px;
+  margin:0 auto;
+  position:relative;
 }
 
-.art-strip-img {
-  display: block;
-  width: 100%;
-  height: auto; /* auto height so NO CROPPING */
+.art-strip-img{
+  display:block;
+  width:100%;
+  height:auto; /* no cropping */
 }
 
-/* Canvases sit on top of the banner image */
+/* canvases sit on top of banner image */
 #starCanvas,
-#trailCanvas {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
+#trailCanvas{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  pointer-events:none;
 }
 
-/* MAIN */
-main {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
+/* =========================
+   MAIN LAYOUT
+   ========================= */
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:44px 20px 90px;
 }
 
-.section {
-  margin-bottom: 60px;
+.section{ margin-bottom:62px; }
+
+.section-title{
+  font-size:14px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(15,23,42,.72);
+  margin:0 0 14px;
 }
 
-/* HERO */
-.hero {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 40px;
-  align-items: center;
+/* =========================
+   HERO BLOCK (COPY REWRITE)
+   ========================= */
+.hero{
+  display:grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap:40px;
+  align-items:center;
 }
 
-@media(max-width: 880px) {
-  .hero { grid-template-columns: 1fr; }
+@media(max-width: 880px){
+  .hero{ grid-template-columns:1fr; gap:24px; }
 }
 
-.hero-title {
-  font-size: clamp(32px, 4vw, 44px);
-  margin: 0 0 12px;
-  line-height: 1.05;
+.hero-title{
+  font-size:clamp(34px, 4.2vw, 48px);
+  margin:0 0 10px;
+  line-height:1.02;
+  letter-spacing:-.02em;
 }
 
-.hero-title span {
-  color: var(--accent);
+.hero-text{
+  font-size:15px;
+  color:var(--text-muted);
+  max-width:520px;
+  line-height:1.6;
+  margin:0 0 18px;
 }
 
-.hero-text {
-  font-size: 15px;
-  color: var(--text-muted);
-  max-width: 420px;
+.hero-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
 }
 
-.hero-right-card {
-  border-radius: var(--radius-card);
-  border: 1px solid #e5e7eb;
-  background: white;
-  padding: 18px;
-  box-shadow: var(--shadow-soft);
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:.02em;
+  border:1px solid rgba(229,231,235,.9);
+  background:#fff;
+  color:var(--text-main);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(15,23,42,.10);
 }
 
-.hero-media-shell {
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  padding: 14px;
+.btn-primary{
+  border-color:transparent;
+  background:var(--cta-bg);
+  color:#fff;
+  box-shadow:0 14px 28px rgba(17,24,39,.18);
+}
+.btn-primary:hover{
+  background:var(--cta-bg-hover);
+  box-shadow:0 18px 34px rgba(17,24,39,.22);
 }
 
-.hero-media-inner img {
-  width: 100%;
-  display: block;
+.hero-right-card{
+  border-radius:var(--radius-card);
+  border:1px solid var(--border);
+  background:var(--card);
+  padding:18px;
+  box-shadow:var(--shadow-soft);
 }
 
-/* GLOVE GRID */
-.glove-grid {
-  display: grid;
+.hero-media-shell{
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:#f9fafb;
+  padding:14px;
+}
+.hero-media-inner img{
+  width:100%;
+  display:block;
+}
+
+/* =========================
+   GLOVE GRID (INTERACTIVE)
+   ========================= */
+.glove-grid{
+  display:grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+  gap:22px;
+}
+@media(max-width: 760px){
+  .glove-grid{ grid-template-columns:1fr; }
 }
 
-@media(max-width: 760px) {
-  .glove-grid { grid-template-columns: 1fr; }
+.glove-card{
+  position:relative;
+  border-radius:var(--radius-card);
+  border:1px solid var(--border);
+  background:var(--card);
+  padding:18px 18px 16px;
+  box-shadow:var(--shadow-soft);
+  text-align:left;
+  overflow:hidden;
+  transform-style:preserve-3d;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  cursor:pointer;
 }
 
-.glove-card {
-  border-radius: var(--radius-card);
-  border: 1px solid #e5e7eb;
-  background: white;
-  padding: 18px;
-  box-shadow: var(--shadow-soft);
-  text-align: center;
+.glove-card:hover{
+  transform: translateY(-2px);
+  box-shadow:var(--shadow-med);
+  border-color:rgba(229,231,235,.65);
 }
 
-.glove-card img {
-  width: 100%;
-  max-height: 380px;
-  object-fit: contain;
+.glove-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.glove-card h3{
+  margin:0;
+  font-size:16px;
+  letter-spacing:-.01em;
+}
+
+.glove-tag{
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(15,23,42,.55);
+  white-space:nowrap;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(229,231,235,.9);
+  background:rgba(255,255,255,.75);
+}
+
+.glove-media{
+  margin-top:10px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:#f9fafb;
+  padding:14px;
+  overflow:hidden;
+}
+
+.glove-media img{
+  width:100%;
+  max-height:380px;
+  object-fit:contain;
+  display:block;
+  transform: translateZ(0);
+  transition: transform .22s ease;
+}
+
+.glove-card:hover .glove-media img{
+  transform: rotate(-1.2deg) scale(1.02);
+}
+
+.glove-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:12px;
+  color:var(--text-muted);
+  font-size:13px;
+}
+
+.inspect{
+  color:rgba(15,23,42,.82);
+  font-weight:600;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.inspect span{
+  display:inline-block;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  border:1px solid rgba(229,231,235,.9);
+  background:rgba(255,255,255,.8);
+  line-height:18px;
+  text-align:center;
+  font-size:12px;
+}
+
+/* subtle overlay label */
+.glove-overlay{
+  position:absolute;
+  top:14px;
+  right:14px;
+  opacity:0;
+  transform:translateY(-4px);
+  transition:opacity .18s ease, transform .18s ease;
+}
+.glove-card:hover .glove-overlay{
+  opacity:1;
+  transform:translateY(0);
+}
+.glove-overlay .pill{
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:8px 10px;
+  border-radius:999px;
+  background:rgba(17,24,39,.86);
+  color:#fff;
+  box-shadow:0 14px 30px rgba(15,23,42,.18);
+}
+
+/* =========================
+   ABOUT
+   ========================= */
+.about{
+  border-radius:var(--radius-card);
+  border:1px solid var(--border);
+  background:#fbfbfc;
+  padding:22px;
+  box-shadow:var(--shadow-soft);
+}
+.about p{
+  margin:0;
+  color:var(--text-muted);
+  line-height:1.7;
+}
+
+/* =========================
+   MODAL (PRODUCT INSPECT)
+   ========================= */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(3,6,23,.62);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:9999;
+}
+.modal-backdrop.is-open{ display:flex; }
+
+.modal{
+  width:min(920px, 100%);
+  border-radius:22px;
+  background:#fff;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 30px 90px rgba(0,0,0,.28);
+  overflow:hidden;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 18px;
+  border-bottom:1px solid var(--border);
+  background:rgba(249,250,251,.9);
+}
+
+.modal-title{
+  margin:0;
+  font-size:14px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(15,23,42,.78);
+}
+
+.modal-close{
+  border:1px solid rgba(229,231,235,.9);
+  background:#fff;
+  border-radius:999px;
+  width:38px;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.modal-close:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(15,23,42,.10);
+}
+
+.modal-body{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap:0;
+}
+@media (max-width: 860px){
+  .modal-body{ grid-template-columns:1fr; }
+}
+
+.modal-media{
+  padding:18px;
+  background:#f9fafb;
+  border-right:1px solid var(--border);
+}
+@media (max-width: 860px){
+  .modal-media{ border-right:none; border-bottom:1px solid var(--border); }
+}
+
+.modal-media .frame{
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:16px;
+}
+.modal-media img{
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+  display:block;
+}
+
+.modal-panel{
+  padding:18px;
+}
+
+.modal-panel h3{
+  margin:0 0 8px;
+  font-size:22px;
+  letter-spacing:-.02em;
+}
+
+.modal-desc{
+  margin:0 0 14px;
+  color:var(--text-muted);
+  line-height:1.65;
+  font-size:14px;
+}
+
+.size-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:14px 0 18px;
+}
+
+.size-btn{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid rgba(229,231,235,.95);
+  background:#fff;
+  cursor:pointer;
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:.04em;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.size-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(15,23,42,.10);
+}
+.size-btn.is-selected{
+  border-color:rgba(17,24,39,.85);
+  box-shadow:0 16px 36px rgba(17,24,39,.14);
+}
+
+.modal-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.note{
+  margin-top:12px;
+  font-size:12px;
+  color:rgba(15,23,42,.55);
 }
 
 /* FOOTER */
-footer {
-  border-top: 1px solid #e5e7eb;
-  padding: 20px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 12px;
+footer{
+  border-top:1px solid var(--border);
+  padding:20px;
+  text-align:center;
+  color:var(--text-muted);
+  font-size:12px;
 }
 </style>
 </head>
@@ -218,20 +611,23 @@ footer {
         <img src="images/favicon.png" alt="Chirpz Logo" />
       </div>
       <div>
-        <div style="font-size:14px;font-weight:600;letter-spacing:0.12em;">CHIRPZ GOLF</div>
-        <div style="font-size:11px;color:#6b7280;">Let the gear do the talking.</div>
+        <div class="brand-title">CHIRPZ GOLF</div>
+        <div class="brand-sub">Let the gear speak.</div>
       </div>
     </div>
 
-    <nav class="nav-links">
-      <a href="#hero">Home</a>
-      <a href="#gloves">Gloves</a>
-      <a href="#about">Our Story</a>
-    </nav>
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#hero">Home</a>
+        <a href="#gloves">Gloves</a>
+        <a href="#about">Our Story</a>
+      </nav>
+      <a class="nav-cta" href="#gloves">Shop Now</a>
+    </div>
   </div>
 </div>
 
-<!-- HERO BANNER WITH PRIMO-LEVEL STAR ANIMATION -->
+<!-- HERO BANNER WITH STAR ANIMATION -->
 <div class="art-strip">
   <div class="art-strip-inner">
     <img src="images/header-sale.png" class="art-strip-img" alt="Chirpz Launch Sale Banner" />
@@ -245,12 +641,16 @@ footer {
 <!-- HERO -->
 <section class="section" id="hero">
   <div class="hero">
-
     <div>
-      <h1 class="hero-title">Let the gear <span>do the talking.</span></h1>
+      <h1 class="hero-title">Let the gear speak.</h1>
       <p class="hero-text">
-        Modern gloves with a clean, confident look – built for players who let their swing speak for itself.
+        Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
       </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#gloves">Shop Gloves</a>
+        <a class="btn" href="#about">Our Story</a>
+      </div>
     </div>
 
     <aside class="hero-right-card">
@@ -260,24 +660,69 @@ footer {
         </div>
       </div>
     </aside>
-
   </div>
 </section>
 
-<!-- GLOVE GRID -->
+<!-- GLOVE GRID (INTERACTIVE) -->
 <section class="section" id="gloves">
-  <h2 class="section-title">Glove Lineup</h2>
+  <h2 class="section-title">Featured Gloves</h2>
 
   <div class="glove-grid">
-    
-    <article class="glove-card">
-      <h3>Chirpz Signature – Men’s</h3>
-      <img src="images/mens-glove.png" alt="Men’s Chirpz Glove" />
+
+    <article class="glove-card"
+      role="button"
+      tabindex="0"
+      aria-label="Inspect Chirpz Signature – Men's"
+      data-title="Chirpz Signature – Men's"
+      data-tag="Men's"
+      data-img="images/mens-glove.png"
+      data-desc="A clean, confident everyday gamer. Soft feel, secure fit, and a look that stays quiet while your swing talks."
+    >
+      <div class="glove-overlay"><div class="pill">Inspect</div></div>
+
+      <div class="glove-top">
+        <div>
+          <h3>Chirpz Signature – Men’s</h3>
+        </div>
+        <div class="glove-tag">Men’s</div>
+      </div>
+
+      <div class="glove-media">
+        <img src="images/mens-glove.png" alt="Men’s Chirpz Glove" />
+      </div>
+
+      <div class="glove-bottom">
+        <div>Tap to view details</div>
+        <div class="inspect"><span>+</span> View</div>
+      </div>
     </article>
 
-    <article class="glove-card">
-      <h3>Chirpz Breeze – Women’s</h3>
-      <img src="images/womens-glove.png" alt="Women’s Chirpz Glove" />
+    <article class="glove-card"
+      role="button"
+      tabindex="0"
+      aria-label="Inspect Chirpz Breeze – Women's"
+      data-title="Chirpz Breeze – Women's"
+      data-tag="Women's"
+      data-img="images/womens-glove.png"
+      data-desc="Light, comfortable, and clean. Built for consistent grip and an effortless feel from the first tee to the last putt."
+    >
+      <div class="glove-overlay"><div class="pill">Inspect</div></div>
+
+      <div class="glove-top">
+        <div>
+          <h3>Chirpz Breeze – Women’s</h3>
+        </div>
+        <div class="glove-tag">Women’s</div>
+      </div>
+
+      <div class="glove-media">
+        <img src="images/womens-glove.png" alt="Women’s Chirpz Glove" />
+      </div>
+
+      <div class="glove-bottom">
+        <div>Tap to view details</div>
+        <div class="inspect"><span>+</span> View</div>
+      </div>
     </article>
 
   </div>
@@ -286,10 +731,59 @@ footer {
 <!-- ABOUT -->
 <section class="section" id="about">
   <h2 class="section-title">Our Story</h2>
-  <p>Clean, modern gloves designed for golfers who prefer quiet confidence over loud branding.</p>
+  <div class="about">
+    <p>
+      Chirpz is built around quiet confidence: premium feel, clean design, and details that golfers notice without needing loud branding.
+      We’re launching small and doing it right — quality first, always.
+    </p>
+  </div>
 </section>
 
 </main>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h2 class="modal-title" id="modalTitle">Inspect</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-media">
+        <div class="frame">
+          <img id="modalImg" src="" alt="" />
+        </div>
+      </div>
+
+      <div class="modal-panel">
+        <h3 id="modalName">Glove</h3>
+        <p class="modal-desc" id="modalDesc"></p>
+
+        <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(15,23,42,.65);margin-bottom:10px;">
+          Select Size (visual only for now)
+        </div>
+
+        <div class="size-row" id="sizeRow">
+          <button class="size-btn" type="button">S</button>
+          <button class="size-btn" type="button">M</button>
+          <button class="size-btn" type="button">ML</button>
+          <button class="size-btn" type="button">L</button>
+          <button class="size-btn" type="button">XL</button>
+        </div>
+
+        <div class="modal-actions">
+          <a class="btn btn-primary" href="#gloves" id="addToCartFake">Add to Cart</a>
+          <button class="btn" type="button" id="continueBtn">Continue Shopping</button>
+        </div>
+
+        <div class="note">
+          Checkout + automatic 20% off will be added after visuals are locked.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   © <span id="year"></span> Chirpz Golf. All rights reserved.
@@ -299,8 +793,87 @@ footer {
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
 
+/* ================================
+   PRODUCT MODAL (INTERACTIVE)
+   ================================ */
+(function(){
+  const cards = Array.from(document.querySelectorAll('.glove-card'));
+  const backdrop = document.getElementById('modalBackdrop');
+  const closeBtn = document.getElementById('modalClose');
+  const continueBtn = document.getElementById('continueBtn');
+  const modalImg = document.getElementById('modalImg');
+  const modalName = document.getElementById('modalName');
+  const modalDesc = document.getElementById('modalDesc');
+
+  let lastFocused = null;
+
+  function openModal(card){
+    lastFocused = document.activeElement;
+
+    const title = card.getAttribute('data-title') || 'Glove';
+    const img = card.getAttribute('data-img') || '';
+    const desc = card.getAttribute('data-desc') || '';
+
+    modalName.textContent = title;
+    modalDesc.textContent = desc;
+    modalImg.src = img;
+    modalImg.alt = title;
+
+    backdrop.classList.add('is-open');
+    backdrop.setAttribute('aria-hidden', 'false');
+
+    // reset size selection
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('is-selected'));
+
+    // focus close
+    closeBtn.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(){
+    backdrop.classList.remove('is-open');
+    backdrop.setAttribute('aria-hidden', 'true');
+    modalImg.src = '';
+    document.body.style.overflow = '';
+
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => openModal(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal(card);
+      }
+    });
+  });
+
+  // close events
+  closeBtn.addEventListener('click', closeModal);
+  continueBtn.addEventListener('click', closeModal);
+
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && backdrop.classList.contains('is-open')) closeModal();
+  });
+
+  // size selection (visual)
+  const sizeRow = document.getElementById('sizeRow');
+  sizeRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('.size-btn');
+    if (!btn) return;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('is-selected'));
+    btn.classList.add('is-selected');
+  });
+})();
+
 /* =========================================================
    PRIMO-TIER STARFIELD + SHOOTING STARS + PARALLAX
+   (kept from your original, unchanged behavior)
    ========================================================= */
 (function() {
   const bannerInner = document.querySelector('.art-strip-inner');
@@ -333,12 +906,11 @@ document.getElementById("year").textContent = new Date().getFullYear();
     trailCanvas.style.width = width + 'px';
     trailCanvas.style.height = height + 'px';
 
-    // regenerate stars on resize
     createStars();
   }
 
   function createStars() {
-    const starCount = Math.floor(width / 8); // scale with width
+    const starCount = Math.floor(width / 8);
     stars = [];
     for (let i = 0; i < starCount; i++) {
       stars.push({
@@ -354,13 +926,12 @@ document.getElementById("year").textContent = new Date().getFullYear();
   }
 
   function spawnShootingStar() {
-    // Start above left region
     const startX = Math.random() * width * 0.3;
     const startY = Math.random() * height * 0.3;
     const length = 150 + Math.random() * 150;
     const speed = 400 + Math.random() * 300;
 
-    const angle = (20 + Math.random() * 25) * (Math.PI / 180); // downward right
+    const angle = (20 + Math.random() * 25) * (Math.PI / 180);
     const vx = Math.cos(angle) * speed;
     const vy = Math.sin(angle) * speed;
 
@@ -385,7 +956,6 @@ document.getElementById("year").textContent = new Date().getFullYear();
     for (const s of stars) {
       const flicker = Math.sin(time * s.flickerSpeed + s.alphaOffset) * 0.3;
       const alpha = Math.max(0, Math.min(1, s.baseAlpha + flicker));
-
       const parallaxY = s.y + scrollOffset * s.parallaxFactor;
 
       starCtx.beginPath();
@@ -396,7 +966,6 @@ document.getElementById("year").textContent = new Date().getFullYear();
   }
 
   function drawShootingStars(dt) {
-    // fade previous frame for soft trails
     trailCtx.clearRect(0, 0, width, height);
 
     shootingStars = shootingStars.filter(s => s.life < s.maxLife);
@@ -413,7 +982,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
       const startX = s.x - (s.vx / (s.maxLife * 2));
       const startY = s.y - (s.vy / (s.maxLife * 2));
 
-      const alpha = Math.sin(t * Math.PI); // fade in/out
+      const alpha = Math.sin(t * Math.PI);
 
       trailCtx.beginPath();
       const grad = trailCtx.createLinearGradient(startX, startY, endX, endY);
@@ -427,10 +996,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
       trailCtx.stroke();
     }
 
-    // chance to spawn a new shooting star
-    if (Math.random() < 0.008) {
-      spawnShootingStar();
-    }
+    if (Math.random() < 0.008) spawnShootingStar();
   }
 
   function animate(timestamp) {
@@ -439,29 +1005,22 @@ document.getElementById("year").textContent = new Date().getFullYear();
     lastTime = timestamp;
 
     const time = timestamp / 1000;
-
     drawStars(time);
     drawShootingStars(dt);
 
     requestAnimationFrame(animate);
   }
 
-  // init when image size is known
   function init() {
     resizeCanvases();
     lastTime = 0;
     requestAnimationFrame(animate);
   }
 
-  if (bannerImg.complete) {
-    init();
-  } else {
-    bannerImg.addEventListener('load', init);
-  }
+  if (bannerImg.complete) init();
+  else bannerImg.addEventListener('load', init);
 
-  window.addEventListener('resize', () => {
-    resizeCanvases();
-  });
+  window.addEventListener('resize', resizeCanvases);
 })();
 </script>
 
