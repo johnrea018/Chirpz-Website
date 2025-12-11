@@ -26,6 +26,7 @@
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "Inter", sans-serif;
@@ -33,7 +34,16 @@
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
     }
-    img { max-width: 100%; display: block; }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     /* NAV */
     .nav-shell {
@@ -44,6 +54,7 @@
       backdrop-filter: blur(14px);
       border-bottom: 1px solid #f3f4f6;
     }
+
     .nav {
       max-width: 1120px;
       margin: 0 auto;
@@ -51,44 +62,157 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    .nav-logo-img {
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      background: #ecfdf5;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .nav-brand .brand-title {
-      font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    }
-    .nav-brand .brand-tagline {
-      font-size: 11px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase;
-    }
-    .nav-links {
-      display: flex; gap: 20px; font-size: 13px; text-transform: uppercase;
+      gap: 16px;
     }
 
-    /* HEADER ART */
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo-img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #ecfdf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .nav-logo-img img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-brand .brand-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .nav-brand .brand-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* HEADER ART – LAUNCH SALE BANNER WITH SPARKLES */
     .art-strip {
       width: 100%;
-      background: #fefcf3;
-      border-bottom: 1px solid #f3f4f6;
+      background: #020617; /* deep fallback behind banner */
+      border-bottom: 1px solid #0f172a;
     }
+
     .art-strip-inner {
       max-width: 1120px;
-      height: 130px;
+      height: 190px;              /* taller launch banner */
       margin: 0 auto;
-      overflow: hidden;
       padding: 0 20px;
       border-radius: 0 0 18px 18px;
+      position: relative;
+      overflow: hidden;
     }
+
     .art-strip-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
+      display: block;
     }
+
+    /* Sparkle animation overlay */
+    .sparkle-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .sparkle-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle,
+        rgba(255,255,255,0.95) 0,
+        rgba(255,215,0,0.9) 45%,
+        transparent 70%
+      );
+      opacity: 0;
+      transform: scale(0.5);
+      animation: sparkle 3s linear infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 70%, 100% {
+        opacity: 0;
+        transform: scale(0.4);
+      }
+      10% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      20% {
+        opacity: 0.9;
+        transform: scale(1.0);
+      }
+      30% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+    }
+
+    /* Stagger each sparkle */
+    .sparkle-dot:nth-child(1) { animation-delay: 0s; }
+    .sparkle-dot:nth-child(2) { animation-delay: 0.8s; }
+    .sparkle-dot:nth-child(3) { animation-delay: 1.6s; }
+    .sparkle-dot:nth-child(4) { animation-delay: 2.2s; }
 
     /* MAIN LAYOUT */
     main {
@@ -96,9 +220,20 @@
       margin: 0 auto;
       padding: 30px 20px 60px;
     }
+
     .section {
       padding: 36px 0;
       border-bottom: 1px solid #f3f4f6;
+    }
+
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
 
     /* HERO */
@@ -108,15 +243,28 @@
       gap: 40px;
       align-items: center;
     }
-    @media(max-width: 900px){
-      .hero { grid-template-columns: 1fr; }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
     }
+
     .hero-title {
       font-size: clamp(32px, 4vw, 42px);
       margin: 0 0 12px;
       line-height: 1.05;
     }
-    .hero-title span { color: var(--accent); }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
 
     .hero-right-card {
       border-radius: var(--radius-card);
@@ -125,12 +273,22 @@
       padding: 18px;
       box-shadow: var(--shadow-soft);
     }
+
+    .hero-right-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
     .hero-media-shell {
       border-radius: 18px;
       border: 1px solid #e5e7eb;
       background: #f9fafb;
       padding: 14px;
     }
+
     .hero-media-inner {
       border-radius: 16px;
       overflow: hidden;
@@ -140,18 +298,36 @@
     /* GLOVE GRID */
     .glove-grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 22px;
     }
-    @media(max-width: 780px){
-      .glove-grid { grid-template-columns: 1fr; }
+
+    @media (max-width: 780px) {
+      .glove-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     .glove-card {
       border-radius: var(--radius-card);
       border: 1px solid #e5e7eb;
       background: white;
       padding: 16px;
       box-shadow: var(--shadow-soft);
+    }
+
+    .glove-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    /* ABOUT */
+    #about p {
+      max-width: 620px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
     /* FOOTER */
@@ -188,64 +364,75 @@
   </div>
 </div>
 
-<!-- HEADER ART -->
+<!-- HEADER ART – LAUNCH SALE BANNER -->
 <div class="art-strip">
   <div class="art-strip-inner">
-    <img src="images/header-art.png" class="art-strip-img" alt="Chirpz header art">
+    <!-- Your new launch sale banner image -->
+    <img src="images/header-sale.png" class="art-strip-img" alt="Chirpz Launch Sale banner">
+
+    <!-- Sparkle overlay -->
+    <div class="sparkle-layer">
+      <div class="sparkle-dot" style="top: 25%; left: 12%;"></div>
+      <div class="sparkle-dot" style="top: 40%; left: 72%;"></div>
+      <div class="sparkle-dot" style="top: 65%; left: 30%;"></div>
+      <div class="sparkle-dot" style="top: 18%; left: 88%;"></div>
+    </div>
   </div>
 </div>
 
 <main>
 
-<!-- HERO -->
-<section class="section" id="hero">
-  <div class="hero">
-
-    <div>
-      <h1 class="hero-title">Let the gear <span>do the talking.</span></h1>
-      <p class="hero-text">Modern gloves with a clean, confident look.</p>
-    </div>
-
-    <aside class="hero-right-card">
-      <div class="hero-right-label">Hero glove preview</div>
-
-      <div class="hero-media-shell">
-        <div class="hero-media-inner">
-          <!-- YOUR HERO IMAGE -->
-          <img src="images/hero.png" alt="Chirpz Hero Glove">
-        </div>
+  <!-- HERO -->
+  <section class="section" id="hero">
+    <div class="hero">
+      <div>
+        <h1 class="hero-title">
+          Let the gear <span>do the talking.</span>
+        </h1>
+        <p class="hero-text">
+          Modern gloves with a clean, confident look. Built for players who let their swing – and their gear – say enough.
+        </p>
       </div>
-    </aside>
 
-  </div>
-</section>
+      <aside class="hero-right-card">
+        <div class="hero-right-label">Hero glove preview</div>
+        <div class="hero-media-shell">
+          <div class="hero-media-inner">
+            <!-- YOUR HERO IMAGE -->
+            <img src="images/hero.png" alt="Chirpz Hero Glove">
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
 
-<!-- GLOVE GRID -->
-<section class="section" id="gloves">
-  <h2 class="section-title">Glove Lineup</h2>
+  <!-- GLOVE GRID -->
+  <section class="section" id="gloves">
+    <h2 class="section-title">Glove Lineup</h2>
 
-  <div class="glove-grid">
+    <div class="glove-grid">
+      <!-- MEN -->
+      <article class="glove-card">
+        <h3>Chirpz Signature – Men’s</h3>
+        <img src="images/mens-glove.png" alt="Men’s Chirpz Glove">
+      </article>
 
-    <!-- MEN -->
-    <article class="glove-card">
-      <h3>Chirpz Signature – Men’s</h3>
-      <img src="images/mens-glove.png" alt="Men’s Chirpz Glove">
-    </article>
+      <!-- WOMEN -->
+      <article class="glove-card">
+        <h3>Chirpz Breeze – Women’s</h3>
+        <img src="images/womens-glove.png" alt="Women’s Chirpz Glove">
+      </article>
+    </div>
+  </section>
 
-    <!-- WOMEN -->
-    <article class="glove-card">
-      <h3>Chirpz Breeze – Women’s</h3>
-      <img src="images/womens-glove.png" alt="Women’s Chirpz Glove">
-    </article>
-
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <h2 class="section-title">Our Story</h2>
-  <p>Clean, modern gloves designed for golfers who prefer quiet confidence.</p>
-</section>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <h2 class="section-title">Our Story</h2>
+    <p>
+      Chirpz was born from wanting cleaner, more modern golf gear that doesn’t scream for attention – but still has a little attitude.
+      Every glove is designed to feel unreal on your hand and quietly match your fit, without turning you into a walking billboard.
+    </p>
+  </section>
 
 </main>
 
