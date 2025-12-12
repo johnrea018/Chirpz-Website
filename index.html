@@ -323,8 +323,127 @@ footer{
 </footer>
 
 <script>
+<script>
+/* Footer year */
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* =========================================================
+   STARFIELD + TWINKLE + SHOOTING STARS (RESTORED)
+   ========================================================= */
+(function() {
+  const hero = document.querySelector('.hero-bleed');
+  const img = hero.querySelector('img');
+  const starCanvas = document.getElementById('starCanvas');
+  const trailCanvas = document.getElementById('trailCanvas');
+  if (!hero || !img || !starCanvas || !trailCanvas) return;
+
+  const starCtx = starCanvas.getContext('2d');
+  const trailCtx = trailCanvas.getContext('2d');
+
+  let stars = [];
+  let shootingStars = [];
+  let width = 0;
+  let height = 0;
+  let lastTime = 0;
+
+  function resize() {
+    width = img.clientWidth;
+    height = img.clientHeight;
+
+    starCanvas.width = width;
+    starCanvas.height = height;
+    trailCanvas.width = width;
+    trailCanvas.height = height;
+
+    createStars();
+  }
+
+  function createStars() {
+    stars = [];
+    const count = Math.floor(width / 8);
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.4 + 0.4,
+        baseAlpha: 0.3 + Math.random() * 0.6,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.5 + Math.random() * 1.5
+      });
+    }
+  }
+
+  function spawnShootingStar() {
+    shootingStars.push({
+      x: Math.random() * width * 0.3,
+      y: Math.random() * height * 0.3,
+      vx: 600,
+      vy: 300,
+      life: 0,
+      maxLife: 1.2
+    });
+  }
+
+  function drawStars(t) {
+    starCtx.clearRect(0, 0, width, height);
+    for (const s of stars) {
+      const alpha = s.baseAlpha + Math.sin(t * s.speed + s.phase) * 0.3;
+      starCtx.fillStyle = `rgba(255,255,255,${Math.max(0,alpha)})`;
+      starCtx.beginPath();
+      starCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      starCtx.fill();
+    }
+  }
+
+  function drawShootingStars(dt) {
+    trailCtx.clearRect(0, 0, width, height);
+    shootingStars = shootingStars.filter(s => s.life < s.maxLife);
+
+    for (const s of shootingStars) {
+      s.life += dt;
+      s.x += s.vx * dt;
+      s.y += s.vy * dt;
+
+      const alpha = Math.sin((s.life / s.maxLife) * Math.PI);
+      trailCtx.strokeStyle = `rgba(255,255,255,${alpha})`;
+      trailCtx.lineWidth = 2;
+      trailCtx.beginPath();
+      trailCtx.moveTo(s.x - 40, s.y - 20);
+      trailCtx.lineTo(s.x, s.y);
+      trailCtx.stroke();
+    }
+
+    if (Math.random() < 0.01) spawnShootingStar();
+  }
+
+  function animate(ts) {
+    if (!lastTime) lastTime = ts;
+    const dt = (ts - lastTime) / 1000;
+    lastTime = ts;
+
+    const t = ts / 1000;
+    drawStars(t);
+    drawShootingStars(dt);
+
+    requestAnimationFrame(animate);
+  }
+
+  if (img.complete) {
+    resize();
+    requestAnimationFrame(animate);
+  } else {
+    img.onload = () => {
+      resize();
+      requestAnimationFrame(animate);
+    };
+  }
+
+  window.addEventListener('resize', resize);
+})();
+</script>
+
 </script>
 
 </body>
 </html>
+
