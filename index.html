@@ -31,102 +31,115 @@ body{
 }
 
 /* =========================
-   PREMIUM GLASS NAV
+   ULTRA-PREMIUM HEADER
    ========================= */
 .nav-shell{
   position:sticky;
   top:0;
-  z-index:200;
-  background:rgba(255,255,255,.65);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  z-index:300;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.35);
-  box-shadow:0 8px 30px rgba(15,23,42,.06);
 }
 
 .nav{
   max-width:var(--max);
   margin:0 auto;
-  padding:14px 22px;
-  display:flex;
-  justify-content:space-between;
+  padding:14px 26px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
   align-items:center;
 }
 
-.nav-left{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.nav-left img{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-}
-
-.brand-title{
+/* LEFT */
+.nav-brand{
   font-size:14px;
   font-weight:700;
   letter-spacing:.14em;
-}
-
-.brand-sub{
-  font-size:11px;
-  color:var(--text-muted);
-}
-
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:22px;
-}
-
-.nav-links{
-  display:flex;
-  gap:22px;
-  font-size:12px;
-  letter-spacing:.1em;
   text-transform:uppercase;
 }
 
-.nav-links a{
-  color:var(--text-main);
+/* CENTER */
+.nav-center{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  font-size:12px;
+  letter-spacing:.18em;
+}
+
+.nav-center a{
+  color:rgba(15,23,42,.75);
   text-decoration:none;
   position:relative;
 }
 
-.nav-links a::after{
+.nav-center a::after{
   content:"";
   position:absolute;
-  left:0;
+  left:50%;
   bottom:-6px;
-  width:100%;
+  width:0;
   height:1px;
   background:rgba(15,23,42,.6);
-  opacity:0;
-  transform:scaleX(.6);
+  transition:.25s ease;
+  transform:translateX(-50%);
+}
+
+.nav-center a:hover::after{
+  width:100%;
+}
+
+/* RIGHT */
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.icon-btn{
+  width:18px;
+  height:18px;
+  stroke:rgba(15,23,42,.75);
+  stroke-width:1.6;
+  fill:none;
+  cursor:pointer;
   transition:.2s ease;
 }
 
-.nav-links a:hover::after{
-  opacity:1;
-  transform:scaleX(1);
+.icon-btn:hover{
+  stroke:rgba(15,23,42,1);
+}
+
+.cart-indicator{
+  position:absolute;
+  top:-2px;
+  right:-2px;
+  width:6px;
+  height:6px;
+  background:#0f172a;
+  border-radius:50%;
+}
+
+.cart-wrap{
+  position:relative;
 }
 
 .nav-cta{
-  padding:10px 16px;
+  padding:9px 14px;
   border-radius:999px;
-  background:#111827;
+  background:var(--cta);
   color:#fff;
-  text-decoration:none;
-  font-size:12px;
+  font-size:11px;
   font-weight:600;
+  letter-spacing:.08em;
+  text-decoration:none;
   transition:.25s ease;
 }
 
 .nav-cta:hover{
-  transform:translateY(-2px);
+  transform:translateY(-1px);
   box-shadow:0 10px 30px rgba(0,0,0,.18);
 }
 
@@ -226,18 +239,15 @@ main{
 
 .hero-card img{
   width:100%;
-  transition:transform .9s cubic-bezier(.19,1,.22,1),
-             box-shadow .9s cubic-bezier(.19,1,.22,1);
+  transition:transform .9s cubic-bezier(.19,1,.22,1);
 }
 
-/* Cinematic hover */
 .hero-card:hover img{
   transform:scale(1.035) translateY(-3px);
-  box-shadow:var(--shadow-strong);
 }
 
 /* =========================
-   PRODUCTS (SUBTLE)
+   PRODUCTS
    ========================= */
 .section-title{
   font-size:12px;
@@ -296,23 +306,43 @@ footer{
 
 <body>
 
-<!-- NAV -->
+<!-- HEADER -->
 <div class="nav-shell">
   <div class="nav">
-    <div class="nav-left">
-      <img src="images/favicon.png" alt="Chirpz Logo">
-      <div>
-        <div class="brand-title">CHIRPZ GOLF</div>
-        <div class="brand-sub">Let the gear do the talking.</div>
-      </div>
+    <div class="nav-brand">CHIRPZ GOLF</div>
+
+    <div class="nav-center">
+      <a href="/collections/men">MEN</a>
+      <a href="/collections/women">WOMEN</a>
     </div>
+
     <div class="nav-right">
-      <nav class="nav-links">
-        <a href="#hero">Home</a>
-        <a href="#gloves">Gloves</a>
-        <a href="#about">Our Story</a>
-      </nav>
-      <a href="#gloves" class="nav-cta">Shop Now</a>
+      <!-- Search -->
+      <svg class="icon-btn" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+      </svg>
+
+      <!-- Account -->
+      <a href="/account" aria-label="Account">
+        <svg class="icon-btn" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 22c2-4 14-4 16 0"></path>
+        </svg>
+      </a>
+
+      <!-- Cart -->
+      <a href="/cart" class="cart-wrap" aria-label="Cart">
+        <svg class="icon-btn" viewBox="0 0 24 24">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.6 13h11.4l2-8H6"></path>
+        </svg>
+        <!-- Show this span ONLY when items exist -->
+        <!-- <span class="cart-indicator"></span> -->
+      </a>
+
+      <a href="/collections/all" class="nav-cta">Shop Now</a>
     </div>
   </div>
 </div>
@@ -326,42 +356,20 @@ footer{
 
 <main>
 
-<section class="section hero" id="hero">
+<section class="section hero">
   <div>
     <h1 class="hero-title">Let the gear do the talking.</h1>
     <p class="hero-text">
       Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
     </p>
     <div class="hero-actions">
-      <a href="#gloves" class="btn btn-primary">Shop Gloves</a>
-      <a href="#about" class="btn">Our Story</a>
+      <a href="/collections/all" class="btn btn-primary">Shop Gloves</a>
     </div>
   </div>
 
   <div class="hero-card">
     <img src="images/hero.png" alt="Chirpz Hero Glove">
   </div>
-</section>
-
-<section class="section" id="gloves">
-  <div class="section-title">Featured Gloves</div>
-  <div class="product-grid">
-    <div class="product-card">
-      <h3>Chirpz Signature – Men’s</h3>
-      <img src="images/mens-glove.png">
-    </div>
-    <div class="product-card">
-      <h3>Chirpz Breeze – Women’s</h3>
-      <img src="images/womens-glove.png">
-    </div>
-  </div>
-</section>
-
-<section class="section" id="about">
-  <div class="section-title">Our Story</div>
-  <p class="hero-text">
-    Chirpz is built around quiet confidence — premium feel, clean design, and details golfers notice without loud branding.
-  </p>
 </section>
 
 </main>
@@ -371,81 +379,55 @@ footer{
 </footer>
 
 <script>
-/* FOOTER YEAR */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* =================================================
-   STARFIELD + SHOOTING STARS (UNCHANGED)
-   ================================================= */
+/* STARFIELD SCRIPT – UNCHANGED */
 (() => {
-  const hero = document.querySelector(".hero-bleed");
-  const img = hero.querySelector("img");
-  const starCanvas = document.getElementById("starCanvas");
-  const trailCanvas = document.getElementById("trailCanvas");
+  const hero=document.querySelector(".hero-bleed"),
+        img=hero.querySelector("img"),
+        starCanvas=document.getElementById("starCanvas"),
+        trailCanvas=document.getElementById("trailCanvas"),
+        sctx=starCanvas.getContext("2d"),
+        tctx=trailCanvas.getContext("2d");
 
-  const sctx = starCanvas.getContext("2d");
-  const tctx = trailCanvas.getContext("2d");
+  let stars=[],shooting=[],w=0,h=0,last=0;
 
-  let stars = [];
-  let shooting = [];
-  let w = 0, h = 0;
-  let last = 0;
-
-  function resize() {
-    w = img.clientWidth;
-    h = img.clientHeight;
-    starCanvas.width = trailCanvas.width = w;
-    starCanvas.height = trailCanvas.height = h;
-    stars = Array.from({length:Math.floor(w/6)},()=>({
-      x:Math.random()*w,y:Math.random()*h,
-      r:Math.random()*1.4+.4,
-      a:Math.random()*.5+.3,
-      t:Math.random()*Math.PI*2,
-      s:Math.random()*1.5+.5
+  function resize(){
+    w=img.clientWidth;h=img.clientHeight;
+    starCanvas.width=trailCanvas.width=w;
+    starCanvas.height=trailCanvas.height=h;
+    stars=Array.from({length:Math.floor(w/6)},()=>({
+      x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.4,
+      a:Math.random()*.5+.3,t:Math.random()*Math.PI*2,s:Math.random()*1.5+.5
     }));
   }
 
   function spawn(){
     const a=Math.random()*Math.PI*2;
-    shooting.push({
-      x:Math.random()*w,y:Math.random()*h,
-      vx:Math.cos(a)*800,vy:Math.sin(a)*800,
-      life:0,max:1
-    });
+    shooting.push({x:Math.random()*w,y:Math.random()*h,vx:Math.cos(a)*800,vy:Math.sin(a)*800,life:0,max:1});
   }
 
   function animate(ts){
     if(!last) last=ts;
-    const dt=(ts-last)/1000;
-    last=ts;
-
+    const dt=(ts-last)/1000;last=ts;
     sctx.clearRect(0,0,w,h);
     stars.forEach(s=>{
       const al=s.a+Math.sin(ts/1000*s.s+s.t)*.3;
       sctx.fillStyle=`rgba(255,255,255,${al})`;
-      sctx.beginPath();
-      sctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      sctx.fill();
+      sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);sctx.fill();
     });
-
     tctx.clearRect(0,0,w,h);
     shooting=shooting.filter(s=>s.life<s.max);
     shooting.forEach(s=>{
-      s.life+=dt;
-      s.x+=s.vx*dt;
-      s.y+=s.vy*dt;
+      s.life+=dt;s.x+=s.vx*dt;s.y+=s.vy*dt;
       tctx.strokeStyle=`rgba(255,255,255,${1-s.life/s.max})`;
-      tctx.beginPath();
-      tctx.moveTo(s.x-s.vx*.02,s.y-s.vy*.02);
-      tctx.lineTo(s.x,s.y);
-      tctx.stroke();
+      tctx.beginPath();tctx.moveTo(s.x-s.vx*.02,s.y-s.vy*.02);tctx.lineTo(s.x,s.y);tctx.stroke();
     });
-
     if(Math.random()<.01) spawn();
     requestAnimationFrame(animate);
   }
 
-  img.complete ? (resize(),requestAnimationFrame(animate)) : img.onload=()=>{resize();requestAnimationFrame(animate)};
+  img.complete?(resize(),requestAnimationFrame(animate)):img.onload=()=>{resize();requestAnimationFrame(animate)};
   window.addEventListener("resize",resize);
 })();
 </script>
