@@ -7,7 +7,6 @@
 
 <link rel="icon" type="image/png" href="images/favicon.png" />
 <link rel="apple-touch-icon" href="images/favicon.png" />
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -16,28 +15,30 @@
   --text-muted:#6b7280;
   --border:#e5e7eb;
   --cta:#111827;
-  --radius:20px;
+  --cta2:#0b1220;
+  --radius:18px;
   --shadow:0 18px 40px rgba(15,23,42,.08);
-  --shadow-strong:0 30px 80px rgba(15,23,42,.18);
+  --shadow-strong:0 28px 70px rgba(15,23,42,.16);
   --max:1120px;
 }
 
-*{box-sizing:border-box;}
+/* Base */
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
 body{
-  margin:0;
   font-family:'Inter',sans-serif;
   background:#fff;
   color:var(--text-main);
 }
 
 /* =========================
-   HEADER – DESKTOP
+   ULTRA-PREMIUM HEADER
    ========================= */
 .nav-shell{
   position:sticky;
   top:0;
-  z-index:300;
-  background:rgba(255,255,255,.6);
+  z-index:500;
+  background:rgba(255,255,255,.65);
   backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.35);
@@ -46,24 +47,28 @@ body{
 .nav{
   max-width:var(--max);
   margin:0 auto;
-  padding:14px 26px;
+  padding:14px 24px;
   display:grid;
   grid-template-columns:auto 1fr auto;
   align-items:center;
+  gap:18px;
 }
 
 .nav-brand{
   font-size:14px;
   font-weight:700;
   letter-spacing:.14em;
+  text-transform:uppercase;
+  white-space:nowrap;
 }
 
 .nav-center{
   display:flex;
   justify-content:center;
-  gap:40px;
+  gap:36px;
   font-size:12px;
   letter-spacing:.18em;
+  text-transform:uppercase;
 }
 
 .nav-center a{
@@ -83,15 +88,31 @@ body{
   transition:.25s ease;
   transform:translateX(-50%);
 }
-
-.nav-center a:hover::after{
-  width:100%;
-}
+.nav-center a:hover::after{ width:100%; }
 
 .nav-right{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:16px;
+  position:relative;
+  justify-content:flex-end;
+}
+
+.nav-cta{
+  padding:9px 14px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--cta),var(--cta2));
+  color:#fff;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-decoration:none;
+  transition:.2s ease;
+  white-space:nowrap;
+}
+.nav-cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
 }
 
 .icon-btn{
@@ -103,61 +124,172 @@ body{
   cursor:pointer;
   transition:.2s ease;
 }
+.icon-btn:hover{ stroke:rgba(15,23,42,1); }
 
-.icon-btn:hover{
-  stroke:rgba(15,23,42,1);
+.icon-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
 }
 
-.cart-wrap{
-  position:relative;
-}
-
-.cart-indicator{
-  position:absolute;
-  top:-2px;
-  right:-2px;
-  width:6px;
-  height:6px;
-  background:#0f172a;
-  border-radius:50%;
-}
-
-.nav-cta{
-  padding:9px 14px;
+/* Cart badge (premium dot + count) */
+.cart-pill{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
   border-radius:999px;
+  border:1px solid rgba(229,231,235,.9);
+  background:rgba(255,255,255,.7);
+}
+.cart-count{
+  font-size:11px;
+  color:rgba(15,23,42,.75);
+  min-width:14px;
+  text-align:right;
+}
+
+/* =========================
+   CART DROPDOWN (same on desktop & mobile)
+   ========================= */
+.cart-dropdown{
+  position:absolute;
+  right:0;
+  top:46px;
+  width:360px;
+  max-width:min(360px, calc(100vw - 24px));
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow-strong);
+  display:none;
+  overflow:hidden;
+}
+
+.cart-dropdown.open{ display:block; }
+
+.cart-head{
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+.cart-head h4{
+  margin:0;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(15,23,42,.8);
+}
+.cart-close{
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:8px;
+  line-height:0;
+}
+
+.cart-body{
+  padding:14px 16px;
+}
+
+.cart-empty{
+  font-size:13px;
+  color:var(--text-muted);
+  line-height:1.5;
+}
+
+.cart-items{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.cart-item{
+  display:grid;
+  grid-template-columns:52px 1fr auto;
+  gap:12px;
+  align-items:center;
+}
+.cart-thumb{
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.cart-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.cart-meta{
+  min-width:0;
+}
+.cart-name{
+  font-size:13px;
+  font-weight:600;
+  margin:0 0 2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cart-sub{
+  font-size:12px;
+  color:var(--text-muted);
+  margin:0;
+}
+.cart-remove{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.cart-foot{
+  padding:14px 16px;
+  border-top:1px solid var(--border);
+  display:grid;
+  gap:10px;
+}
+
+.cart-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.cart-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border-radius:999px;
+  padding:12px 12px;
+  font-size:13px;
+  font-weight:600;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text-main);
+}
+.cart-btn-primary{
+  border:none;
   background:var(--cta);
   color:#fff;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.08em;
-  text-decoration:none;
 }
 
 /* =========================
-   MOBILE HEADER
-   ========================= */
-.mobile-toggle{
-  display:none;
-}
-
-.mobile-menu{
-  display:none;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-}
-
-.mobile-menu a{
-  display:block;
-  padding:18px 24px;
-  text-decoration:none;
-  font-size:14px;
-  letter-spacing:.12em;
-  color:var(--text-main);
-  border-bottom:1px solid var(--border);
-}
-
-/* =========================
-   HERO BILLBOARD
+   HERO BILLBOARD (UNCHANGED)
    ========================= */
 .hero-bleed{
   width:100vw;
@@ -166,14 +298,11 @@ body{
   position:relative;
   overflow:hidden;
 }
-
 .hero-bleed img{
   width:100%;
   display:block;
 }
-
-#starCanvas,
-#trailCanvas{
+#starCanvas,#trailCanvas{
   position:absolute;
   inset:0;
   pointer-events:none;
@@ -188,7 +317,7 @@ main{
   padding:56px 20px 96px;
 }
 
-.section{margin-bottom:72px;}
+.section{ margin-bottom:72px; }
 
 .hero{
   display:grid;
@@ -196,9 +325,8 @@ main{
   gap:48px;
   align-items:center;
 }
-
 @media(max-width:880px){
-  .hero{grid-template-columns:1fr;}
+  .hero{ grid-template-columns:1fr; }
 }
 
 .hero-title{
@@ -206,72 +334,155 @@ main{
   line-height:1.05;
   margin:0 0 12px;
 }
-
 .hero-text{
-  max-width:520px;
+  max-width:560px;
   color:var(--text-muted);
   line-height:1.6;
-  margin-bottom:20px;
+  margin:0 0 20px;
+}
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.hero-card{
-  max-width:380px;
-  margin-left:auto;
-  border-radius:var(--radius);
+.btn{
+  padding:12px 16px;
+  border-radius:999px;
   border:1px solid var(--border);
   background:#fff;
-  padding:18px;
-  box-shadow:var(--shadow);
+  color:var(--text-main);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+}
+.btn-primary{
+  background:var(--cta);
+  border:none;
+  color:#fff;
 }
 
 /* =========================
-   FEATURED GLOVES
+   PREMIUM GLOVE CARDS (UNIFORM SIZE)
    ========================= */
 .section-title{
   font-size:12px;
   letter-spacing:.12em;
   text-transform:uppercase;
   color:rgba(15,23,42,.6);
-  margin-bottom:16px;
+  margin:0 0 16px;
 }
 
-.product-grid{
+.gloves-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(3, 1fr);
   gap:24px;
 }
-
-@media(max-width:760px){
-  .product-grid{grid-template-columns:1fr;}
+@media(max-width:1024px){
+  .gloves-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+@media(max-width:640px){
+  .gloves-grid{ grid-template-columns:1fr; }
 }
 
-.product-card{
+/* Card */
+.glove-card{
   border-radius:var(--radius);
   border:1px solid var(--border);
   background:#fff;
-  padding:18px;
   box-shadow:var(--shadow);
+  overflow:hidden;
+  transition:box-shadow .35s ease, transform .35s ease;
 }
 
-.product-card img{
+/* Uniform image viewport (this makes EVERY glove same visual size) */
+.glove-media{
+  height:280px;               /* LOCKED uniform height */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  padding:14px;
+}
+.glove-media img{
   width:100%;
-  max-height:360px;
-  object-fit:contain;
+  height:100%;
+  object-fit:contain;         /* Keeps proportions */
+  transform:scale(1);
+  transition:transform .85s cubic-bezier(.19,1,.22,1);
+}
+
+/* Premium hover */
+.glove-card:hover{
+  box-shadow:var(--shadow-strong);
+  transform:translateY(-1px);
+}
+.glove-card:hover .glove-media img{
+  transform:scale(1.035);
+}
+
+/* Optional text area */
+.glove-info{
+  padding:14px 16px 16px;
+  border-top:1px solid var(--border);
+}
+.glove-name{
+  margin:0 0 6px;
+  font-size:14px;
+  font-weight:650;
+}
+.glove-sub{
+  margin:0 0 12px;
+  font-size:12px;
+  color:var(--text-muted);
+}
+.glove-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.small-btn{
+  padding:10px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:650;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text-main);
+  cursor:pointer;
+}
+.small-btn.primary{
+  border:none;
+  background:var(--cta);
+  color:#fff;
+}
+
+/* Footer */
+footer{
+  border-top:1px solid var(--border);
+  padding:22px;
+  text-align:center;
+  font-size:12px;
+  color:var(--text-muted);
 }
 
 /* =========================
-   MOBILE BREAKPOINT
+   MOBILE HEADER RESPONSIVE
+   Keep cart dropdown identical behavior.
    ========================= */
 @media(max-width:768px){
-  .nav-center,
-  .nav-cta,
-  .icon-btn.search,
-  .icon-btn.account{
-    display:none;
+  .nav{
+    grid-template-columns:auto 1fr auto;
+    padding:12px 16px;
   }
-
-  .mobile-toggle{
-    display:block;
+  .nav-center{ display:none; }
+  .nav-brand{ font-size:13px; }
+  .nav-right{ gap:12px; }
+  .nav-cta{ display:none; } /* keeps premium & uncluttered on mobile */
+  .cart-dropdown{
+    right:0;
+    top:46px;
+    width:100%;
   }
 }
 </style>
@@ -282,35 +493,73 @@ main{
 <!-- HEADER -->
 <div class="nav-shell">
   <div class="nav">
-    <svg class="icon-btn mobile-toggle" id="menuBtn" viewBox="0 0 24 24">
-      <line x1="3" y1="6" x2="21" y2="6"/>
-      <line x1="3" y1="12" x2="21" y2="12"/>
-      <line x1="3" y1="18" x2="21" y2="18"/>
-    </svg>
-
     <div class="nav-brand">CHIRPZ GOLF</div>
 
+    <div class="nav-center">
+      <a href="/collections/men">MEN</a>
+      <a href="/collections/women">WOMEN</a>
+    </div>
+
     <div class="nav-right">
-      <a href="/cart" class="cart-wrap">
+      <!-- Search (placeholder link; wire later) -->
+      <a class="icon-link" href="/search" aria-label="Search">
         <svg class="icon-btn" viewBox="0 0 24 24">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.6 13h11.4l2-8H6"/>
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
         </svg>
       </a>
-    </div>
-  </div>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/collections/men">MEN</a>
-    <a href="/collections/women">WOMEN</a>
-    <a href="/collections/all">SHOP ALL</a>
-    <a href="/account">ACCOUNT</a>
+      <!-- Account (Shopify-ready) -->
+      <a class="icon-link" href="/account" aria-label="Account">
+        <svg class="icon-btn" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 22c2-4 14-4 16 0"></path>
+        </svg>
+      </a>
+
+      <!-- Cart + Count -->
+      <div class="cart-pill" id="cartToggle" role="button" tabindex="0" aria-label="Open cart dropdown">
+        <svg class="icon-btn" viewBox="0 0 24 24" style="width:18px;height:18px;">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.6 13h11.4l2-8H6"></path>
+        </svg>
+        <div class="cart-count" id="cartCount">0</div>
+      </div>
+
+      <!-- Shop Now (Shopify-ready) -->
+      <a href="/collections/all" class="nav-cta">Shop Now</a>
+
+      <!-- CART DROPDOWN -->
+      <div class="cart-dropdown" id="cartDropdown" aria-hidden="true">
+        <div class="cart-head">
+          <h4>Your Cart</h4>
+          <button class="cart-close" id="cartClose" aria-label="Close cart">
+            <svg class="icon-btn" viewBox="0 0 24 24" style="width:18px;height:18px;">
+              <line x1="5" y1="5" x2="19" y2="19"></line>
+              <line x1="19" y1="5" x2="5" y2="19"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="cart-body">
+          <div class="cart-empty" id="cartEmpty">Your cart is currently empty.</div>
+          <ul class="cart-items" id="cartItems" style="display:none;"></ul>
+        </div>
+
+        <div class="cart-foot">
+          <div class="cart-actions">
+            <a class="cart-btn" href="/cart">View Cart</a>
+            <a class="cart-btn cart-btn-primary" href="/checkout">Checkout</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- HERO IMAGE -->
+<!-- HERO BILLBOARD -->
 <div class="hero-bleed">
   <img src="images/header-sale.png" alt="Launch Sale">
   <canvas id="starCanvas"></canvas>
@@ -319,52 +568,286 @@ main{
 
 <main>
 
-<section class="section hero">
-  <div>
-    <h1 class="hero-title">Let the gear do the talking.</h1>
+  <!-- HERO -->
+  <section class="section hero" id="hero">
+    <div>
+      <h1 class="hero-title">Let the gear do the talking.</h1>
+      <p class="hero-text">
+        Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
+      </p>
+      <div class="hero-actions">
+        <a href="/collections/all" class="btn btn-primary">Shop Gloves</a>
+        <a href="/account" class="btn">Account</a>
+      </div>
+    </div>
+
+    <!-- Hero glove is now the same system/size as all others -->
+    <div class="glove-card">
+      <div class="glove-media">
+        <img src="images/hero.png" alt="Chirpz Hero Glove">
+      </div>
+      <div class="glove-info">
+        <p class="glove-name">Featured Drop</p>
+        <p class="glove-sub">Premium feel. Clean details.</p>
+        <div class="glove-actions">
+          <button class="small-btn primary" data-add="hero">Add to cart</button>
+          <a class="small-btn" href="/collections/all" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Shop</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL GLOVES (Do not drop anything) -->
+  <section class="section" id="gloves">
+    <div class="section-title">All Gloves</div>
+
+    <div class="gloves-grid" id="glovesGrid">
+      <!-- Injected by JS from the GLOVES array so you never “lose” gloves again -->
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="section" id="about">
+    <div class="section-title">Our Story</div>
     <p class="hero-text">
-      Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
+      Chirpz is built around quiet confidence — premium feel, clean design, and details golfers notice without loud branding.
     </p>
-  </div>
-
-  <div class="hero-card">
-    <img src="images/hero.png" alt="Chirpz Hero Glove">
-  </div>
-</section>
-
-<!-- GALLERY PLACEHOLDER (ADD LIFESTYLE IMAGES LATER) -->
-<!--
-<section class="section">
-  <div class="section-title">Gallery</div>
-</section>
--->
-
-<section class="section">
-  <div class="section-title">Featured Gloves</div>
-  <div class="product-grid">
-    <div class="product-card">
-      <h3>Chirpz Signature – Men’s</h3>
-      <img src="images/mens-glove.png">
-    </div>
-    <div class="product-card">
-      <h3>Chirpz Breeze – Women’s</h3>
-      <img src="images/womens-glove.png">
-    </div>
-  </div>
-</section>
+  </section>
 
 </main>
 
 <footer>
-  © <span id="year"></span> Chirpz Golf
+  © <span id="year"></span> Chirpz Golf. All rights reserved.
 </footer>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-document.getElementById("menuBtn").onclick=()=>{
-  const m=document.getElementById("mobileMenu");
-  m.style.display=m.style.display==="block"?"none":"block";
-};
+/* FOOTER YEAR */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* =================================================
+   STARFIELD + SHOOTING STARS (UNCHANGED)
+   ================================================= */
+(() => {
+  const hero = document.querySelector(".hero-bleed");
+  const img = hero.querySelector("img");
+  const starCanvas = document.getElementById("starCanvas");
+  const trailCanvas = document.getElementById("trailCanvas");
+
+  const sctx = starCanvas.getContext("2d");
+  const tctx = trailCanvas.getContext("2d");
+
+  let stars = [];
+  let shooting = [];
+  let w = 0, h = 0;
+  let last = 0;
+
+  function resize() {
+    w = img.clientWidth;
+    h = img.clientHeight;
+    starCanvas.width = trailCanvas.width = w;
+    starCanvas.height = trailCanvas.height = h;
+
+    stars = Array.from({length: Math.floor(w / 6)}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.4 + 0.4,
+      a: Math.random() * 0.5 + 0.3,
+      t: Math.random() * Math.PI * 2,
+      s: Math.random() * 1.5 + 0.5
+    }));
+  }
+
+  function spawn(){
+    const a = Math.random() * Math.PI * 2;
+    shooting.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: Math.cos(a) * 800,
+      vy: Math.sin(a) * 800,
+      life: 0,
+      max: 1
+    });
+  }
+
+  function animate(ts){
+    if(!last) last = ts;
+    const dt = (ts - last) / 1000;
+    last = ts;
+
+    sctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{
+      const al = s.a + Math.sin(ts/1000*s.s + s.t) * 0.3;
+      sctx.fillStyle = `rgba(255,255,255,${al})`;
+      sctx.beginPath();
+      sctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      sctx.fill();
+    });
+
+    tctx.clearRect(0,0,w,h);
+    shooting = shooting.filter(s=>s.life < s.max);
+    shooting.forEach(s=>{
+      s.life += dt;
+      s.x += s.vx * dt;
+      s.y += s.vy * dt;
+      tctx.strokeStyle = `rgba(255,255,255,${1 - s.life/s.max})`;
+      tctx.beginPath();
+      tctx.moveTo(s.x - s.vx * 0.02, s.y - s.vy * 0.02);
+      tctx.lineTo(s.x, s.y);
+      tctx.stroke();
+    });
+
+    if(Math.random() < 0.01) spawn();
+    requestAnimationFrame(animate);
+  }
+
+  img.complete ? (resize(), requestAnimationFrame(animate)) : img.onload = () => { resize(); requestAnimationFrame(animate); };
+  window.addEventListener("resize", resize);
+})();
+
+/* =================================================
+   GLOVES: Render All Gloves (so they never get “dropped”)
+   Update filenames/titles here once and the homepage stays correct.
+   ================================================= */
+const GLOVES = [
+  { id:"mens",   name:"Chirpz Signature – Men’s",  sub:"Clean grip. Quiet confidence.", img:"images/mens-glove.png" },
+  { id:"womens", name:"Chirpz Breeze – Women’s",   sub:"Light feel. Premium finish.",  img:"images/womens-glove.png" },
+
+  // Add every glove you have here (examples below — rename to your real files):
+  // { id:"royalblue", name:"Signature – Royal Blue", sub:"White logo. Crisp contrast.", img:"images/blue-glove.png" },
+  // { id:"lavender",  name:"Breeze – Lavender",      sub:"Soft colorway. Clean print.", img:"images/lavender-glove.png" },
+  // { id:"white",     name:"Classic – White",       sub:"Timeless. Tour-ready.",       img:"images/white-glove.png" },
+];
+
+const glovesGrid = document.getElementById("glovesGrid");
+glovesGrid.innerHTML = GLOVES.map(g => `
+  <div class="glove-card">
+    <div class="glove-media">
+      <img src="${g.img}" alt="${g.name}">
+    </div>
+    <div class="glove-info">
+      <p class="glove-name">${g.name}</p>
+      <p class="glove-sub">${g.sub}</p>
+      <div class="glove-actions">
+        <button class="small-btn primary" data-add="${g.id}">Add to cart</button>
+        <a class="small-btn" href="/collections/all" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Shop</a>
+      </div>
+    </div>
+  </div>
+`).join("");
+
+/* =================================================
+   CART (Working now, Shopify-ready later)
+   - Stores items in localStorage
+   - Renders dropdown on desktop + mobile identically
+   ================================================= */
+const CART_KEY = "chirpz_cart_v1";
+
+function getCart(){
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch { return []; }
+}
+function setCart(cart){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+function addToCart(id){
+  const cart = getCart();
+  const item = cart.find(x => x.id === id);
+  if(item) item.qty += 1;
+  else {
+    // Find glove metadata
+    const g = (id === "hero")
+      ? { id:"hero", name:"Featured Drop", img:"images/hero.png" }
+      : (GLOVES.find(x => x.id === id) || { id, name:id, img:"images/hero.png" });
+
+    cart.push({ id:g.id, name:g.name, img:g.img, qty:1 });
+  }
+  setCart(cart);
+  renderCart();
+  openCart();
+}
+function removeFromCart(id){
+  const cart = getCart().filter(x => x.id !== id);
+  setCart(cart);
+  renderCart();
+}
+function cartCount(){
+  return getCart().reduce((sum,x)=>sum + (x.qty||0), 0);
+}
+
+const cartToggle = document.getElementById("cartToggle");
+const cartDropdown = document.getElementById("cartDropdown");
+const cartClose = document.getElementById("cartClose");
+const cartCountEl = document.getElementById("cartCount");
+const cartEmptyEl = document.getElementById("cartEmpty");
+const cartItemsEl = document.getElementById("cartItems");
+
+function openCart(){
+  cartDropdown.classList.add("open");
+  cartDropdown.setAttribute("aria-hidden","false");
+}
+function closeCart(){
+  cartDropdown.classList.remove("open");
+  cartDropdown.setAttribute("aria-hidden","true");
+}
+function toggleCart(){
+  cartDropdown.classList.contains("open") ? closeCart() : openCart();
+}
+
+function renderCart(){
+  const c = getCart();
+  cartCountEl.textContent = String(cartCount());
+
+  if(c.length === 0){
+    cartEmptyEl.style.display = "block";
+    cartItemsEl.style.display = "none";
+    cartItemsEl.innerHTML = "";
+    return;
+  }
+
+  cartEmptyEl.style.display = "none";
+  cartItemsEl.style.display = "flex";
+
+  cartItemsEl.innerHTML = c.map(item => `
+    <li class="cart-item">
+      <div class="cart-thumb"><img src="${item.img}" alt=""></div>
+      <div class="cart-meta">
+        <p class="cart-name">${item.name}</p>
+        <p class="cart-sub">Qty: ${item.qty}</p>
+      </div>
+      <button class="cart-remove" data-remove="${item.id}">Remove</button>
+    </li>
+  `).join("");
+
+  // Bind remove buttons
+  cartItemsEl.querySelectorAll("[data-remove]").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      const id = e.currentTarget.getAttribute("data-remove");
+      removeFromCart(id);
+    });
+  });
+}
+
+/* Bind cart dropdown open/close */
+cartToggle.addEventListener("click", toggleCart);
+cartToggle.addEventListener("keydown", (e)=>{ if(e.key==="Enter" || e.key===" ") toggleCart(); });
+cartClose.addEventListener("click", closeCart);
+
+/* Close cart when clicking outside */
+document.addEventListener("click", (e)=>{
+  const within = cartDropdown.contains(e.target) || cartToggle.contains(e.target);
+  if(!within) closeCart();
+});
+
+/* Bind add-to-cart buttons (hero + all gloves) */
+document.addEventListener("click", (e)=>{
+  const t = e.target;
+  if(t && t.matches("[data-add]")){
+    addToCart(t.getAttribute("data-add"));
+  }
+});
+
+/* Initial render */
+renderCart();
 </script>
 
 </body>
