@@ -16,10 +16,9 @@
   --text-muted:#6b7280;
   --border:#e5e7eb;
   --cta:#111827;
-  --cta-hover:#0b1220;
   --radius:20px;
   --shadow:0 18px 40px rgba(15,23,42,.08);
-  --shadow-strong:0 28px 80px rgba(15,23,42,.14);
+  --shadow-strong:0 30px 80px rgba(15,23,42,.18);
   --max:1120px;
 }
 
@@ -118,7 +117,7 @@ body{
 .nav-cta{
   padding:10px 16px;
   border-radius:999px;
-  background:linear-gradient(135deg,#111827,#0b1220);
+  background:#111827;
   color:#fff;
   text-decoration:none;
   font-size:12px;
@@ -132,7 +131,7 @@ body{
 }
 
 /* =========================
-   HERO BLEED
+   HERO BLEED (UNCHANGED)
    ========================= */
 .hero-bleed{
   width:100vw;
@@ -212,35 +211,33 @@ main{
 }
 
 /* =========================
-   TIER 2 PARALLAX
+   PREMIUM HERO GLOVE
    ========================= */
-.glove-tilt{
-  perspective:1200px;
-  position:relative;
+.hero-card{
+  max-width:380px;
+  margin-left:auto;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:#fff;
+  padding:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
-.glove-tilt img{
-  transform-style:preserve-3d;
-  transition:transform .25s ease, box-shadow .25s ease;
-  will-change:transform;
+.hero-card img{
+  width:100%;
+  transition:transform .9s cubic-bezier(.19,1,.22,1),
+             box-shadow .9s cubic-bezier(.19,1,.22,1);
 }
 
-.glove-tilt.hero img{
-  box-shadow:0 30px 70px rgba(15,23,42,.14);
-}
-
-.glove-tilt.product img{
-  box-shadow:0 22px 48px rgba(15,23,42,.12);
-}
-
-@media (hover:none){
-  .glove-tilt img{
-    transform:none!important;
-  }
+/* Cinematic hover */
+.hero-card:hover img{
+  transform:scale(1.035) translateY(-3px);
+  box-shadow:var(--shadow-strong);
 }
 
 /* =========================
-   PRODUCTS
+   PRODUCTS (SUBTLE)
    ========================= */
 .section-title{
   font-size:12px;
@@ -266,18 +263,22 @@ main{
   background:#fff;
   padding:18px;
   box-shadow:var(--shadow);
-  transition:.2s;
-}
-
-.product-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-strong);
+  transition:.25s ease;
 }
 
 .product-card img{
   width:100%;
-  max-height:380px;
+  max-height:360px;
   object-fit:contain;
+  transition:transform .6s cubic-bezier(.19,1,.22,1);
+}
+
+.product-card:hover{
+  box-shadow:var(--shadow-strong);
+}
+
+.product-card:hover img{
+  transform:scale(1.02);
 }
 
 /* =========================
@@ -337,7 +338,7 @@ footer{
     </div>
   </div>
 
-  <div class="hero-card glove-tilt hero">
+  <div class="hero-card">
     <img src="images/hero.png" alt="Chirpz Hero Glove">
   </div>
 </section>
@@ -345,11 +346,11 @@ footer{
 <section class="section" id="gloves">
   <div class="section-title">Featured Gloves</div>
   <div class="product-grid">
-    <div class="product-card glove-tilt product">
+    <div class="product-card">
       <h3>Chirpz Signature – Men’s</h3>
       <img src="images/mens-glove.png">
     </div>
-    <div class="product-card glove-tilt product">
+    <div class="product-card">
       <h3>Chirpz Breeze – Women’s</h3>
       <img src="images/womens-glove.png">
     </div>
@@ -373,27 +374,80 @@ footer{
 /* FOOTER YEAR */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* TIER 2 PARALLAX */
-document.querySelectorAll('.glove-tilt').forEach(card=>{
-  const img = card.querySelector('img');
-  const strength = card.classList.contains('hero') ? 14 : 18;
+/* =================================================
+   STARFIELD + SHOOTING STARS (UNCHANGED)
+   ================================================= */
+(() => {
+  const hero = document.querySelector(".hero-bleed");
+  const img = hero.querySelector("img");
+  const starCanvas = document.getElementById("starCanvas");
+  const trailCanvas = document.getElementById("trailCanvas");
 
-  card.addEventListener('mousemove',e=>{
-    const r = card.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
+  const sctx = starCanvas.getContext("2d");
+  const tctx = trailCanvas.getContext("2d");
 
-    img.style.transform = `
-      rotateX(${-(y - r.height/2)/strength}deg)
-      rotateY(${(x - r.width/2)/strength}deg)
-      scale(1.04)
-    `;
-  });
+  let stars = [];
+  let shooting = [];
+  let w = 0, h = 0;
+  let last = 0;
 
-  card.addEventListener('mouseleave',()=>{
-    img.style.transform='rotateX(0) rotateY(0) scale(1)';
-  });
-});
+  function resize() {
+    w = img.clientWidth;
+    h = img.clientHeight;
+    starCanvas.width = trailCanvas.width = w;
+    starCanvas.height = trailCanvas.height = h;
+    stars = Array.from({length:Math.floor(w/6)},()=>({
+      x:Math.random()*w,y:Math.random()*h,
+      r:Math.random()*1.4+.4,
+      a:Math.random()*.5+.3,
+      t:Math.random()*Math.PI*2,
+      s:Math.random()*1.5+.5
+    }));
+  }
+
+  function spawn(){
+    const a=Math.random()*Math.PI*2;
+    shooting.push({
+      x:Math.random()*w,y:Math.random()*h,
+      vx:Math.cos(a)*800,vy:Math.sin(a)*800,
+      life:0,max:1
+    });
+  }
+
+  function animate(ts){
+    if(!last) last=ts;
+    const dt=(ts-last)/1000;
+    last=ts;
+
+    sctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{
+      const al=s.a+Math.sin(ts/1000*s.s+s.t)*.3;
+      sctx.fillStyle=`rgba(255,255,255,${al})`;
+      sctx.beginPath();
+      sctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      sctx.fill();
+    });
+
+    tctx.clearRect(0,0,w,h);
+    shooting=shooting.filter(s=>s.life<s.max);
+    shooting.forEach(s=>{
+      s.life+=dt;
+      s.x+=s.vx*dt;
+      s.y+=s.vy*dt;
+      tctx.strokeStyle=`rgba(255,255,255,${1-s.life/s.max})`;
+      tctx.beginPath();
+      tctx.moveTo(s.x-s.vx*.02,s.y-s.vy*.02);
+      tctx.lineTo(s.x,s.y);
+      tctx.stroke();
+    });
+
+    if(Math.random()<.01) spawn();
+    requestAnimationFrame(animate);
+  }
+
+  img.complete ? (resize(),requestAnimationFrame(animate)) : img.onload=()=>{resize();requestAnimationFrame(animate)};
+  window.addEventListener("resize",resize);
+})();
 </script>
 
 </body>
