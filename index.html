@@ -5,31 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Chirpz Golf – Let the gear do the talking.</title>
 
-<!-- FAVICON -->
 <link rel="icon" type="image/png" href="images/favicon.png" />
 <link rel="apple-touch-icon" href="images/favicon.png" />
 
-<!-- GOOGLE FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg-page:#ffffff;
   --text-main:#0f172a;
   --text-muted:#6b7280;
-  --cta-bg:#111827;
-  --cta-bg-hover:#0b1220;
   --border:#e5e7eb;
+  --cta:#111827;
+  --cta-hover:#0b1220;
   --radius:20px;
   --shadow:0 18px 40px rgba(15,23,42,.08);
-  --shadow-strong:0 26px 70px rgba(15,23,42,.14);
+  --shadow-strong:0 28px 80px rgba(15,23,42,.14);
   --max:1120px;
 }
 
-*{ box-sizing:border-box; }
+*{box-sizing:border-box;}
 body{
   margin:0;
-  font-family:"Inter",sans-serif;
+  font-family:'Inter',sans-serif;
   background:#fff;
   color:var(--text-main);
 }
@@ -39,8 +36,7 @@ body{
   position:sticky;
   top:0;
   z-index:200;
-  width:100%;
-  background:rgba(255,255,255,.08);
+  background:rgba(255,255,255,.85);
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
 }
@@ -99,7 +95,7 @@ body{
 .nav-cta{
   padding:10px 14px;
   border-radius:999px;
-  background:var(--cta-bg);
+  background:var(--cta);
   color:#fff;
   text-decoration:none;
   font-size:12px;
@@ -108,36 +104,29 @@ body{
 }
 
 .nav-cta:hover{
-  background:var(--cta-bg-hover);
+  background:var(--cta-hover);
   transform:translateY(-1px);
 }
 
-/* ================= HERO BANNER ================= */
-.art-strip{
-  width:100%;
-  border-bottom:1px solid var(--border);
-  background:transparent; /* OPTION A APPLIED */
+/* ================= FULL BLEED HERO ================= */
+.hero-bleed{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
   position:relative;
   overflow:hidden;
 }
 
-.art-strip-inner{
-  max-width:1600px;
-  margin:0 auto;
-  position:relative;
-}
-
-.art-strip-img{
+.hero-bleed img{
   width:100%;
   display:block;
 }
 
+/* star canvases */
 #starCanvas,
 #trailCanvas{
   position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
+  inset:0;
   pointer-events:none;
 }
 
@@ -145,33 +134,33 @@ body{
 main{
   max-width:var(--max);
   margin:0 auto;
-  padding:44px 20px 90px;
+  padding:56px 20px 96px;
 }
 
-.section{ margin-bottom:64px; }
+.section{margin-bottom:72px;}
 
 .hero{
   display:grid;
   grid-template-columns:1.15fr 1fr;
-  gap:40px;
+  gap:48px;
   align-items:center;
 }
 
 @media(max-width:880px){
-  .hero{ grid-template-columns:1fr; }
+  .hero{grid-template-columns:1fr;}
 }
 
 .hero-title{
   font-size:clamp(34px,4vw,48px);
-  margin:0 0 10px;
   line-height:1.05;
+  margin:0 0 12px;
 }
 
 .hero-text{
-  color:var(--text-muted);
   max-width:520px;
+  color:var(--text-muted);
   line-height:1.6;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .hero-actions{
@@ -184,14 +173,14 @@ main{
   border-radius:999px;
   border:1px solid var(--border);
   background:#fff;
+  color:var(--text-main);
   text-decoration:none;
   font-size:13px;
   font-weight:600;
-  color:var(--text-main);
 }
 
 .btn-primary{
-  background:var(--cta-bg);
+  background:var(--cta);
   color:#fff;
   border:none;
 }
@@ -204,41 +193,40 @@ main{
   box-shadow:var(--shadow);
 }
 
-/* ================= GLOVES ================= */
+/* ================= PRODUCTS ================= */
 .section-title{
   font-size:12px;
   letter-spacing:.12em;
   text-transform:uppercase;
-  color:rgba(15,23,42,.65);
-  margin-bottom:14px;
+  color:rgba(15,23,42,.6);
+  margin-bottom:16px;
 }
 
-.glove-grid{
+.product-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:22px;
+  gap:24px;
 }
 
 @media(max-width:760px){
-  .glove-grid{ grid-template-columns:1fr; }
+  .product-grid{grid-template-columns:1fr;}
 }
 
-.glove-card{
+.product-card{
   border-radius:var(--radius);
   border:1px solid var(--border);
   background:#fff;
   padding:18px;
   box-shadow:var(--shadow);
-  cursor:pointer;
   transition:.2s;
 }
 
-.glove-card:hover{
-  box-shadow:var(--shadow-strong);
+.product-card:hover{
   transform:translateY(-2px);
+  box-shadow:var(--shadow-strong);
 }
 
-.glove-card img{
+.product-card img{
   width:100%;
   max-height:380px;
   object-fit:contain;
@@ -247,7 +235,7 @@ main{
 /* ================= FOOTER ================= */
 footer{
   border-top:1px solid var(--border);
-  padding:20px;
+  padding:22px;
   text-align:center;
   font-size:12px;
   color:var(--text-muted);
@@ -278,18 +266,16 @@ footer{
   </div>
 </div>
 
-<!-- HERO BANNER -->
-<div class="art-strip">
-  <div class="art-strip-inner">
-    <img src="images/header-sale.png" class="art-strip-img" alt="Launch Sale">
-    <canvas id="starCanvas"></canvas>
-    <canvas id="trailCanvas"></canvas>
-  </div>
+<!-- FULL BLEED HERO IMAGE -->
+<div class="hero-bleed">
+  <img src="images/header-sale.png" alt="Launch Sale">
+  <canvas id="starCanvas"></canvas>
+  <canvas id="trailCanvas"></canvas>
 </div>
 
 <main>
 
-<!-- HERO -->
+<!-- HERO TEXT -->
 <section class="section hero" id="hero">
   <div>
     <h1 class="hero-title">Let the gear do the talking.</h1>
@@ -301,20 +287,21 @@ footer{
       <a href="#about" class="btn">Our Story</a>
     </div>
   </div>
+
   <div class="hero-card">
     <img src="images/hero.png" alt="Chirpz Hero Glove" style="width:100%;">
   </div>
 </section>
 
-<!-- GLOVES -->
+<!-- PRODUCTS -->
 <section class="section" id="gloves">
   <div class="section-title">Featured Gloves</div>
-  <div class="glove-grid">
-    <div class="glove-card">
+  <div class="product-grid">
+    <div class="product-card">
       <h3>Chirpz Signature – Men’s</h3>
       <img src="images/mens-glove.png">
     </div>
-    <div class="glove-card">
+    <div class="product-card">
       <h3>Chirpz Breeze – Women’s</h3>
       <img src="images/womens-glove.png">
     </div>
