@@ -31,7 +31,7 @@ body{
 }
 
 /* =========================
-   ULTRA-PREMIUM HEADER
+   HEADER – DESKTOP
    ========================= */
 .nav-shell{
   position:sticky;
@@ -52,15 +52,12 @@ body{
   align-items:center;
 }
 
-/* LEFT */
 .nav-brand{
   font-size:14px;
   font-weight:700;
   letter-spacing:.14em;
-  text-transform:uppercase;
 }
 
-/* CENTER */
 .nav-center{
   display:flex;
   justify-content:center;
@@ -91,7 +88,6 @@ body{
   width:100%;
 }
 
-/* RIGHT */
 .nav-right{
   display:flex;
   align-items:center;
@@ -112,6 +108,10 @@ body{
   stroke:rgba(15,23,42,1);
 }
 
+.cart-wrap{
+  position:relative;
+}
+
 .cart-indicator{
   position:absolute;
   top:-2px;
@@ -120,10 +120,6 @@ body{
   height:6px;
   background:#0f172a;
   border-radius:50%;
-}
-
-.cart-wrap{
-  position:relative;
 }
 
 .nav-cta{
@@ -135,16 +131,33 @@ body{
   font-weight:600;
   letter-spacing:.08em;
   text-decoration:none;
-  transition:.25s ease;
-}
-
-.nav-cta:hover{
-  transform:translateY(-1px);
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
 }
 
 /* =========================
-   HERO BLEED (UNCHANGED)
+   MOBILE HEADER
+   ========================= */
+.mobile-toggle{
+  display:none;
+}
+
+.mobile-menu{
+  display:none;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+
+.mobile-menu a{
+  display:block;
+  padding:18px 24px;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:.12em;
+  color:var(--text-main);
+  border-bottom:1px solid var(--border);
+}
+
+/* =========================
+   HERO BILLBOARD
    ========================= */
 .hero-bleed{
   width:100vw;
@@ -201,31 +214,6 @@ main{
   margin-bottom:20px;
 }
 
-.hero-actions{
-  display:flex;
-  gap:12px;
-}
-
-.btn{
-  padding:12px 16px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:#fff;
-  color:var(--text-main);
-  text-decoration:none;
-  font-size:13px;
-  font-weight:600;
-}
-
-.btn-primary{
-  background:var(--cta);
-  color:#fff;
-  border:none;
-}
-
-/* =========================
-   PREMIUM HERO GLOVE
-   ========================= */
 .hero-card{
   max-width:380px;
   margin-left:auto;
@@ -234,20 +222,10 @@ main{
   background:#fff;
   padding:18px;
   box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.hero-card img{
-  width:100%;
-  transition:transform .9s cubic-bezier(.19,1,.22,1);
-}
-
-.hero-card:hover img{
-  transform:scale(1.035) translateY(-3px);
 }
 
 /* =========================
-   PRODUCTS
+   FEATURED GLOVES
    ========================= */
 .section-title{
   font-size:12px;
@@ -273,33 +251,28 @@ main{
   background:#fff;
   padding:18px;
   box-shadow:var(--shadow);
-  transition:.25s ease;
 }
 
 .product-card img{
   width:100%;
   max-height:360px;
   object-fit:contain;
-  transition:transform .6s cubic-bezier(.19,1,.22,1);
-}
-
-.product-card:hover{
-  box-shadow:var(--shadow-strong);
-}
-
-.product-card:hover img{
-  transform:scale(1.02);
 }
 
 /* =========================
-   FOOTER
+   MOBILE BREAKPOINT
    ========================= */
-footer{
-  border-top:1px solid var(--border);
-  padding:22px;
-  text-align:center;
-  font-size:12px;
-  color:var(--text-muted);
+@media(max-width:768px){
+  .nav-center,
+  .nav-cta,
+  .icon-btn.search,
+  .icon-btn.account{
+    display:none;
+  }
+
+  .mobile-toggle{
+    display:block;
+  }
 }
 </style>
 </head>
@@ -309,41 +282,31 @@ footer{
 <!-- HEADER -->
 <div class="nav-shell">
   <div class="nav">
+    <svg class="icon-btn mobile-toggle" id="menuBtn" viewBox="0 0 24 24">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+
     <div class="nav-brand">CHIRPZ GOLF</div>
 
-    <div class="nav-center">
-      <a href="/collections/men">MEN</a>
-      <a href="/collections/women">WOMEN</a>
-    </div>
-
     <div class="nav-right">
-      <!-- Search -->
-      <svg class="icon-btn" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="7"></circle>
-        <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
-      </svg>
-
-      <!-- Account -->
-      <a href="/account" aria-label="Account">
+      <a href="/cart" class="cart-wrap">
         <svg class="icon-btn" viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 22c2-4 14-4 16 0"></path>
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.6 13h11.4l2-8H6"/>
         </svg>
       </a>
-
-      <!-- Cart -->
-      <a href="/cart" class="cart-wrap" aria-label="Cart">
-        <svg class="icon-btn" viewBox="0 0 24 24">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.6 13h11.4l2-8H6"></path>
-        </svg>
-        <!-- Show this span ONLY when items exist -->
-        <!-- <span class="cart-indicator"></span> -->
-      </a>
-
-      <a href="/collections/all" class="nav-cta">Shop Now</a>
     </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/collections/men">MEN</a>
+    <a href="/collections/women">WOMEN</a>
+    <a href="/collections/all">SHOP ALL</a>
+    <a href="/account">ACCOUNT</a>
   </div>
 </div>
 
@@ -362,9 +325,6 @@ footer{
     <p class="hero-text">
       Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
     </p>
-    <div class="hero-actions">
-      <a href="/collections/all" class="btn btn-primary">Shop Gloves</a>
-    </div>
   </div>
 
   <div class="hero-card">
@@ -372,64 +332,39 @@ footer{
   </div>
 </section>
 
+<!-- GALLERY PLACEHOLDER (ADD LIFESTYLE IMAGES LATER) -->
+<!--
+<section class="section">
+  <div class="section-title">Gallery</div>
+</section>
+-->
+
+<section class="section">
+  <div class="section-title">Featured Gloves</div>
+  <div class="product-grid">
+    <div class="product-card">
+      <h3>Chirpz Signature – Men’s</h3>
+      <img src="images/mens-glove.png">
+    </div>
+    <div class="product-card">
+      <h3>Chirpz Breeze – Women’s</h3>
+      <img src="images/womens-glove.png">
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
-  © <span id="year"></span> Chirpz Golf. All rights reserved.
+  © <span id="year"></span> Chirpz Golf
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/* STARFIELD SCRIPT – UNCHANGED */
-(() => {
-  const hero=document.querySelector(".hero-bleed"),
-        img=hero.querySelector("img"),
-        starCanvas=document.getElementById("starCanvas"),
-        trailCanvas=document.getElementById("trailCanvas"),
-        sctx=starCanvas.getContext("2d"),
-        tctx=trailCanvas.getContext("2d");
-
-  let stars=[],shooting=[],w=0,h=0,last=0;
-
-  function resize(){
-    w=img.clientWidth;h=img.clientHeight;
-    starCanvas.width=trailCanvas.width=w;
-    starCanvas.height=trailCanvas.height=h;
-    stars=Array.from({length:Math.floor(w/6)},()=>({
-      x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.4,
-      a:Math.random()*.5+.3,t:Math.random()*Math.PI*2,s:Math.random()*1.5+.5
-    }));
-  }
-
-  function spawn(){
-    const a=Math.random()*Math.PI*2;
-    shooting.push({x:Math.random()*w,y:Math.random()*h,vx:Math.cos(a)*800,vy:Math.sin(a)*800,life:0,max:1});
-  }
-
-  function animate(ts){
-    if(!last) last=ts;
-    const dt=(ts-last)/1000;last=ts;
-    sctx.clearRect(0,0,w,h);
-    stars.forEach(s=>{
-      const al=s.a+Math.sin(ts/1000*s.s+s.t)*.3;
-      sctx.fillStyle=`rgba(255,255,255,${al})`;
-      sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);sctx.fill();
-    });
-    tctx.clearRect(0,0,w,h);
-    shooting=shooting.filter(s=>s.life<s.max);
-    shooting.forEach(s=>{
-      s.life+=dt;s.x+=s.vx*dt;s.y+=s.vy*dt;
-      tctx.strokeStyle=`rgba(255,255,255,${1-s.life/s.max})`;
-      tctx.beginPath();tctx.moveTo(s.x-s.vx*.02,s.y-s.vy*.02);tctx.lineTo(s.x,s.y);tctx.stroke();
-    });
-    if(Math.random()<.01) spawn();
-    requestAnimationFrame(animate);
-  }
-
-  img.complete?(resize(),requestAnimationFrame(animate)):img.onload=()=>{resize();requestAnimationFrame(animate)};
-  window.addEventListener("resize",resize);
-})();
+document.getElementById("year").textContent=new Date().getFullYear();
+document.getElementById("menuBtn").onclick=()=>{
+  const m=document.getElementById("mobileMenu");
+  m.style.display=m.style.display==="block"?"none":"block";
+};
 </script>
 
 </body>
