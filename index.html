@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -31,20 +31,24 @@ body{
   color:var(--text-main);
 }
 
-/* NAV */
+/* =========================
+   PREMIUM GLASS NAV
+   ========================= */
 .nav-shell{
   position:sticky;
   top:0;
   z-index:200;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.35);
+  box-shadow:0 8px 30px rgba(15,23,42,.06);
 }
 
 .nav{
   max-width:var(--max);
   margin:0 auto;
-  padding:14px 20px;
+  padding:14px 22px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -76,7 +80,7 @@ body{
 .nav-right{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:22px;
 }
 
 .nav-links{
@@ -90,25 +94,46 @@ body{
 .nav-links a{
   color:var(--text-main);
   text-decoration:none;
+  position:relative;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:100%;
+  height:1px;
+  background:rgba(15,23,42,.6);
+  opacity:0;
+  transform:scaleX(.6);
+  transition:.2s ease;
+}
+
+.nav-links a:hover::after{
+  opacity:1;
+  transform:scaleX(1);
 }
 
 .nav-cta{
-  padding:10px 14px;
+  padding:10px 16px;
   border-radius:999px;
-  background:var(--cta);
+  background:linear-gradient(135deg,#111827,#0b1220);
   color:#fff;
   text-decoration:none;
   font-size:12px;
   font-weight:600;
-  transition:.2s;
+  transition:.25s ease;
 }
 
 .nav-cta:hover{
-  background:var(--cta-hover);
-  transform:translateY(-1px);
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
 }
 
-/* FULL BLEED HERO */
+/* =========================
+   HERO BLEED
+   ========================= */
 .hero-bleed{
   width:100vw;
   margin-left:calc(50% - 50vw);
@@ -129,7 +154,9 @@ body{
   pointer-events:none;
 }
 
-/* MAIN */
+/* =========================
+   MAIN
+   ========================= */
 main{
   max-width:var(--max);
   margin:0 auto;
@@ -184,15 +211,37 @@ main{
   border:none;
 }
 
-.hero-card{
-  border-radius:var(--radius);
-  border:1px solid var(--border);
-  background:#fff;
-  padding:18px;
-  box-shadow:var(--shadow);
+/* =========================
+   TIER 2 PARALLAX
+   ========================= */
+.glove-tilt{
+  perspective:1200px;
+  position:relative;
 }
 
-/* PRODUCTS */
+.glove-tilt img{
+  transform-style:preserve-3d;
+  transition:transform .25s ease, box-shadow .25s ease;
+  will-change:transform;
+}
+
+.glove-tilt.hero img{
+  box-shadow:0 30px 70px rgba(15,23,42,.14);
+}
+
+.glove-tilt.product img{
+  box-shadow:0 22px 48px rgba(15,23,42,.12);
+}
+
+@media (hover:none){
+  .glove-tilt img{
+    transform:none!important;
+  }
+}
+
+/* =========================
+   PRODUCTS
+   ========================= */
 .section-title{
   font-size:12px;
   letter-spacing:.12em;
@@ -231,7 +280,9 @@ main{
   object-fit:contain;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+   ========================= */
 footer{
   border-top:1px solid var(--border);
   padding:22px;
@@ -286,19 +337,19 @@ footer{
     </div>
   </div>
 
-  <div class="hero-card">
-    <img src="images/hero.png" alt="Chirpz Hero Glove" style="width:100%;">
+  <div class="hero-card glove-tilt hero">
+    <img src="images/hero.png" alt="Chirpz Hero Glove">
   </div>
 </section>
 
 <section class="section" id="gloves">
   <div class="section-title">Featured Gloves</div>
   <div class="product-grid">
-    <div class="product-card">
+    <div class="product-card glove-tilt product">
       <h3>Chirpz Signature – Men’s</h3>
       <img src="images/mens-glove.png">
     </div>
-    <div class="product-card">
+    <div class="product-card glove-tilt product">
       <h3>Chirpz Breeze – Women’s</h3>
       <img src="images/womens-glove.png">
     </div>
@@ -322,120 +373,27 @@ footer{
 /* FOOTER YEAR */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* =================================================
-   REALISTIC STARFIELD + SHOOTING STARS (ALL ANGLES)
-   ================================================= */
-(() => {
-  const hero = document.querySelector(".hero-bleed");
-  const img = hero.querySelector("img");
-  const starCanvas = document.getElementById("starCanvas");
-  const trailCanvas = document.getElementById("trailCanvas");
+/* TIER 2 PARALLAX */
+document.querySelectorAll('.glove-tilt').forEach(card=>{
+  const img = card.querySelector('img');
+  const strength = card.classList.contains('hero') ? 14 : 18;
 
-  const sctx = starCanvas.getContext("2d");
-  const tctx = trailCanvas.getContext("2d");
+  card.addEventListener('mousemove',e=>{
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
 
-  let stars = [];
-  let shooting = [];
-  let w = 0, h = 0;
-  let last = 0;
+    img.style.transform = `
+      rotateX(${-(y - r.height/2)/strength}deg)
+      rotateY(${(x - r.width/2)/strength}deg)
+      scale(1.04)
+    `;
+  });
 
-  function resize() {
-    w = img.clientWidth;
-    h = img.clientHeight;
-
-    starCanvas.width = trailCanvas.width = w;
-    starCanvas.height = trailCanvas.height = h;
-
-    createStars();
-  }
-
-  function createStars() {
-    stars = [];
-    const count = Math.floor(w / 6);
-    for (let i = 0; i < count; i++) {
-      stars.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.4 + 0.4,
-        a: Math.random() * 0.5 + 0.3,
-        t: Math.random() * Math.PI * 2,
-        s: Math.random() * 1.5 + 0.5
-      });
-    }
-  }
-
-  function spawnShootingStar() {
-    const side = Math.floor(Math.random() * 4);
-    let x, y, vx, vy;
-
-    const speed = 600 + Math.random() * 400;
-    const angle = Math.random() * Math.PI * 2;
-
-    if (side === 0) { x = Math.random() * w; y = -50; }
-    if (side === 1) { x = w + 50; y = Math.random() * h; }
-    if (side === 2) { x = Math.random() * w; y = h + 50; }
-    if (side === 3) { x = -50; y = Math.random() * h; }
-
-    vx = Math.cos(angle) * speed;
-    vy = Math.sin(angle) * speed;
-
-    shooting.push({ x, y, vx, vy, life: 0, max: 1.2 });
-  }
-
-  function drawStars(time) {
-    sctx.clearRect(0,0,w,h);
-    for (const s of stars) {
-      const alpha = s.a + Math.sin(time * s.s + s.t) * 0.3;
-      sctx.fillStyle = `rgba(255,255,255,${Math.max(0,alpha)})`;
-      sctx.beginPath();
-      sctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      sctx.fill();
-    }
-  }
-
-  function drawShooting(dt) {
-    tctx.clearRect(0,0,w,h);
-    shooting = shooting.filter(s => s.life < s.max);
-
-    for (const s of shooting) {
-      s.life += dt;
-      s.x += s.vx * dt;
-      s.y += s.vy * dt;
-
-      const a = Math.sin((s.life / s.max) * Math.PI);
-      tctx.strokeStyle = `rgba(255,255,255,${a})`;
-      tctx.lineWidth = 2;
-      tctx.beginPath();
-      tctx.moveTo(s.x - s.vx * 0.02, s.y - s.vy * 0.02);
-      tctx.lineTo(s.x, s.y);
-      tctx.stroke();
-    }
-
-    if (Math.random() < 0.01) spawnShootingStar();
-  }
-
-  function animate(ts) {
-    if (!last) last = ts;
-    const dt = (ts - last) / 1000;
-    last = ts;
-
-    drawStars(ts / 1000);
-    drawShooting(dt);
-    requestAnimationFrame(animate);
-  }
-
-  if (img.complete) {
-    resize();
-    requestAnimationFrame(animate);
-  } else {
-    img.onload = () => {
-      resize();
-      requestAnimationFrame(animate);
-    };
-  }
-
-  window.addEventListener("resize", resize);
-})();
+  card.addEventListener('mouseleave',()=>{
+    img.style.transform='rotateX(0) rotateY(0) scale(1)';
+  });
+});
 </script>
 
 </body>
