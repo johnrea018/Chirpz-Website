@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -31,7 +31,7 @@ body{
   color:var(--text-main);
 }
 
-/* ================= NAV ================= */
+/* NAV */
 .nav-shell{
   position:sticky;
   top:0;
@@ -108,7 +108,7 @@ body{
   transform:translateY(-1px);
 }
 
-/* ================= FULL BLEED HERO ================= */
+/* FULL BLEED HERO */
 .hero-bleed{
   width:100vw;
   margin-left:calc(50% - 50vw);
@@ -122,7 +122,6 @@ body{
   display:block;
 }
 
-/* star canvases */
 #starCanvas,
 #trailCanvas{
   position:absolute;
@@ -130,7 +129,7 @@ body{
   pointer-events:none;
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 main{
   max-width:var(--max);
   margin:0 auto;
@@ -193,7 +192,7 @@ main{
   box-shadow:var(--shadow);
 }
 
-/* ================= PRODUCTS ================= */
+/* PRODUCTS */
 .section-title{
   font-size:12px;
   letter-spacing:.12em;
@@ -232,7 +231,7 @@ main{
   object-fit:contain;
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 footer{
   border-top:1px solid var(--border);
   padding:22px;
@@ -266,7 +265,7 @@ footer{
   </div>
 </div>
 
-<!-- FULL BLEED HERO IMAGE -->
+<!-- HERO IMAGE -->
 <div class="hero-bleed">
   <img src="images/header-sale.png" alt="Launch Sale">
   <canvas id="starCanvas"></canvas>
@@ -275,7 +274,6 @@ footer{
 
 <main>
 
-<!-- HERO TEXT -->
 <section class="section hero" id="hero">
   <div>
     <h1 class="hero-title">Let the gear do the talking.</h1>
@@ -293,7 +291,6 @@ footer{
   </div>
 </section>
 
-<!-- PRODUCTS -->
 <section class="section" id="gloves">
   <div class="section-title">Featured Gloves</div>
   <div class="product-grid">
@@ -308,7 +305,6 @@ footer{
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="section" id="about">
   <div class="section-title">Our Story</div>
   <p class="hero-text">
@@ -323,108 +319,108 @@ footer{
 </footer>
 
 <script>
-<script>
-/* Footer year */
+/* FOOTER YEAR */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* =========================================================
-   STARFIELD + TWINKLE + SHOOTING STARS (RESTORED)
-   ========================================================= */
-(function() {
-  const hero = document.querySelector('.hero-bleed');
-  const img = hero.querySelector('img');
-  const starCanvas = document.getElementById('starCanvas');
-  const trailCanvas = document.getElementById('trailCanvas');
-  if (!hero || !img || !starCanvas || !trailCanvas) return;
+/* =================================================
+   REALISTIC STARFIELD + SHOOTING STARS (ALL ANGLES)
+   ================================================= */
+(() => {
+  const hero = document.querySelector(".hero-bleed");
+  const img = hero.querySelector("img");
+  const starCanvas = document.getElementById("starCanvas");
+  const trailCanvas = document.getElementById("trailCanvas");
 
-  const starCtx = starCanvas.getContext('2d');
-  const trailCtx = trailCanvas.getContext('2d');
+  const sctx = starCanvas.getContext("2d");
+  const tctx = trailCanvas.getContext("2d");
 
   let stars = [];
-  let shootingStars = [];
-  let width = 0;
-  let height = 0;
-  let lastTime = 0;
+  let shooting = [];
+  let w = 0, h = 0;
+  let last = 0;
 
   function resize() {
-    width = img.clientWidth;
-    height = img.clientHeight;
+    w = img.clientWidth;
+    h = img.clientHeight;
 
-    starCanvas.width = width;
-    starCanvas.height = height;
-    trailCanvas.width = width;
-    trailCanvas.height = height;
+    starCanvas.width = trailCanvas.width = w;
+    starCanvas.height = trailCanvas.height = h;
 
     createStars();
   }
 
   function createStars() {
     stars = [];
-    const count = Math.floor(width / 8);
+    const count = Math.floor(w / 6);
     for (let i = 0; i < count; i++) {
       stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 1.4 + 0.4,
-        baseAlpha: 0.3 + Math.random() * 0.6,
-        phase: Math.random() * Math.PI * 2,
-        speed: 0.5 + Math.random() * 1.5
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.4 + 0.4,
+        a: Math.random() * 0.5 + 0.3,
+        t: Math.random() * Math.PI * 2,
+        s: Math.random() * 1.5 + 0.5
       });
     }
   }
 
   function spawnShootingStar() {
-    shootingStars.push({
-      x: Math.random() * width * 0.3,
-      y: Math.random() * height * 0.3,
-      vx: 600,
-      vy: 300,
-      life: 0,
-      maxLife: 1.2
-    });
+    const side = Math.floor(Math.random() * 4);
+    let x, y, vx, vy;
+
+    const speed = 600 + Math.random() * 400;
+    const angle = Math.random() * Math.PI * 2;
+
+    if (side === 0) { x = Math.random() * w; y = -50; }
+    if (side === 1) { x = w + 50; y = Math.random() * h; }
+    if (side === 2) { x = Math.random() * w; y = h + 50; }
+    if (side === 3) { x = -50; y = Math.random() * h; }
+
+    vx = Math.cos(angle) * speed;
+    vy = Math.sin(angle) * speed;
+
+    shooting.push({ x, y, vx, vy, life: 0, max: 1.2 });
   }
 
-  function drawStars(t) {
-    starCtx.clearRect(0, 0, width, height);
+  function drawStars(time) {
+    sctx.clearRect(0,0,w,h);
     for (const s of stars) {
-      const alpha = s.baseAlpha + Math.sin(t * s.speed + s.phase) * 0.3;
-      starCtx.fillStyle = `rgba(255,255,255,${Math.max(0,alpha)})`;
-      starCtx.beginPath();
-      starCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-      starCtx.fill();
+      const alpha = s.a + Math.sin(time * s.s + s.t) * 0.3;
+      sctx.fillStyle = `rgba(255,255,255,${Math.max(0,alpha)})`;
+      sctx.beginPath();
+      sctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      sctx.fill();
     }
   }
 
-  function drawShootingStars(dt) {
-    trailCtx.clearRect(0, 0, width, height);
-    shootingStars = shootingStars.filter(s => s.life < s.maxLife);
+  function drawShooting(dt) {
+    tctx.clearRect(0,0,w,h);
+    shooting = shooting.filter(s => s.life < s.max);
 
-    for (const s of shootingStars) {
+    for (const s of shooting) {
       s.life += dt;
       s.x += s.vx * dt;
       s.y += s.vy * dt;
 
-      const alpha = Math.sin((s.life / s.maxLife) * Math.PI);
-      trailCtx.strokeStyle = `rgba(255,255,255,${alpha})`;
-      trailCtx.lineWidth = 2;
-      trailCtx.beginPath();
-      trailCtx.moveTo(s.x - 40, s.y - 20);
-      trailCtx.lineTo(s.x, s.y);
-      trailCtx.stroke();
+      const a = Math.sin((s.life / s.max) * Math.PI);
+      tctx.strokeStyle = `rgba(255,255,255,${a})`;
+      tctx.lineWidth = 2;
+      tctx.beginPath();
+      tctx.moveTo(s.x - s.vx * 0.02, s.y - s.vy * 0.02);
+      tctx.lineTo(s.x, s.y);
+      tctx.stroke();
     }
 
     if (Math.random() < 0.01) spawnShootingStar();
   }
 
   function animate(ts) {
-    if (!lastTime) lastTime = ts;
-    const dt = (ts - lastTime) / 1000;
-    lastTime = ts;
+    if (!last) last = ts;
+    const dt = (ts - last) / 1000;
+    last = ts;
 
-    const t = ts / 1000;
-    drawStars(t);
-    drawShootingStars(dt);
-
+    drawStars(ts / 1000);
+    drawShooting(dt);
     requestAnimationFrame(animate);
   }
 
@@ -438,12 +434,9 @@ document.getElementById("year").textContent = new Date().getFullYear();
     };
   }
 
-  window.addEventListener('resize', resize);
+  window.addEventListener("resize", resize);
 })();
-</script>
-
 </script>
 
 </body>
 </html>
-
