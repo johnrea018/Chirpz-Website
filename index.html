@@ -31,19 +31,15 @@ body{
   color:var(--text-main);
 }
 
-/* =========================
-   ULTRA-PREMIUM HEADER
-   ========================= */
+/* ========================= HEADER ========================= */
 .nav-shell{
   position:sticky;
   top:0;
   z-index:500;
   background:rgba(255,255,255,.65);
   backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.35);
 }
-
 .nav{
   max-width:var(--max);
   margin:0 auto;
@@ -53,15 +49,12 @@ body{
   align-items:center;
   gap:18px;
 }
-
 .nav-brand{
   font-size:14px;
   font-weight:700;
   letter-spacing:.14em;
   text-transform:uppercase;
-  white-space:nowrap;
 }
-
 .nav-center{
   display:flex;
   justify-content:center;
@@ -70,33 +63,8 @@ body{
   letter-spacing:.18em;
   text-transform:uppercase;
 }
-
-.nav-center a{
-  color:rgba(15,23,42,.75);
-  text-decoration:none;
-  position:relative;
-}
-
-.nav-center a::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-6px;
-  width:0;
-  height:1px;
-  background:rgba(15,23,42,.6);
-  transition:.25s ease;
-  transform:translateX(-50%);
-}
-.nav-center a:hover::after{ width:100%; }
-
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  position:relative;
-  justify-content:flex-end;
-}
+.nav-center a{ text-decoration:none; color:rgba(15,23,42,.75); }
+.nav-right{ display:flex; align-items:center; gap:16px; }
 
 .nav-cta{
   padding:9px 14px;
@@ -105,111 +73,10 @@ body{
   color:#fff;
   font-size:11px;
   font-weight:600;
-  letter-spacing:.08em;
-  text-decoration:none;
-  transition:.2s ease;
-  white-space:nowrap;
-}
-.nav-cta:hover{
-  transform:translateY(-1px);
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
-}
-
-.icon-btn{
-  width:18px;
-  height:18px;
-  stroke:rgba(15,23,42,.75);
-  stroke-width:1.6;
-  fill:none;
-  cursor:pointer;
-  transition:.2s ease;
-}
-.icon-btn:hover{ stroke:rgba(15,23,42,1); }
-
-.icon-link{
-  display:flex;
-  align-items:center;
-  justify-content:center;
   text-decoration:none;
 }
 
-/* Cart badge */
-.cart-pill{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(229,231,235,.9);
-  background:rgba(255,255,255,.7);
-}
-.cart-count{
-  font-size:11px;
-  color:rgba(15,23,42,.75);
-  min-width:14px;
-  text-align:right;
-}
-
-/* =========================
-   CART DROPDOWN
-   ========================= */
-.cart-dropdown{
-  position:absolute;
-  right:0;
-  top:46px;
-  width:360px;
-  max-width:min(360px, calc(100vw - 24px));
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  box-shadow:var(--shadow-strong);
-  display:none;
-  overflow:hidden;
-}
-.cart-dropdown.open{ display:block; }
-
-.cart-head{
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
-}
-
-.cart-body{ padding:14px 16px; }
-.cart-empty{ font-size:13px; color:var(--text-muted); }
-
-.cart-foot{
-  padding:14px 16px;
-  border-top:1px solid var(--border);
-}
-.cart-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.cart-btn{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:999px;
-  padding:12px;
-  font-size:13px;
-  font-weight:600;
-  border:1px solid var(--border);
-  background:#fff;
-  text-decoration:none;
-}
-.cart-btn-primary{
-  border:none;
-  background:var(--cta);
-  color:#fff;
-}
-
-/* =========================
-   HERO
-   ========================= */
+/* ========================= HERO BILLBOARD ========================= */
 .hero-bleed{
   width:100vw;
   margin-left:calc(50% - 50vw);
@@ -217,46 +84,55 @@ body{
   overflow:hidden;
 }
 .hero-bleed img{ width:100%; display:block; }
-#starCanvas,#trailCanvas{ position:absolute; inset:0; pointer-events:none; }
+#starCanvas,#trailCanvas{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
 
-/* =========================
-   MAIN
-   ========================= */
+/* ========================= MAIN ========================= */
 main{
   max-width:var(--max);
   margin:0 auto;
-  padding:56px 20px 96px;
+  padding:56px erpx 96px;
 }
-
 .section{ margin-bottom:72px; }
 
 .hero{
   display:grid;
-  grid-template-columns:1.15fr 1fr;
+  grid-template-columns:1.1fr 1fr;
   gap:48px;
   align-items:center;
 }
-@media(max-width:880px){ .hero{ grid-template-columns:1fr; } }
+@media(max-width:900px){
+  .hero{ grid-template-columns:1fr; }
+}
 
+/* Hero copy */
 .hero-title{
   font-size:clamp(34px,4vw,48px);
   margin:0 0 12px;
 }
 .hero-text{
-  max-width:560px;
+  max-width:520px;
   color:var(--text-muted);
   line-height:1.6;
 }
-.hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+.hero-actions{
+  margin-top:20px;
+  display:flex;
+  gap:12px;
+}
 
+/* Buttons */
 .btn{
   padding:12px 16px;
   border-radius:999px;
   border:1px solid var(--border);
   background:#fff;
-  text-decoration:none;
   font-size:13px;
   font-weight:600;
+  text-decoration:none;
 }
 .btn-primary{
   background:var(--cta);
@@ -264,29 +140,31 @@ main{
   color:#fff;
 }
 
-/* Gloves */
-.section-title{
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(15,23,42,.6);
-}
-.gloves-grid{
+/* ========================= GLOVE SYSTEM (EQUAL SIZE + ANIMATED) ========================= */
+.hero-gloves{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
 }
-@media(max-width:1024px){ .gloves-grid{ grid-template-columns:repeat(2,1fr); } }
-@media(max-width:640px){ .gloves-grid{ grid-template-columns:1fr; } }
+@media(max-width:700px){
+  .hero-gloves{ grid-template-columns:1fr; }
+}
 
 .glove-card{
   border-radius:var(--radius);
   border:1px solid var(--border);
+  background:#fff;
   box-shadow:var(--shadow);
   overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease;
 }
+.glove-card:hover{
+  transform:translateY(-1px);
+  box-shadow:var(--shadow-strong);
+}
+
 .glove-media{
-  height:280px;
+  height:260px;                 /* LOCKED HEIGHT */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -296,26 +174,26 @@ main{
   width:100%;
   height:100%;
   object-fit:contain;
+  transform:scale(1);
+  transition:transform .85s cubic-bezier(.19,1,.22,1);
+}
+.glove-card:hover .glove-media img{
+  transform:scale(1.04);
 }
 
 .glove-info{
   padding:14px 16px;
   border-top:1px solid var(--border);
 }
-.glove-actions{ display:flex; gap:10px; }
-.small-btn{
-  padding:10px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:600;
-  border:1px solid var(--border);
-  background:#fff;
-  cursor:pointer;
+.glove-name{
+  margin:0 0 6px;
+  font-size:14px;
+  font-weight:650;
 }
-.small-btn.primary{
-  border:none;
-  background:var(--cta);
-  color:#fff;
+.glove-sub{
+  margin:0;
+  font-size:12px;
+  color:var(--text-muted);
 }
 
 /* Footer */
@@ -331,33 +209,21 @@ footer{
 
 <body>
 
+<!-- HEADER -->
 <div class="nav-shell">
   <div class="nav">
     <div class="nav-brand">CHIRPZ GOLF</div>
-
     <div class="nav-center">
-      <a href="/collections/men">MEN</a>
-      <a href="/collections/women">WOMEN</a>
+      <a href="shop.html">MEN</a>
+      <a href="shop.html">WOMEN</a>
     </div>
-
     <div class="nav-right">
-      <div class="cart-pill" id="cartToggle">
-        🛒 <span class="cart-count" id="cartCount">0</span>
-      </div>
-
       <a href="shop.html" class="nav-cta">Shop Now</a>
-
-      <div class="cart-dropdown" id="cartDropdown">
-        <div class="cart-foot">
-          <div class="cart-actions">
-            <a class="cart-btn cart-btn-primary" href="checkout.html">Checkout</a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
+<!-- HERO IMAGE -->
 <div class="hero-bleed">
   <img src="images/header-sale.png" alt="Launch Sale">
   <canvas id="starCanvas"></canvas>
@@ -365,6 +231,8 @@ footer{
 </div>
 
 <main>
+
+  <!-- HERO SECTION -->
   <section class="section hero">
     <div>
       <h1 class="hero-title">Let the gear do the talking.</h1>
@@ -375,7 +243,41 @@ footer{
         <a href="shop.html" class="btn btn-primary">Shop Gloves</a>
       </div>
     </div>
+
+    <!-- THREE EQUAL HERO GLOVES -->
+    <div class="hero-gloves">
+      <div class="glove-card">
+        <div class="glove-media">
+          <img src="images/mens-glove.png" alt="Men’s Signature Glove">
+        </div>
+        <div class="glove-info">
+          <p class="glove-name">Signature – Men’s</p>
+          <p class="glove-sub">Clean grip. Quiet confidence.</p>
+        </div>
+      </div>
+
+      <div class="glove-card">
+        <div class="glove-media">
+          <img src="images/womens-glove.png" alt="Women’s Breeze Glove">
+        </div>
+        <div class="glove-info">
+          <p class="glove-name">Breeze – Women’s</p>
+          <p class="glove-sub">Light feel. Premium finish.</p>
+        </div>
+      </div>
+
+      <div class="glove-card">
+        <div class="glove-media">
+          <img src="images/hero.png" alt="Chirpz Featured Glove">
+        </div>
+        <div class="glove-info">
+          <p class="glove-name">Featured Drop</p>
+          <p class="glove-sub">Limited run. Tour-ready feel.</p>
+        </div>
+      </div>
+    </div>
   </section>
+
 </main>
 
 <footer>
