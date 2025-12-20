@@ -1,685 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chirpz Golf – Let the gear do the talking.</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chirpz Golf – Let the gear do the talking.</title>
 
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-  <link rel="apple-touch-icon" href="images/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/favicon.png" />
+<link rel="apple-touch-icon" href="images/favicon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --text-main:#0f172a;
-      --text-muted:#6b7280;
-      --border:#e5e7eb;
-      --cta:#111827;
-      --cta2:#0b1220;
-      --radius:18px;
-      --shadow:0 18px 40px rgba(15,23,42,.08);
-      --shadow-strong:0 28px 70px rgba(15,23,42,.16);
-      --max:1120px;
-    }
-    *{ box-sizing:border-box; }
-    html,body{ margin:0; padding:0; }
-    body{
-      font-family:'Inter',sans-serif;
-      background:#fff;
-      color:var(--text-main);
-    }
-    .nav-shell{
-      position:sticky;
-      top:0;
-      z-index:500;
-      background:rgba(255,255,255,.65);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      border-bottom:1px solid rgba(255,255,255,.35);
-    }
-    .nav{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:14px 24px;
-      display:grid;
-      grid-template-columns:auto 1fr auto;
-      align-items:center;
-      gap:18px;
-    }
-    .nav-brand{
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
-    .nav-center{
-      display:flex;
-      justify-content:center;
-      gap:36px;
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-    }
-    .nav-center a{
-      color:rgba(15,23,42,.75);
-      text-decoration:none;
-      position:relative;
-    }
-    .nav-center a::after{
-      content:"";
-      position:absolute;
-      left:50%;
-      bottom:-6px;
-      width:0;
-      height:1px;
-      background:rgba(15,23,42,.6);
-      transition:.25s ease;
-      transform:translateX(-50%);
-    }
-    .nav-center a:hover::after{ width:100%; }
-    .nav-right{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      position:relative;
-      justify-content:flex-end;
-    }
-    .nav-cta{
-      padding:9px 14px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--cta),var(--cta2));
-      color:#fff;
-      font-size:11px;
-      font-weight:600;
-      letter-spacing:.08em;
-      text-decoration:none;
-      transition:.2s ease;
-      white-space:nowrap;
-    }
-    .nav-cta:hover{
-      transform:translateY(-1px);
-      box-shadow:0 10px 30px rgba(0,0,0,.18);
-    }
-    .icon-btn{
-      width:18px;
-      height:18px;
-      stroke:rgba(15,23,42,.75);
-      stroke-width:1.6;
-      fill:none;
-      cursor:pointer;
-      transition:.2s ease;
-    }
-    .icon-btn:hover{ stroke:rgba(15,23,42,1); }
-    .icon-link{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-    }
-    .cart-pill{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(229,231,235,.9);
-      background:rgba(255,255,255,.7);
-    }
-    .cart-count{
-      font-size:11px;
-      color:rgba(15,23,42,.75);
-      min-width:14px;
-      text-align:right;
-    }
-    .cart-dropdown{
-      position:absolute;
-      right:0;
-      top:46px;
-      width:360px;
-      max-width:min(360px, calc(100vw - 24px));
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:var(--shadow-strong);
-      display:none;
-      overflow:hidden;
-    }
-    .cart-dropdown.open{ display:block; }
-    .cart-head{
-      padding:14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid var(--border);
-    }
-    .cart-head h4{
-      margin:0;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(15,23,42,.8);
-    }
-    .cart-close{
-      border:0;
-      background:transparent;
-      cursor:pointer;
-      padding:8px;
-      line-height:0;
-    }
-    .cart-body{ padding:14px 16px; }
-    .cart-empty{
-      font-size:13px;
-      color:var(--text-muted);
-      line-height:1.5;
-    }
-    .cart-items{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
-    .cart-item{
-      display:grid;
-      grid-template-columns:52px 1fr auto;
-      gap:12px;
-      align-items:center;
-    }
-    .cart-thumb{
-      width:52px;
-      height:52px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-    .cart-thumb img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-    }
-    .cart-meta{ min-width:0; }
-    .cart-name{
-      font-size:13px;
-      font-weight:600;
-      margin:0 0 2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .cart-sub{
-      font-size:12px;
-      color:var(--text-muted);
-      margin:0;
-    }
-    .cart-remove{
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:10px;
-      padding:8px 10px;
-      font-size:12px;
-      cursor:pointer;
-    }
-    .cart-foot{
-      padding:14px 16px;
-      border-top:1px solid var(--border);
-      display:grid;
-      gap:10px;
-    }
-    .cart-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .cart-btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-      border-radius:999px;
-      padding:12px 12px;
-      font-size:13px;
-      font-weight:600;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--text-main);
-    }
-    .cart-btn-primary{
-      border:none;
-      background:var(--cta);
-      color:#fff;
-    }
-    .hero-bleed{
-      width:100vw;
-      margin-left:calc(50% - 50vw);
-      margin-right:calc(50% - 50vw);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-bleed img{ width:100%; display:block; }
-    #starCanvas,#trailCanvas{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-    }
-    main{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:56px 20px 96px;
-    }
-    .section{ margin-bottom:72px; }
-    .hero{
-      display:grid;
-      grid-template-columns:1.15fr 1fr;
-      gap:48px;
-      align-items:center;
-    }
-    @media(max-width:880px){
-      .hero{ grid-template-columns:1fr; }
-    }
-    .hero-title{
-      font-size:clamp(34px,4vw,48px);
-      line-height:1.05;
-      margin:0 0 12px;
-    }
-    .hero-text{
-      max-width:560px;
-      color:var(--text-muted);
-      line-height:1.6;
-      margin:0 0 20px;
-    }
-    .hero-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      padding:12px 16px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--text-main);
-      text-decoration:none;
-      font-size:13px;
-      font-weight:600;
-    }
-    .btn-primary{
-      background:var(--cta);
-      border:none;
-      color:#fff;
-    }
-    .section-title{
-      font-size:12px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:rgba(15,23,42,.6);
-      margin:0 0 16px;
-    }
-    .gloves-grid{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:24px;
-    }
-    @media(max-width:1024px){
-      .gloves-grid{ grid-template-columns:repeat(2, 1fr); }
-    }
-    @media(max-width:640px){
-      .gloves-grid{ grid-template-columns:1fr; }
-    }
-    .glove-card{
-      border-radius:var(--radius);
-      border:1px solid var(--border);
-      background:#fff;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      transition:box-shadow .35s ease, transform .35s ease;
-    }
-    .glove-media{
-      height:280px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#fff;
-      padding:14px;
-    }
-    .glove-media img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      transform:scale(1);
-      transition:transform .85s cubic-bezier(.19,1,.22,1);
-    }
-    .glove-card:hover{
-      box-shadow:var(--shadow-strong);
-      transform:translateY(-1px);
-    }
-    .glove-card:hover .glove-media img{
-      transform:scale(1.035);
-    }
-    .glove-info{
-      padding:14px 16px 16px;
-      border-top:1px solid var(--border);
-    }
-    .glove-name{
-      margin:0 0 6px;
-      font-size:14px;
-      font-weight:650;
-    }
-    .glove-sub{
-      margin:0 0 12px;
-      font-size:12px;
-      color:var(--text-muted);
-    }
-    .glove-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .small-btn{
-      padding:10px 12px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:650;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--text-main);
-      cursor:pointer;
-    }
-    .small-btn.primary{
-      border:none;
-      background:var(--cta);
-      color:#fff;
-    }
-    footer{
-      border-top:1px solid var(--border);
-      padding:22px;
-      text-align:center;
-      font-size:12px;
-      color:var(--text-muted);
-    }
-    @media(max-width:768px){
-      .nav{
-        grid-template-columns:auto 1fr auto;
-        padding:12px 16px;
-      }
-      .nav-center{ display:none; }
-      .nav-brand{ font-size:13px; }
-      .nav-right{ gap:12px; }
-      .nav-cta{ display:none; }
-      .cart-dropdown{
-        right:0;
-        top:46px;
-        width:100%;
-      }
-    }
+<style>
+:root{
+  --text-main:#0f172a;
+  --text-muted:#6b7280;
+  --border:#e5e7eb;
+  --cta:#111827;
+  --cta2:#0b1220;
+  --radius:18px;
+  --shadow:0 18px 40px rgba(15,23,42,.08);
+  --shadow-strong:0 28px 70px rgba(15,23,42,.16);
+  --max:1120px;
+}
 
-    /* SEARCH + ACCOUNT OVERLAYS */
-    .modal-overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.52);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-      padding:18px;
-    }
-    .modal-overlay.open{ display:flex; }
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
 
-    .modal-card{
-      width:100%;
-      max-width:520px;
-      background:rgba(255,255,255,.86);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      border:1px solid rgba(229,231,235,.9);
-      border-radius:18px;
-      box-shadow:var(--shadow-strong);
-      overflow:hidden;
-    }
-    .modal-head{
-      padding:14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid rgba(229,231,235,.9);
-    }
-    .modal-title{
-      margin:0;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(15,23,42,.8);
-    }
-    .modal-close{
-      border:0;
-      background:transparent;
-      cursor:pointer;
-      padding:8px;
-      line-height:0;
-    }
-    .modal-body{ padding:16px; }
-    .search-input{
-      width:100%;
-      border:1px solid rgba(229,231,235,.95);
-      border-radius:999px;
-      padding:12px 14px;
-      font-size:14px;
-      outline:none;
-      background:#fff;
-    }
-    .search-hint{
-      margin:10px 0 0;
-      font-size:12px;
-      color:var(--text-muted);
-      line-height:1.5;
-    }
-    .account-note{
-      margin:0;
-      font-size:13px;
-      color:var(--text-muted);
-      line-height:1.6;
-    }
-    .modal-actions{
-      padding:14px 16px 16px;
-      border-top:1px solid rgba(229,231,235,.9);
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-      flex-wrap:wrap;
-    }
-    .modal-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-      border-radius:999px;
-      padding:11px 14px;
-      font-size:13px;
-      font-weight:600;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--text-main);
-      cursor:pointer;
-    }
-    .modal-btn.primary{
-      border:none;
-      background:var(--cta);
-      color:#fff;
-    }
-  </style>
+body{
+  font-family:'Inter',sans-serif;
+  background:#fff;
+  color:var(--text-main);
+}
+
+/* ================= HEADER ================= */
+
+.nav-shell{
+  position:sticky;
+  top:0;
+  z-index:500;
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.35);
+}
+
+.nav{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:14px 24px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:18px;
+}
+
+.nav-brand{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.nav-center{
+  display:flex;
+  justify-content:center;
+  gap:36px;
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.nav-center a{
+  color:rgba(15,23,42,.75);
+  text-decoration:none;
+  position:relative;
+}
+
+.nav-center a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  width:0;
+  height:1px;
+  background:rgba(15,23,42,.6);
+  transition:.25s ease;
+  transform:translateX(-50%);
+}
+
+.nav-center a:hover::after{
+  width:100%;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  position:relative;
+  justify-content:flex-end;
+}
+
+.nav-cta{
+  padding:9px 14px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--cta),var(--cta2));
+  color:#fff;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-decoration:none;
+  transition:.2s ease;
+  white-space:nowrap;
+}
+
+.nav-cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+/* ================= HERO ================= */
+
+.hero-bleed{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-bleed img{
+  width:100%;
+  display:block;
+}
+
+#starCanvas,
+#trailCanvas{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:56px 20px 96px;
+}
+
+.section{
+  margin-bottom:72px;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  gap:48px;
+  align-items:center;
+}
+
+@media(max-width:880px){
+  .hero{ grid-template-columns:1fr; }
+}
+
+.hero-title{
+  font-size:clamp(34px,4vw,48px);
+  line-height:1.05;
+  margin:0 0 12px;
+}
+
+.hero-text{
+  max-width:560px;
+  color:var(--text-muted);
+  line-height:1.6;
+  margin:0 0 20px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+</style>
 </head>
 
 <body>
-  <!-- HEADER -->
-  <div class="nav-shell">
-    <div class="nav">
-      <div class="nav-brand">CHIRPZ GOLF</div>
 
-      <div class="nav-center">
-        <a href="/collections/men">MEN</a>
-        <a href="/collections/women">WOMEN</a>
-      </div>
+<!-- ================= HEADER ================= -->
 
-      <div class="nav-right">
-        <a class="icon-link" href="/search" aria-label="Search" data-open="search">
-          <svg class="icon-btn" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
-          </svg>
-        </a>
+<div class="nav-shell">
+  <div class="nav">
+    <div class="nav-brand">CHIRPZ GOLF</div>
 
-        <a class="icon-link" href="/account" aria-label="Account" data-open="account">
-          <svg class="icon-btn" viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 22c2-4 14-4 16 0"></path>
-          </svg>
-        </a>
+    <div class="nav-center">
+      <a href="/collections/men">MEN</a>
+      <a href="/collections/women">WOMEN</a>
+    </div>
 
-        <div class="cart-pill" id="cartToggle" role="button" tabindex="0" aria-label="Open cart dropdown">
-          <svg class="icon-btn" viewBox="0 0 24 24" style="width:18px;height:18px;">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.6 13h11.4l2-8H6"></path>
-          </svg>
-          <div class="cart-count" id="cartCount">0</div>
-        </div>
+    <div class="nav-right">
+      <a class="icon-link" href="/search" data-open="search">🔍</a>
+      <a class="icon-link" href="/account" data-open="account">👤</a>
 
-        <!-- ✅ ONLY CHANGE: Shop Now points to shop.html -->
-        <a href="shop.html" class="nav-cta">Shop Now</a>
+      <!-- ONLY CHANGE MADE -->
+      <a href="shop.html" class="nav-cta">Shop Now</a>
+    </div>
+  </div>
+</div>
 
-        <div class="cart-dropdown" id="cartDropdown" aria-hidden="true">
-          <div class="cart-head">
-            <h4>Your Cart</h4>
-            <button class="cart-close" id="cartClose" aria-label="Close cart">
-              <svg class="icon-btn" viewBox="0 0 24 24" style="width:18px;height:18px;">
-                <line x1="5" y1="5" x2="19" y2="19"></line>
-                <line x1="19" y1="5" x2="5" y2="19"></line>
-              </svg>
-            </button>
-          </div>
+<!-- ================= HERO BILLBOARD ================= -->
 
-          <div class="cart-body">
-            <div class="cart-empty" id="cartEmpty">Your cart is currently empty.</div>
-            <ul class="cart-items" id="cartItems" style="display:none;"></ul>
-          </div>
+<div class="hero-bleed">
+  <img src="images/header-sale.png" alt="Launch Sale">
+  <canvas id="starCanvas"></canvas>
+  <canvas id="trailCanvas"></canvas>
+</div>
 
-          <div class="cart-foot">
-            <div class="cart-actions">
-              <a class="cart-btn" href="/cart">View Cart</a>
-              <a class="cart-btn cart-btn-primary" href="checkout.html">Checkout</a>
-            </div>
-          </div>
-        </div>
+<main>
 
-      </div>
+<section class="section hero" id="hero">
+  <div>
+    <h1 class="hero-title">Let the gear do the talking.</h1>
+    <p class="hero-text">
+      Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
+    </p>
+    <div class="hero-actions">
+      <a href="/collections/all" class="btn btn-primary">Shop Gloves</a>
+      <a href="/account" class="btn" data-open="account">Account</a>
     </div>
   </div>
 
-  <!-- HERO BILLBOARD -->
-  <div class="hero-bleed">
-    <img src="images/header-sale.png" alt="Launch Sale">
-    <canvas id="starCanvas"></canvas>
-    <canvas id="trailCanvas"></canvas>
+  <div class="glove-card">
+    <div class="glove-media">
+      <img src="images/hero.png" alt="Chirpz Hero Glove">
+    </div>
+    <div class="glove-info">
+      <p class="glove-name">Featured Drop</p>
+      <p class="glove-sub">Premium feel. Clean details.</p>
+      <div class="glove-actions">
+        <button class="small-btn primary" data-add="hero">Add to cart</button>
+        <a class="small-btn" href="/collections/all">Shop</a>
+      </div>
+    </div>
   </div>
+</section>
+<!-- ================= ALL GLOVES ================= -->
 
-  <main>
-    <!-- HERO -->
-    <section class="section hero" id="hero">
-      <div>
-        <h1 class="hero-title">Let the gear do the talking.</h1>
-        <p class="hero-text">
-          Premium golf gloves designed for feel, fit, and confidence — clean branding, no distractions.
-        </p>
-        <div class="hero-actions">
-          <a href="/collections/all" class="btn btn-primary">Shop Gloves</a>
-          <a href="/account" class="btn" data-open="account">Account</a>
-        </div>
-      </div>
+<section class="section" id="gloves">
+  <div class="section-title">All Gloves</div>
+  <div class="gloves-grid" id="glovesGrid"></div>
+</section>
 
-      <div class="glove-card">
-        <div class="glove-media">
-          <img src="images/hero.png" alt="Chirpz Hero Glove">
-        </div>
-        <div class="glove-info">
-          <p class="glove-name">Featured Drop</p>
-          <p class="glove-sub">Premium feel. Clean details.</p>
-          <div class="glove-actions">
-            <button class="small-btn primary" data-add="hero">Add to cart</button>
-            <a class="small-btn" href="/collections/all" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Shop</a>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="section" id="about">
+  <div class="section-title">Our Story</div>
+  <p class="hero-text">
+    Chirpz is built around quiet confidence — premium feel, clean design,
+    and details golfers notice without loud branding.
+  </p>
+</section>
 
-    <!-- ALL GLOVES -->
-    <section class="section" id="gloves">
-      <div class="section-title">All Gloves</div>
-      <div class="gloves-grid" id="glovesGrid"></div>
-    </section>
+</main>
 
-    <section class="section" id="about">
-      <div class="section-title">Our Story</div>
-      <p class="hero-text">
-        Chirpz is built around quiet confidence — premium feel, clean design, and details golfers notice without loud branding.
+<footer>
+  © <span id="year"></span> Chirpz Golf. All rights reserved.
+</footer>
+
+<!-- ================= SEARCH MODAL ================= -->
+
+<div class="modal-overlay" id="searchModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 class="modal-title">Search</h3>
+      <button class="modal-close" data-close-modal>✕</button>
+    </div>
+    <div class="modal-body">
+      <input class="search-input" id="searchInput" placeholder="Search Chirpz..." />
+      <p class="search-hint">
+        Search will be fully wired once Shopify is connected.
       </p>
-    </section>
-  </main>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" data-close-modal>Close</button>
+      <button class="modal-btn primary" id="searchGoBtn">Search</button>
+    </div>
+  </div>
+</div>
 
-  <footer>
-    © <span id="year"></span> Chirpz Golf. All rights reserved.
-  </footer>
+<!-- ================= ACCOUNT MODAL ================= -->
 
-  <!-- SEARCH MODAL (added) -->
-  <div class="modal-overlay" id="searchModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Search">
-      <div class="modal-head">
-        <h3 class="modal-title">Search</h3>
-        <button class="modal-close" type="button" data-close-modal aria-label="Close search">
-          <svg class="icon-btn" viewBox="0 0 24 24" style="width:18px;height:18px;">
-            <line x1="5" y1="5" x2="19" y2="19"></line>
-            <line x1="19" y1="5" x2="5" y2="19"></line>
-          </svg>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input class="search-input" id="searchInput" type="text" placeholder="Search Chirpz..." autocomplete="off" />
-        <p class="search-hint">Search will be fully wired once Shopify is connected. For now, this prevents 404s and keeps the UI premium.</p>
-      </div>
-      <div class="modal-actions">
-        <button class="modal-btn" type="button" data-close-modal>Close</button>
-        <button class="modal-btn primary" type="button" id="searchGoBtn">Search</button>
+<div class="modal-overlay" id="accountModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 class="modal-title">Account</h3>
+      <button class="modal-close" data-close-modal>✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="account-note">
+        Customer accounts are coming soon.
+      </p>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" data-close-modal>Close</button>
+      <a class="modal-btn primary" href="/collections/all">Shop Now</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ================= STARFIELD ================= */
+(() => {
+  const hero = document.querySelector(".hero-bleed");
+  const img = hero.querySelector("img");
+  const starCanvas = document.getElementById("starCanvas");
+  const trailCanvas = document.getElementById("trailCanvas");
+  const sctx = starCanvas.getContext("2d");
+  const tctx = trailCanvas.getContext("2d");
+  let stars = [], shooting = [], w = 0, h = 0, last = 0;
+
+  function resize(){
+    w = img.clientWidth;
+    h = img.clientHeight;
+    starCanvas.width = trailCanvas.width = w;
+    starCanvas.height = trailCanvas.height = h;
+    stars = Array.from({length:Math.floor(w/6)},()=>({
+      x:Math.random()*w,
+      y:Math.random()*h,
+      r:Math.random()*1.4+.4,
+      a:Math.random()*.5+.3,
+      t:Math.random()*Math.PI*2,
+      s:Math.random()*1.5+.5
+    }));
+  }
+
+  function animate(ts){
+    if(!last) last = ts;
+    const dt = (ts-last)/1000;
+    last = ts;
+    sctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{
+      const a = s.a + Math.sin(ts/1000*s.s+s.t)*.3;
+      sctx.fillStyle = `rgba(255,255,255,${a})`;
+      sctx.beginPath();
+      sctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      sctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  img.complete ? (resize(),requestAnimationFrame(animate))
+               : img.onload = ()=>{ resize(); requestAnimationFrame(animate); };
+  window.addEventListener("resize",resize);
+})();
+
+/* ================= GLOVES ================= */
+const GLOVES = [
+  { id:"mens", name:"Chirpz Signature – Men’s", sub:"Clean grip. Quiet confidence.", img:"images/mens-glove.png" },
+  { id:"womens", name:"Chirpz Breeze – Women’s", sub:"Light feel. Premium finish.", img:"images/womens-glove.png" }
+];
+
+const glovesGrid = document.getElementById("glovesGrid");
+glovesGrid.innerHTML = GLOVES.map(g=>`
+  <div class="glove-card">
+    <div class="glove-media"><img src="${g.img}" alt="${g.name}"></div>
+    <div class="glove-info">
+      <p class="glove-name">${g.name}</p>
+      <p class="glove-sub">${g.sub}</p>
+      <div class="glove-actions">
+        <button class="small-btn primary" data-add="${g.id}">Add to cart</button>
+        <a class="small-btn" href="/collections/all">Shop</a>
       </div>
     </div>
   </div>
+`).join("");
+</script>
 
-  <!-- ACCOUNT MODAL (added) -->
-  <div class="modal-overlay" id="accountModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Account">
-      <div class="modal-head">
-        <h3 class="modal-title">Account</h3>
-        <button class="modal-close" type="button" data-close-modal aria-label="Close account">
-          <svg class="icon-btn" viewBox="0 0 24 24" style="width:18px;height:18px;">
-            <line x1="5" y1="5" x2="19" y2="19"></line>
-            <line x1="19" y1="5" x2="5" y2="19"></line>
-          </svg>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="account-note">Customer accounts are coming soon. This keeps your header icons working (no 404s) and preserves the premium feel.</p>
-      </div>
-      <div class="modal-actions">
-        <button class="modal-btn" type="button" data-close-modal>Close</button>
-        <a class="modal-btn primary" href="/collections/all">Shop Now</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Your existing script section continues below exactly as you had it... -->
 </body>
 </html>
