@@ -3,778 +3,214 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shop | Chirpz Golf</title>
+<title>Shop – Chirpz Golf</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/favicon.png" />
+<link rel="apple-touch-icon" href="images/favicon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        margin: 0;
-        background-color: #ffffff;
-        font-family: 'Inter', sans-serif;
-        color: #10141b;
-    }
-
-    /* --------------------------------------------------
-       ⭐ SHARED NAVIGATION
-       -------------------------------------------------- */
-    nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 30;
-        display: flex;
-        justify-content: center;
-        gap: 60px;
-        padding: 18px 0;
-        font-size: 17px;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        transition: background-color 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
-        background: #ffffff;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    }
-
-    nav a {
-        position: relative;
-        color: #10141b;
-        text-decoration: none;
-        transition: 0.25s ease;
-    }
-
-    nav a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -6px;
-        width: 0%;
-        height: 2px;
-        background-color: #115dff;
-        transition: width 0.25s ease;
-    }
-
-    nav a:hover::after { width: 100%; }
-    nav a:hover { transform: translateY(-1px); opacity: 0.9; }
-
-    nav.scrolled {
-        padding: 12px 0;
-        box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    }
-
-    @media (max-width: 768px) {
-        nav { gap: 28px; font-size: 14px; }
-    }
-
-    /* --------------------------------------------------
-       ⭐ BILLBOARD (WHITE, CENTERED, WITH DOODLES)
-       -------------------------------------------------- */
-    .shop-billboard {
-        padding: 120px 16px 40px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .billboard-card {
-        position: relative;
-        max-width: 1120px;
-        width: 100%;
-        background: #ffffff;
-        border-radius: 26px;
-        border: 2px solid #1463ff;
-        box-shadow: 0 18px 45px rgba(9, 28, 70, 0.10);
-        overflow: hidden;
-        padding: 40px 36px 30px;
-    }
-
-    .billboard-main {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 40px;
-        flex-wrap: wrap;
-    }
-
-    .billboard-text {
-        flex: 1 1 280px;
-        min-width: 260px;
-    }
-
-    .billboard-eyebrow {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        color: #8593a6;
-        margin-bottom: 10px;
-    }
-
-    .billboard-text h1 {
-        font-size: 40px;
-        line-height: 1.1;
-        margin: 0 0 8px;
-        font-weight: 800;
-        color: #0b1624;
-    }
-
-    .billboard-text h2 {
-        font-size: 26px;
-        margin: 4px 0 12px;
-        font-weight: 700;
-        color: #1463ff;
-    }
-
-    .billboard-text p {
-        margin: 0 0 22px;
-        font-size: 15px;
-        color: #5b6675;
-        max-width: 360px;
-    }
-
-    .billboard-tagline {
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #777f8a;
-        margin-top: 6px;
-    }
-
-    .billboard-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 30px;
-        border-radius: 999px;
-        border: none;
-        background-color: #1463ff;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 10px 25px rgba(20, 99, 255, 0.35);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    }
-
-    .billboard-cta span {
-        font-size: 18px;
-        transform: translateY(1px);
-    }
-
-    .billboard-cta:hover {
-        background-color: #2e76ff;
-        transform: translateY(-2px);
-        box-shadow: 0 14px 30px rgba(20, 99, 255, 0.42);
-    }
-
-    .billboard-cta:active {
-        transform: translateY(0);
-        box-shadow: 0 8px 18px rgba(20, 99, 255, 0.35);
-    }
-
-    .billboard-glove-wrap {
-        flex: 0 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 260px;
-    }
-
-    .billboard-glove {
-        width: 260px;
-        max-width: 100%;
-        height: auto;
-        filter: drop-shadow(0 16px 35px rgba(0,0,0,0.18));
-        animation: gloveFloat 4s ease-in-out infinite;
-    }
-
-    @keyframes gloveFloat {
-        0% { transform: translateY(0px) rotate(-1deg); }
-        50% { transform: translateY(-10px) rotate(1deg); }
-        100% { transform: translateY(0px) rotate(-1deg); }
-    }
-
-    /* --- subtle doodle accents on billboard --- */
-
-    .billboard-card::before,
-    .billboard-card::after {
-        content: "";
-        position: absolute;
-        pointer-events: none;
-        opacity: 0.16;
-    }
-
-    /* top-left squiggle */
-    .billboard-card::before {
-        width: 120px;
-        height: 120px;
-        top: -10px;
-        left: -8px;
-        background:
-            radial-gradient(circle at 24px 24px, transparent 0 18px, #000 19px 21px, transparent 22px),
-            radial-gradient(circle at 80px 60px, transparent 0 16px, #000 17px 19px, transparent 20px),
-            linear-gradient(110deg, transparent 0 38px, #000 39px 41px, transparent 42px),
-            linear-gradient(40deg, transparent 0 52px, #000 53px 55px, transparent 56px);
-        background-repeat: no-repeat;
-        background-size: 60px 60px, 56px 56px, 80px 12px, 90px 10px;
-    }
-
-    /* bottom-right cart / flag-ish vibe */
-    .billboard-card::after {
-        width: 150px;
-        height: 130px;
-        right: -12px;
-        bottom: -16px;
-        background:
-            linear-gradient(0deg, #000 0 2px, transparent 2px) 40px 86px / 60px 16px no-repeat,
-            linear-gradient(90deg, #000 0 2px, transparent 2px) 40px 70px / 14px 40px no-repeat,
-            radial-gradient(circle at 110px 40px, transparent 0 18px, #000 19px 21px, transparent 22px),
-            linear-gradient(10deg, #000 0 2px, transparent 2px) 84px 76px / 40px 22px no-repeat;
-        transform: rotate(-4deg);
-    }
-
-    @media (max-width: 900px) {
-        .billboard-card {
-            padding: 30px 22px 26px;
-        }
-        .billboard-main {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .billboard-text h1 { font-size: 34px; }
-        .billboard-text h2 { font-size: 22px; }
-        .billboard-glove-wrap {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-
-    /* --------------------------------------------------
-       ⭐ SECTION TITLE / INTRO
-       -------------------------------------------------- */
-    .shop-intro {
-        max-width: 1120px;
-        margin: 40px auto 10px;
-        padding: 0 16px;
-        text-align: left;
-    }
-
-    .shop-intro-eyebrow {
-        font-size: 12px;
-        letter-spacing: 0.32em;
-        text-transform: uppercase;
-        color: #9aa4b3;
-        margin-bottom: 6px;
-    }
-
-    .shop-intro h2 {
-        margin: 0 0 6px;
-        font-size: 30px;
-        font-weight: 800;
-        color: #0b1624;
-    }
-
-    .shop-intro p {
-        margin: 0;
-        font-size: 15px;
-        color: #626c79;
-        max-width: 520px;
-    }
-
-    /* tiny doodle next to title */
-    .shop-intro-title-row {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-    }
-
-    .mini-doodle-flag {
-        width: 30px;
-        height: 30px;
-        border-radius: 999px;
-        border: 2px solid #000;
-        position: relative;
-        flex-shrink: 0;
-    }
-
-    .mini-doodle-flag::before,
-    .mini-doodle-flag::after {
-        content: "";
-        position: absolute;
-        background: #000;
-    }
-
-    .mini-doodle-flag::before {
-        width: 2px;
-        height: 18px;
-        left: 12px;
-        bottom: 4px;
-    }
-
-    .mini-doodle-flag::after {
-        width: 10px;
-        height: 8px;
-        left: 13px;
-        bottom: 16px;
-        clip-path: polygon(0 0, 100% 40%, 0 80%);
-    }
-
-    /* --------------------------------------------------
-       ⭐ CATEGORY TABS
-       -------------------------------------------------- */
-    .shop-tabs {
-        max-width: 1120px;
-        margin: 26px auto 0;
-        padding: 0 16px;
-        border-bottom: 1px solid #e1e5ee;
-        display: flex;
-        gap: 24px;
-        font-size: 14px;
-        color: #7c8593;
-    }
-
-    .shop-tab {
-        position: relative;
-        padding: 10px 0;
-        cursor: pointer;
-        white-space: nowrap;
-    }
-
-    .shop-tab.active {
-        color: #10141b;
-        font-weight: 600;
-    }
-
-    .shop-tab.active::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -1px;
-        width: 100%;
-        height: 2px;
-        background: #1463ff;
-        border-radius: 999px;
-    }
-
-    .shop-tab.coming-soon {
-        opacity: 0.5;
-        cursor: default;
-    }
-
-    .shop-tab.coming-soon::after {
-        display: none;
-    }
-
-    /* --------------------------------------------------
-       ⭐ 360° VIEWER
-       -------------------------------------------------- */
-    .viewer-section {
-        max-width: 1120px;
-        margin: 40px auto 60px;
-        padding: 0 16px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        align-items: center;
-    }
-
-    .viewer-container {
-        width: 100%;
-        max-width: 480px;
-        margin: auto;
-        position: relative;
-        cursor: grab;
-        border-radius: 18px;
-        overflow: hidden;
-        background: #f5f7fb;
-        box-shadow: 0 10px 26px rgba(0,0,0,0.06);
-    }
-
-    .viewer-container img {
-        width: 100%;
-        display: block;
-    }
-
-    .viewer-copy {
-        flex: 1 1 260px;
-        min-width: 240px;
-    }
-
-    .viewer-label {
-        font-size: 22px;
-        font-weight: 800;
-        margin-bottom: 8px;
-        color: #0b1624;
-    }
-
-    .viewer-instructions {
-        font-size: 14px;
-        opacity: 0.75;
-        margin-bottom: 16px;
-    }
-
-    .viewer-copy p {
-        font-size: 14px;
-        color: #626c79;
-        margin: 0 0 10px;
-    }
-
-    .viewer-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 14px;
-        border-radius: 999px;
-        background: #0f172a;
-        color: #ffffff;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-    }
-
-    .viewer-badge span {
-        display: inline-block;
-        width: 14px;
-        height: 14px;
-        border-radius: 999px;
-        border: 2px solid #ffffff;
-        position: relative;
-    }
-
-    .viewer-badge span::after {
-        content: "";
-        position: absolute;
-        inset: 3px;
-        border-radius: inherit;
-        border: 2px solid #ffffff;
-        opacity: 0.6;
-    }
-
-    /* --------------------------------------------------
-       ⭐ PRODUCT GRID
-       -------------------------------------------------- */
-    .product-grid {
-        max-width: 1120px;
-        margin: 10px auto 90px;
-        padding: 32px 16px 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 30px;
-    }
-
-    .product-card {
-        background: #ffffff;
-        padding: 26px 22px 22px;
-        border-radius: 20px;
-        text-align: left;
-        box-shadow: 0 12px 32px rgba(9, 20, 46, 0.08);
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.22s ease, box-shadow 0.22s ease, translate 0.22s ease;
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 18px 40px rgba(9, 20, 46, 0.14);
-    }
-
-    .product-image-wrap {
-        background: #f7f6f3;
-        border-radius: 16px;
-        padding: 24px 18px 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 16px;
-    }
-
-    .product-card img {
-        width: 80%;
-        max-width: 220px;
-        height: auto;
-    }
-
-    .product-name {
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 4px;
-        color: #10141b;
-    }
-
-    .product-tagline {
-        font-size: 13px;
-        color: #7a8391;
-        margin-bottom: 10px;
-    }
-
-    .product-price {
-        font-size: 17px;
-        font-weight: 800;
-        color: #1463ff;
-        margin-bottom: 2px;
-    }
-
-    .product-note {
-        font-size: 12px;
-        color: #9aa2b0;
-    }
-
-    /* small doodle accent in card corner */
-    .product-card::after {
-        content: "";
-        position: absolute;
-        top: 10px;
-        right: 16px;
-        width: 34px;
-        height: 34px;
-        border-radius: 999px;
-        border: 2px solid #000;
-        opacity: 0.16;
-        background:
-            radial-gradient(circle at 50% 28%, #000 0 2px, transparent 3px),
-            radial-gradient(circle at 26% 70%, #000 0 2px, transparent 3px);
-    }
-
-    .product-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: #f3f6ff;
-        color: #4a63a6;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        margin-bottom: 8px;
-    }
-
-    .product-pill-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 999px;
-        background: #4a63a6;
-    }
-
-    .product-coming {
-        background: #020617;
-        color: #e5e7eb;
-    }
-
-    .product-coming .product-image-wrap {
-        background: radial-gradient(circle at 10% 0%, #1f2937, #020617 52%);
-    }
-
-    .product-coming .product-tagline {
-        color: #9ca3af;
-    }
-
-    /* --------------------------------------------------
-       ⭐ GUARANTEE FOOTER STRIP
-       -------------------------------------------------- */
-    .guarantee-strip {
-        border-top: 1px solid #e3e7f0;
-        padding: 20px 16px 26px;
-        background: #f8fafc;
-    }
-
-    .guarantee-inner {
-        max-width: 1120px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px 36px;
-        font-size: 13px;
-        color: #4b5563;
-    }
-
-    .guarantee-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .guarantee-bullet {
-        width: 16px;
-        height: 16px;
-        border-radius: 999px;
-        border: 2px solid #0b1624;
-        position: relative;
-    }
-
-    .guarantee-bullet::after {
-        content: "";
-        position: absolute;
-        inset: 3px;
-        border-radius: inherit;
-        border: 2px solid #0b1624;
-    }
-
-    @media (max-width: 768px) {
-        .viewer-section {
-            flex-direction: column;
-        }
-        .viewer-container {
-            max-width: 100%;
-        }
-        .shop-tabs {
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-    }
+:root{
+  --text-main:#0f172a;
+  --text-muted:#6b7280;
+  --border:#e5e7eb;
+  --cta:#111827;
+  --cta2:#0b1220;
+  --radius:18px;
+  --shadow:0 18px 40px rgba(15,23,42,.08);
+  --shadow-strong:0 28px 70px rgba(15,23,42,.16);
+  --max:1120px;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:'Inter',sans-serif;
+  background:#fff;
+  color:var(--text-main);
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:500;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:14px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.nav a{
+  text-decoration:none;
+  color:var(--text-main);
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.nav .cta{
+  padding:9px 14px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--cta),var(--cta2));
+  color:#fff;
+  font-weight:600;
+}
+
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:56px 20px 96px;
+}
+
+h1{
+  font-size:clamp(32px,4vw,46px);
+  margin:0 0 10px;
+}
+.sub{
+  color:var(--text-muted);
+  max-width:520px;
+  line-height:1.6;
+  margin-bottom:48px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+@media(max-width:900px){
+  .grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:640px){
+  .grid{ grid-template-columns:1fr; }
+}
+
+.card{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  background:#fff;
+  overflow:hidden;
+  transition:.35s ease;
+}
+.card:hover{
+  box-shadow:var(--shadow-strong);
+  transform:translateY(-1px);
+}
+
+.media{
+  height:280px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+.media img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.info{
+  padding:16px;
+  border-top:1px solid var(--border);
+}
+.name{
+  font-size:14px;
+  font-weight:600;
+  margin:0 0 6px;
+}
+.desc{
+  font-size:12px;
+  color:var(--text-muted);
+  margin:0 0 14px;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn.primary{
+  border:none;
+  background:var(--cta);
+  color:#fff;
+}
+
+.notice{
+  margin-top:64px;
+  padding:24px;
+  border-radius:16px;
+  background:rgba(15,23,42,.03);
+  border:1px solid var(--border);
+  max-width:520px;
+}
+.notice h3{
+  margin:0 0 8px;
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.notice p{
+  margin:0;
+  font-size:13px;
+  color:var(--text-muted);
+  line-height:1.6;
+}
 </style>
 </head>
 
 <body>
 
-<!-- ⭐ NAVIGATION -->
-<nav id="mainNav">
-    <a href="shop.html">SHOP</a>
-    <a href="men.html">MEN</a>
-    <a href="women.html">WOMEN</a>
-    <a href="ourstory.html">OUR STORY</a>
-</nav>
+<header>
+  <div class="nav">
+    <a href="index.html">CHIRPZ GOLF</a>
+    <a href="index.html" class="cta">Back Home</a>
+  </div>
+</header>
 
-<!-- ⭐ WHITE CENTERED BILLBOARD WITH DOODLE ACCENTS -->
-<section class="shop-billboard">
-    <div class="billboard-card">
-        <div class="billboard-main">
-            <div class="billboard-text">
-                <div class="billboard-eyebrow">Premium Golf Gloves</div>
-                <h1>Holiday Launch Sale</h1>
-                <h2>20% Off &mdash; First Pair Just $20</h2>
-                <p>
-                    Built for golfers who like a little chirp with their birdies.
-                    Soft feel, tour-level grip, and a personality loud enough to talk for you.
-                </p>
-                <button class="billboard-cta" onclick="location.href='gloves.html'">
-                    Shop Gloves
-                    <span>➜</span>
-                </button>
-                <div class="billboard-tagline">Let the gear do the talking.</div>
-            </div>
+<main>
+  <h1>Shop Gloves</h1>
+  <p class="sub">
+    Premium cabretta leather golf gloves.  
+    Limited first production run.
+  </p>
 
-            <div class="billboard-glove-wrap">
-                <!-- update src to your hero glove image -->
-                <img class="billboard-glove" src="glove-clean.png" alt="Chirpz Glove">
-            </div>
+  <div class="grid">
+    <div class="card">
+      <div class="media">
+        <img src="images/mens-glove.png" alt="Chirpz Signature Men’s Glove">
+      </div>
+      <div class="info">
+        <p class="name">Chirpz Signature – Men’s</p>
+        <p class="desc">Clean grip. Quiet confidence.</p>
+        <div class="actions">
+          <button class="btn primary" disabled>Coming This Week</button>
         </div>
+      </div>
     </div>
-</section>
+  </div>
 
-<!-- ⭐ SECTION INTRO / TITLE -->
-<section class="shop-intro">
-    <div class="shop-intro-eyebrow">Products</div>
-    <div class="shop-intro-title-row">
-        <div>
-            <h2>Shop Chirpz Gear</h2>
-            <p>Premium golf gloves with a premium personality. Designed to keep your hands quiet while your game talks.</p>
-        </div>
-        <div class="mini-doodle-flag" aria-hidden="true"></div>
-    </div>
-</section>
+  <div class="notice">
+    <h3>Launching Soon</h3>
+    <p>
+      Our first limited run arrives this week.  
+      In-store availability first, online shortly after.
+    </p>
+  </div>
+</main>
 
-<!-- ⭐ CATEGORY TABS (VISUAL ONLY FOR NOW) -->
-<div class="shop-tabs">
-    <div class="shop-tab active">All Products</div>
-    <div class="shop-tab">Gloves</div>
-    <div class="shop-tab coming-soon">Polos (Coming Soon)</div>
-    <div class="shop-tab coming-soon">Shorts (Coming Soon)</div>
-</div>
-
-<!-- ⭐ 360° VIEWER -->
-<section class="viewer-section">
-    <div class="viewer-container" id="gloveViewer">
-        <!-- this should match your viewer.js sequence -->
-        <img id="viewerImage" src="360/frame1.png" alt="Chirpz Glove 360° View">
-    </div>
-
-    <div class="viewer-copy">
-        <div class="viewer-label">Chirpz Signature Tour Glove</div>
-        <div class="viewer-instructions">Click and drag to rotate • 360° view</div>
-        <p>Every angle dialed. From stitch lines to the “FORE” finger, spin the glove and inspect the details before you put it in play.</p>
-        <p>A breathable, high-grip glove built for par saves, hero shots, and the occasional friendly trash talk.</p>
-        <div class="viewer-badge">
-            <span></span>
-            360° Preview
-        </div>
-    </div>
-</section>
-
-<!-- ⭐ PRODUCT GRID -->
-<section class="product-grid">
-
-    <!-- Product 1 -->
-    <article class="product-card">
-        <div class="product-image-wrap">
-            <img src="glove-placeholder.png" alt="Chirpz Cabretta (White / Blue)">
-        </div>
-        <div class="product-pill">
-            <div class="product-pill-dot"></div>
-            Talk-Friendly Classic
-        </div>
-        <div class="product-name">Chirpz Cabretta (White / Blue)</div>
-        <div class="product-tagline">Soft, grippy, and loud in all the right ways.</div>
-        <div class="product-price">$24.99</div>
-        <div class="product-note">First pair just $20 with launch discount.</div>
-    </article>
-
-    <!-- Product 2 -->
-    <article class="product-card">
-        <div class="product-image-wrap">
-            <img src="glove-placeholder.png" alt="Chirpz Bold Black (Stealth Edition)">
-        </div>
-        <div class="product-pill">
-            <div class="product-pill-dot"></div>
-            Stealth Mode
-        </div>
-        <div class="product-name">Chirpz Bold Black (Stealth Edition)</div>
-        <div class="product-tagline">Looks quiet. Plays loud. Perfect for night-nine flexes.</div>
-        <div class="product-price">$24.99</div>
-        <div class="product-note">Pairs well with low cuts and low chirpz.</div>
-    </article>
-
-    <!-- Coming Soon / Polos -->
-    <article class="product-card product-coming">
-        <div class="product-image-wrap">
-            <!-- placeholder outline polo art -->
-            <img src="polo-outline.png" alt="Chirpz Polos Coming Soon">
-        </div>
-        <div class="product-pill">
-            <div class="product-pill-dot"></div>
-            Coming Soon
-        </div>
-        <div class="product-name">Chirpz Polos</div>
-        <div class="product-tagline">Same personality, more fabric. Dropping when the birds migrate back.</div>
-        <div class="product-price">2025</div>
-        <div class="product-note">Get on the list and we’ll chirp at you when they launch.</div>
-    </article>
-
-</section>
-
-<!-- ⭐ GUARANTEE STRIP -->
-<footer class="guarantee-strip">
-    <div class="guarantee-inner">
-        <div class="guarantee-item">
-            <div class="guarantee-bullet"></div>
-            Premium fit & feel or we’ll help you chirp about it.
-        </div>
-        <div class="guarantee-item">
-            <div class="guarantee-bullet"></div>
-            Designed by golfers who actually miss fairways too.
-        </div>
-        <div class="guarantee-item">
-            <div class="guarantee-bullet"></div>
-            Fast shipping so you’re not bare-handed next weekend.
-        </div>
-        <div class="guarantee-item">
-            <div class="guarantee-bullet"></div>
-            Let the gear do the talking. You just swing.
-        </div>
-    </div>
-</footer>
-
-<!-- ⭐ SCROLL SCRIPT -->
-<script>
-window.addEventListener("scroll", function () {
-    const nav = document.getElementById("mainNav");
-    if (window.scrollY > 40) nav.classList.add("scrolled");
+</body>
+</html>
