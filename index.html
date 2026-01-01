@@ -970,9 +970,207 @@ renderCart();
   });
 })();
 </script>
+<script>
+/* ================================
+   SHOPIFY (headless checkout)
+   Keeps your site/cart UI the same
+   ================================ */
+
+/** 1) CONFIG — from your Shopify snippet */
+const SHOPIFY_DOMAIN = "ncut75-ut.myshopify.com"; // keep as-is from your snippet
+const STOREFRONT_TOKEN = "b5008dd4aeb5118aaa116526806fa4fc";
+
+// Your Shopify product IDs (you can add more)
+const SHOPIFY_PRODUCTS = {
+  mens:  "7794321555534",
+  womens:"7794321555534",  // replace with the women's product ID if it's different
+  hero:  "7794321555534"
+};
+
+// Where we store the checkout id
+const CHECKOUT_KEY = "chirpz_shopify_checkout_id_v1";
+
+let shopClient = null;
+let checkout = null;
+// Maps your site item ids -> Shopify variant ids (fetched from Shopify)
+const VARIANT_MAP = {};
+
+/** 2) Load Shopify Buy SDK (no Shopify UI components) */
+function loadShopifyBuySDK() {
+  return new Promise((resolve, reject) => {
+    if (window.ShopifyBuy) return resolve();
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+/** 3) Build client + get/create checkout */
+async function initShopify() {
+  await loadShopifyBuySDK();
+
+  shopClient = ShopifyBuy.buildClient({
+    domain: SHOPIFY_DOMAIN,
+    storefrontAccessToken: STOREFRONT_TOKEN
+  });
+
+  // Create or fetch existing checkout
+  const existingId = localStorage.getItem(CHECKOUT_KEY);
+  if (existingId) {
+    try {
+      checkout = await shopClient.checkout.fetch(existingId);
+      // Shopify can "complete" a checkout; if so, start fresh
+      if (!checkout || checkout.completedAt) throw new Error("Checkout completed");
+    } catch (e) {
+      localStorage.removeItem(CHECKOUT_KEY);
+      checkout = await shopClient.checkout.create();
+      localStorage.setItem(CHECKOUT_KEY, checkout.id);
+    }
+  } else {
+    checkout = await shopClient.checkout.create();
+    localStorage.setItem(CHECKOUT_KEY, checkout.id);
+  }
+
+  // Fetch products and cache first variant IDs for each card button
+  await hydrateVariantMap();
+
+  // Render your cart UI from Shopify checkout
+  await renderCartFromShopify();
+
+  // Wire checkout button
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      await goToCheckout();
+    });
+  }
+}
+
+/** 4) Get variant ids (default: first variant of each product) */
+async function hydrateVariantMap() {
+  const entries = Object.entries(SHOPIFY_PRODUCTS);
+
+  for (const [siteId, productId] of entries) {
+    if (!productId) continue;
+
+    try {
+      const product = await shopClient.product.fetch(productId);
+      const firstVariant = product?.variants?.[0];
+      if (firstVariant?.id) {
+        VARIANT_MAP[siteId] = firstVariant.id; // Storefront variant ID
+      }
+    } catch (e) {
+      console.warn("Could not fetch product for", siteId, productId, e);
+    }
+  }
+}
+
+/** 5) Add/remove items in Shopify checkout */
+async function addToShopifyCart(siteId, qty = 1) {
+  const variantId = VARIANT_MAP[siteId];
+  if (!variantId) {
+    alert("Product isn’t ready yet in Shopify (missing variant).");
+    return;
+  }
+
+  checkout = await shopClient.checkout.addLineItems(checkout.id, [
+    { variantId, quantity: qty }
+  ]);
+
+  await renderCartFromShopify();
+  openCart(); // your existing function
+}
+
+async function removeLineItem(lineItemId) {
+  checkout = await shopClient.checkout.removeLineItems(checkout.id, [lineItemId]);
+  await renderCartFromShopify();
+}
+
+/** 6) Render your existing dropdown cart using Shopify line items */
+async function renderCartFromShopify() {
+  // If checkout got stale, refetch
+  checkout = await shopClient.checkout.fetch(checkout.id);
+
+  const items = checkout.lineItems || [];
+  const count = items.reduce((sum, li) => sum + (li.quantity || 0), 0);
+
+  // Your existing elements
+  const cartCountEl = document.getElementById("cartCount");
+  const cartEmptyEl = document.getElementById("cartEmpty");
+  const cartItemsEl = document.getElementById("cartItems");
+
+  if (cartCountEl) cartCountEl.textContent = String(count);
+
+  if (!cartEmptyEl || !cartItemsEl) return;
+
+  if (items.length === 0) {
+    cartEmptyEl.style.display = "block";
+    cartItemsEl.style.display = "none";
+    cartItemsEl.innerHTML = "";
+    return;
+  }
+
+  cartEmptyEl.style.display = "none";
+  cartItemsEl.style.display = "flex";
+
+  cartItemsEl.innerHTML = items.map(li => {
+    const img = li.variant?.image?.src || "";
+    const title = li.title || "Item";
+    const variantTitle = li.variant?.title ? ` • ${li.variant.title}` : "";
+    return `
+      <li class="cart-item">
+        <div class="cart-thumb">${img ? `<img src="${img}" alt="">` : ""}</div>
+        <div class="cart-meta">
+          <p class="cart-name">${title}</p>
+          <p class="cart-sub">Qty: ${li.quantity}${variantTitle}</p>
+        </div>
+        <button class="cart-remove" data-lineitem="${li.id}">Remove</button>
+      </li>
+    `;
+  }).join("");
+
+  cartItemsEl.querySelectorAll("[data-lineitem]").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const id = e.currentTarget.getAttribute("data-lineitem");
+      await removeLineItem(id);
+    });
+  });
+}
+
+/** 7) Checkout redirect (should use your primary domain once ready) */
+async function goToCheckout() {
+  checkout = await shopClient.checkout.fetch(checkout.id);
+
+  if (!checkout.lineItems || checkout.lineItems.length === 0) {
+    openCart();
+    return;
+  }
+
+  // This URL becomes your primary domain checkout when domains/TLS are fully live.
+  window.location.href = checkout.webUrl;
+}
+
+/** 8) Hook your existing “Add to cart” buttons */
+document.addEventListener("click", (e) => {
+  const btn = e.target && e.target.matches("[data-add]") ? e.target : e.target.closest?.("[data-add]");
+  if (!btn) return;
+
+  const id = btn.getAttribute("data-add");
+  e.preventDefault();
+  addToShopifyCart(id, 1);
+});
+
+/** Start it */
+initShopify();
+</script>
 
 </body>
 </html>
+
 
 
 
